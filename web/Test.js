@@ -10,7 +10,7 @@ function UserAction() {
     json.password = document.getElementById("password").value;
     console.log("Sent: " + json.username +" "+ json.password);
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "app/user/test", false);
+    xhttp.open("POST", "/CSE248_war_exploded/app/loginJava", false);
     xhttp.setRequestHeader("Content-type", "text/plain");
     xhttp.send(JSON.stringify(json));
     response = xhttp.responseText;
@@ -20,7 +20,7 @@ function UserAction() {
     } else {
         var inComingJson = JSON.parse(response);
         window.location.href = inComingJson.url;
-        document.cookie = "username="+inComingJson.username+";";
+        document.cookie = "username="+inComingJson.username+";path=/";
         console.log(inComingJson.username);
         console.log("done");
     }
@@ -31,7 +31,7 @@ function  getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
+    for(var i = 0; i < ca.length; i++) {
         var c = ca[i];
         while (c.charAt(0) == ' ') {
             c = c.substring(1);

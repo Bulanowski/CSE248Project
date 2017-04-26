@@ -7,14 +7,8 @@ import java.io.StringReader;
 /**
  * Created by phil on 4/20/17.
  */
-@Path("user/{string}")
+@Path("/loginJava")
 public class Test {
-
-    @GET
-    @Produces("text/plain")
-    public String send(@PathParam("string") String name) {
-        return name;
-    }
 
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
@@ -23,7 +17,7 @@ public class Test {
         JsonObject jsonObject = Json.createReader(new StringReader(string)).readObject();
         if (jsonObject.getString("password").equals("bar")) {
             JsonObject json = Json.createObjectBuilder()
-                    .add("url", "homepage.jsp")
+                    .add("url", "/CSE248_war_exploded/homepage/")
                     .add("username", jsonObject.getString("username"))
                     .build();
             return json.toString();
