@@ -32,8 +32,7 @@
           </label>
         </div>
         <button type="button" onclick="UserAction()" class="btn btnDark">Login</button>
-        <button type="button" class="btn btnDark">Sign up</button>
-
+        <a href="signup/index.jsp" class="btn btnDark">Sign up</a>
         <p id="test"></p>
       </form>
   </div>
