@@ -32,7 +32,7 @@ body {
 .form-signin .form-control:focus {
     z-index: 2;
 }
-.form-signin input[type="username"] {
+.form-signin input[type="username"]{
     background-color: #0f0f0f;
     margin-bottom: -1px;
     border-bottom-right-radius: 0;
@@ -54,6 +54,11 @@ body {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+}
+
+.form-signin input[type="email"], input[type="tel"], input[type="date"],
+input[type="number"], input[type="text"]{
+    background-color: #0f0f0f;
 }
 
 .navbar .navbar-nav {
