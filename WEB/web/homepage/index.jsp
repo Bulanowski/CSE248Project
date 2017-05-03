@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <base href="/CSE248_war_exploded/">
+    <base href="/WEB_war_exploded/">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%--bootstrap core--%>
@@ -16,10 +16,11 @@
     <%--bootstrap theme--%>
     <link href="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet">
 
-    <link href="theme.css" rel="stylesheet">
+    <link href="theme.css?v=0.0.7" rel="stylesheet">
+    <link href="slideshow.css?v=0.0.3" rel="stylesheet">
+
 
     <script src="Test.js"></script>
-
 
 
     <title>Home</title>
@@ -45,9 +46,34 @@
         </div>
     </nav>
 </div>
-<div>
-    <p class="btnDark" id="username"></p>
+<div class="slideshow-container">
+    <div class="mySlides">
+        <img class="img-rounded slide" src="Resources/img1.jpg" style="width:100%">
+        <div class="text">Caption Text</div>
+    </div>
+
+    <div class="mySlides">
+        <img class="img-rounded slide" src="Resources/img2.jpg" style="width:100%">
+        <div class="text">Caption Two</div>
+    </div>
+
+    <div class="mySlides">
+        <img class="img-rounded slide" src="Resources/img3.jpg" style="width:100%">
+        <div class="text">Caption Three</div>
+    </div>
+
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+<br>
+
+<div style="text-align:center">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
 </div>
 </body>
-<script>getUserName()</script>
+    <script>
+        showSlides(slideIndex);
+    </script>
 </html>

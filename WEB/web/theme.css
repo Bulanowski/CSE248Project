@@ -5,7 +5,13 @@ body {
     height: 100%;
     padding-top: 40px;
     padding-bottom: 40px;
-    background: -webkit-linear-gradient(#400874,black);
+    background: -webkit-linear-gradient(#400874,black) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+.img-rounded {
+    border-radius: 1000px;
 }
 
 .form-signin {
