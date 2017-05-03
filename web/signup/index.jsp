@@ -21,38 +21,49 @@
 </head>
 <script src="signup/signup.js"></script>
 <body>
-    <div class="container">
-        <form action="" method="post" class="form-signin">
-            <h1 class="form-signin-heading">Register Account</h1>
-            <h3 class="form-signin-heading">Account Info</h3>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <form action="" method="post" class="form-signin">
+                <%--<h1 class="form-signin-heading">Register Account</h1>--%>
+                <h3 class="form-signin-heading">Account Info</h3>
 
-            <h4 class="form-signin-heading">Enter your email:</h4>
-            <input type="email" id="email" class="form-control" placeholder="john@stuff.net" name="email" required>
-            <h4 class="form-signin-heading">Enter a username:</h4>
-            <input type="username" id="username" class="form-control" placeholder="Username" name="username" required>
-            <h4 class="form-signin-heading">Enter a password: (Must contain an uppercase, a lowercase, a number the sacrafice of a first born, and the blood of a demi-god)</h4>
-            <input type="password" id="password" class="form-control" placeholder="Password" name="password" required>
-            <h4 class="form-signin-heading">Confirm password:</h4>
-            <input type="password" id="password-confirm" class="form-control" placeholder="Confirm Password" name="password-confirm" required>
-            <b></b>
+                    <h4 class="form-signin-heading">Enter your email:</h4>
+                    <input type="email" id="email" class="form-control" placeholder="john@stuff.net" name="email" required>
+                    <h4 class="form-signin-heading">Enter a username:</h4>
+                    <input type="username" id="username" class="form-control" placeholder="Username" name="username" required>
+                    <h4 class="form-signin-heading">Enter a password: (Must contain an uppercase, a lowercase, a number the sacrafice of a first born, and the blood of a demi-god)</h4>
+                    <input type="password" id="password" class="form-control" placeholder="Password" name="password" required>
+                    <h4 class="form-signin-heading">Confirm password:</h4>
+                    <input type="password" id="password-confirm" class="form-control" placeholder="Confirm Password" name="password-confirm" required>
+                    <h4 class="form-signin-heading">Account type</h4>
+                    <input type="radio" id="radio-customer"  name="account-type" value="Customer" checked> Customer<br>
+                    <input type="radio" id="radio-establishment" name="account-type" value="Establishment">Buisness Owner <br></form>
+        </div>
+        <div class="col-sm-6">
+            <form action="" method="post" class="form-signin">
+                <b></b><b></b>
+                <h3 class="form-signin-heading">Account Owner Info</h3>
 
-            <h3 class="form-signin-heading">Personal Info</h3>
-
-            <h4 class="form-signin-heading">Address</h4>
-            <input id="address" type="text" class="form-control" placeholder="42 University St." name="address" required>
-            <h4 class="form-signin-heading">Zip Code</h4>
-            <input type="number" id="zip" class="form-control" placeholder="11111" name="zip" required>
-            <h4 class="form-signin-heading">Birthday</h4>
-            <input type="date" id="birthday" class="form-control"  name="birthday" required>
-            <h4 class="form-signin-heading">Phone Number</h4>
-            <input type="tel" id="phone" class="form-control" name="phone" placeholder="631-222-1984" required>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox">I am not a robot
-                </label>
-            </div>
-            <button type="button" class="btn btnDark" onclick="CreateAccount()">Submit</button>
-        </form>
+                <h4 class="form-signin-heading">Address</h4>
+                <input id="address" type="text" class="form-control" placeholder="42 University St." name="address" required>
+                <h4 class="form-signin-heading">Zip Code</h4>
+                <input type="number" id="zip" class="form-control" placeholder="11111" name="zip" required>
+                <h4 class="form-signin-heading">Birthday</h4>
+                <input type="date" id="birthday" class="form-control"  name="birthday" required>
+                <h4 class="form-signin-heading">Phone Number</h4>
+                <input type="tel" id="phone" class="form-control" name="phone" placeholder="631-222-1984" required>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox">I am not a robot
+                    </label>
+                </div>
+                <button type="button" class="btn btnDark" onclick="CreateAccount()">Submit</button>
+                <a href="homepage-establishment/index.jsp" class="btn btnDark">Establishment home</a>
+            </form>
+        </div>
     </div>
+</div>
+
 </body>
 </html>
