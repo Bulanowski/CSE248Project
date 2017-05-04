@@ -49,5 +49,4 @@
     <p class="btnDark" id="username"></p>
 </div>
 </body>
-<script>getUserName()</script>
 </html>
