@@ -1,0 +1,3 @@
+.form-control, input[type="username"], input[type="password"] {
+    margin-bottom: -1px !important;
+}

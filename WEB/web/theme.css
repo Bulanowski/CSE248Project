@@ -3,10 +3,12 @@ html {
 }
 body {
     height: 100%;
-    /*padding-top: 40px;*/
-    /*padding-bottom: 40px;*/
     background: -webkit-linear-gradient(#400874,black);
 }
+p {
+    color: white;
+}
+
 
 .form-signin {
     max-width: 330px;
@@ -19,9 +21,7 @@ body {
     margin-bottom: 10px;
 }
 
-/*.header {*/
-/*color: white;*/
-/*}*/
+
 .form-signin, .form-control {
     position: relative;
     height: auto;
@@ -37,10 +37,9 @@ body {
 input[type="date"], input[type="number"], input[type="text"], input[type="radio"]{
     color: white;
     background-color: #0f0f0f;
-    margin-bottom: -1px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-    /*z-index:2;*/
+    margin-bottom: 10px;
+    /*border-bottom-right-radius: 0;*/
+    /*border-bottom-left-radius: 0;*/
 }
 
 .btnDark {

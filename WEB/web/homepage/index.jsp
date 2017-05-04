@@ -16,8 +16,10 @@
     <%--bootstrap theme--%>
     <link href="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet">
 
+
     <link href="theme.css?v=0.0.7" rel="stylesheet">
-    <link href="slideshow.css?v=0.0.3" rel="stylesheet">
+    <link href="homepage/homepage.css" rel="stylesheet">
+    <%--<link href="slideshow.css?v=0.0.3" rel="stylesheet">--%>
 
 
     <script src="Test.js"></script>
