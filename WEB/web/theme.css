@@ -1,17 +1,11 @@
 html {
-    height: 100%;
+    /*height: 100%;*/
 }
 body {
     height: 100%;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    background: -webkit-linear-gradient(#400874,black) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    background-size: cover;
-}
-
-.img-rounded {
-    border-radius: 1000px;
+    /*padding-top: 40px;*/
+    /*padding-bottom: 40px;*/
+    background: -webkit-linear-gradient(#400874,black);
 }
 
 .form-signin {
@@ -24,13 +18,11 @@ body {
     color: white;
     margin-bottom: 10px;
 }
-.form-signin {
-    font-weight: normal;
-}
-.header {
-    color: white;
-}
-.form-signin .form-control {
+
+/*.header {*/
+/*color: white;*/
+/*}*/
+.form-signin, .form-control {
     position: relative;
     height: auto;
     -webkit-box-sizing: border-box;
@@ -38,8 +30,8 @@ body {
     padding: 10px;
     font-size: 16px;
 }
-.form-signin .form-control:focus {
-    z-index: 2;
+.checkbox {
+    color: white;
 }
 .form-signin input[type="username"], input[type="email"], input[type="tel"],
 input[type="date"], input[type="number"], input[type="text"], input[type="radio"]{
@@ -48,6 +40,7 @@ input[type="date"], input[type="number"], input[type="text"], input[type="radio"
     margin-bottom: -1px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
+    /*z-index:2;*/
 }
 
 .btnDark {
@@ -57,7 +50,7 @@ input[type="date"], input[type="number"], input[type="text"], input[type="radio"
 }
 
 .list {
-     background-color: #000000;
+    background-color: #000000;
 }
 
 .form-signin input[type="password"] {

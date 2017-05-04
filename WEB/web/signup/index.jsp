@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <base href="/WEB_war_exploded/">
+    <base href="/CSE248_war_exploded/">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%--bootstrap core--%>
     <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
@@ -28,17 +28,17 @@
                 <%--<h1 class="form-signin-heading">Register Account</h1>--%>
                 <h3 class="form-signin-heading">Account Info</h3>
 
-                    <h4 class="form-signin-heading">Enter your email:</h4>
-                    <input type="email" id="email" class="form-control" placeholder="john@stuff.net" name="email" required>
-                    <h4 class="form-signin-heading">Enter a username:</h4>
-                    <input type="username" id="username" class="form-control" placeholder="Username" name="username" required>
-                    <h4 class="form-signin-heading">Enter a password: (Must contain an uppercase, a lowercase, a number the sacrafice of a first born, and the blood of a demi-god)</h4>
-                    <input type="password" id="password" class="form-control" placeholder="Password" name="password" required>
-                    <h4 class="form-signin-heading">Confirm password:</h4>
-                    <input type="password" id="password-confirm" class="form-control" placeholder="Confirm Password" name="password-confirm" required>
-                    <h4 class="form-signin-heading">Account type</h4>
-                    <input type="radio" id="radio-customer"  name="account-type" value="Customer" checked> Customer<br>
-                    <input type="radio" id="radio-establishment" name="account-type" value="Establishment">Buisness Owner <br></form>
+                <h4 class="form-signin-heading">Enter your email:</h4>
+                <input type="email" id="email" class="form-control" placeholder="john@stuff.net" name="email" required>
+                <h4 class="form-signin-heading">Enter a username:</h4>
+                <input type="username" id="username" class="form-control" placeholder="Username" name="username" required>
+                <h4 class="form-signin-heading">Enter a password: (Must contain an uppercase, a lowercase, a number the sacrafice of a first born, and the blood of a demi-god)</h4>
+                <input type="password" id="password" class="form-control" placeholder="Password" name="password" required>
+                <h4 class="form-signin-heading">Confirm password:</h4>
+                <input type="password" id="password-confirm" class="form-control" placeholder="Confirm Password" name="password-confirm" required>
+                <h4 class="form-signin-heading">Account type</h4>
+                <input type="radio" id="radio-customer"  name="account-type" value="Customer" checked> <p>Customer</p>
+                <input type="radio" id="radio-establishment" name="account-type" value="Establishment"> Buisness Owner <br></form>
         </div>
         <div class="col-sm-6">
             <form action="" method="post" class="form-signin">
