@@ -4,13 +4,15 @@
     var response;
 
 
-function UserAction() {
+function attemptLogin(username, password) {
     var json = {};
-    json.username = document.getElementById("username").value;
-    json.password = document.getElementById("password").value;
+    // json.username = document.getElementById("username").value;
+    // json.password = document.getElementById("password").value;
+    json.username = username;
+    json.password = password;
     console.log("Sent: " + json.username +" "+ json.password);
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "app/loginJava", false);
+    xhttp.open("POST", "/CSE248_war_exploded/app/account/login", false);
     xhttp.setRequestHeader("Content-type", "text/plain");
     xhttp.send(JSON.stringify(json));
     response = xhttp.responseText;
@@ -20,8 +22,10 @@ function UserAction() {
     } else {
         var inComingJson = JSON.parse(response);
         window.location.href = inComingJson.url;
-        document.cookie = "username="+inComingJson.username+";path=/";
-        console.log(inComingJson.username);
+        document.cookie = "token="+inComingJson.token+";path=/";
+        var account = JSON.parse(inComingJson.account);
+        console.log(account.toString());
+        console.log(inComingJson.token);
         console.log("done");
     }
 
@@ -42,5 +46,3 @@ function  getCookie(cname) {
     }
     return "";
 }
-
-

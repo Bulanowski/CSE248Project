@@ -20,10 +20,20 @@ function CreateAccount() {
         + "\nAddress: " + json.address + "\nZip: " + json.zip + "\nPhone Number: " + json.phone + "\nBirthday: " + json.birthday
         + "\nAccount Type: " + json.account);
     if(json.password != document.getElementById("password-confirm").value){
-        console.log("BAD\n" + json.password + '\n' + document.getElementById("password-confirm").value)
+        console.log("BAD\n" + json.password + '\n' + document.getElementById("password-confirm").value);
+    } else {
+        console.log("GOOD\n" + json.password + '\n' + document.getElementById("password-confirm").value);
+    }
 
-    }else {
-        console.log("GOOD\n" + json.password + '\n' + document.getElementById("password-confirm").value)
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/CSE248_war_exploded/app/account/register", false);
+    xhttp.setRequestHeader("Content-type", "text/plain");
+    xhttp.send(JSON.stringify(json));
+    response = xhttp.responseText;
+    console.log(response);
+    if(response == "Register Successful") {
+        // should send confirmation email
+        window.location.href = "/CSE248_war_exploded/login/";
     }
 
 
