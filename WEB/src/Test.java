@@ -17,7 +17,7 @@ public class Test {
         JsonObject jsonObject = Json.createReader(new StringReader(string)).readObject();
         if (jsonObject.getString("password").equals("bar")) {
             JsonObject json = Json.createObjectBuilder()
-                    .add("url", "/WEB_war_exploded/homepage/")
+                    .add("url", "homepage/")
                     .add("username", jsonObject.getString("username"))
                     .build();
             return json.toString();

@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <base href="/WEB_war_exploded/">
+    <base href="../">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%--bootstrap core--%>
@@ -16,13 +16,12 @@
     <%--bootstrap theme--%>
     <link href="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet">
 
-
+    <link href="w3.css" rel="stylesheet">
     <link href="theme.css?v=0.0.7" rel="stylesheet">
     <link href="homepage/homepage.css" rel="stylesheet">
-    <%--<link href="slideshow.css?v=0.0.3" rel="stylesheet">--%>
 
 
-    <script src="Test.js"></script>
+    <script src="homepage/homepage.js"></script>
 
 
     <title>Home</title>
@@ -39,8 +38,8 @@
                 <li>
                     <form class="nav navbar-form">
                         <div class="form-group">
-                            <input type="text" placeholder="Search" class="form-control searchbar">
-                            <button type="submit" class="btn btnDark">Submit</button>
+                            <input placeholder="Search" class=" Testy form-control searchbar">
+                            <button type="submit" class="Testy btn btnDark">Submit</button>
                         </div>
                     </form>
                 </li>
@@ -48,32 +47,30 @@
         </div>
     </nav>
 </div>
-<div class="slideshow-container">
-    <div class="mySlides">
-        <img class="img-rounded slide" src="Resources/img1.jpg" style="width:100%">
-        <div class="text">Caption Text</div>
+<div class="slideshow-container" onmouseenter="onImg()" onmouseleave="offImg()">
+    <div class=" mySlides w3-animate-opacity">
+        <img class="img-rounded"  src="images/img1.jpg" style="width:100%">
+        <div class="text imgOverlayColor" style="display: none" >Caption Text</div>
     </div>
 
-    <div class="mySlides">
-        <img class="img-rounded slide" src="Resources/img2.jpg" style="width:100%">
-        <div class="text">Caption Two</div>
+    <div class=" mySlides w3-animate-opacity">
+        <img class="img-rounded"  src="images/img2.jpg" style="width:100%">
+        <div class="text imgOverlayColor" style="display: none" >Caption Two</div>
     </div>
 
-    <div class="mySlides">
-        <img class="img-rounded slide" src="Resources/img3.jpg" style="width:100%">
-        <div class="text">Caption Three</div>
+    <div class=" mySlides w3-animate-opacity">
+        <img  class="img-rounded" src="images/img3.jpg" style="width:100%">
+        <div class="text imgOverlayColor" style="display: none" >Caption Three</div>
     </div>
-
-    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    <div class="w3-center w3-display-bottommiddle" style="width:50%">
+        <span class="dot imgOverlayBorderColor" style="display: none" onclick="currentSlide(1)"></span>
+        <span class="dot imgOverlayBorderColor" style="display: none" onclick="currentSlide(2)"></span>
+        <span class="dot imgOverlayBorderColor" style="display: none" onclick="currentSlide(3)"></span>
+    </div>
+    <button class="myArrows imgOverlayColor imgOverlayBorderColor w3-display-left w3-hover-text-k" style="display: none"  onclick="plusSlides(-1)">&#10094;</button>
+    <button class="myArrows imgOverlayColor imgOverlayBorderColor w3-display-right w3-hover-text-khaki" style="display: none"  onclick="plusSlides(1)">&#10095;</button>
 </div>
 <br>
-
-<div style="text-align:center">
-    <span class="dot" onclick="currentSlide(1)"></span>
-    <span class="dot" onclick="currentSlide(2)"></span>
-    <span class="dot" onclick="currentSlide(3)"></span>
-</div>
 </body>
     <script>
         showSlides(slideIndex);

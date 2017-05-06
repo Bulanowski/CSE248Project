@@ -6,9 +6,9 @@ body {
 
 * {box-sizing:border-box}
 
-/* Slideshow container */
+
 .slideshow-container {
-    max-width: 1000px;
+    max-width: 900px;
     position: relative;
     margin: auto;
 }
@@ -17,20 +17,42 @@ body {
     display: none;
 }
 
-/* Next & previous buttons */
-.prev, .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    margin-top: -22px;
-    padding: 16px;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
+.imgOverlayBorderColor {
+    border: 2px solid rgba(131, 126, 255, 0.8);
 }
+
+.imgOverlayColor {
+    color: rgba(131, 126, 255, 0.8);
+}
+
+.searchbar {
+    height: 34px;
+    border-color: white;
+}
+
+
+.Testy {
+    display: inline-flex;
+}
+
+
+.myArrows {
+    background-color: rgba(255, 255, 255, 0);
+    text-align: center;
+    height: 60px;
+    width: 60px;
+    line-height: 55px;
+    border-radius: 100%;
+    font-size: 200%;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.myArrows:hover {
+    background-color: rgba(175, 175, 175, 0.51);
+}
+
+
 
 /* Position the "next button" to the right */
 .next {
@@ -38,16 +60,9 @@ body {
     border-radius: 3px 0 0 3px;
 }
 
-/* On hover, add a black background color with a little bit see-through */
-.prev:hover, .next:hover {
-    background-color: rgba(0,0,0,0.8);
-    text-decoration: none;
-    color: white;
-}
 
 /* Caption text */
 .text {
-    color: #f2f2f2;
     font-size: 15px;
     padding: 8px 12px;
     position: absolute;
@@ -63,33 +78,17 @@ body {
     height: 13px;
     width: 13px;
     margin: 0 2px;
-    background-color: #bbb;
+    background-color: rgba(89, 89, 89, 0);
     border-radius: 50%;
     display: inline-block;
     transition: background-color 0.6s ease;
 }
 
-.active, .dot:hover {
-    background-color: #717171;
+ .dotActive, .dot:hover {
+    background-color: rgba(131, 126, 255, 0.8);
 }
 
-/* Fading animation */
-.slide {
-    overflow-y: hidden;
-    max-height: 500px; /* approximate max height */
-
-    transition-property: all;
-    transition-duration: .5s;
-    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+.img-rounded {
+    border-radius: 1000px;
+    height: 500px;
 }
-
-.slide.closed {
-    max-height: 0%;
-}
-
-/*@-webkit-keyframes slide {*/
-/*100% { left:0;}*/
-/*}*/
-/*@keyframes slide {*/
-/*100% { left:0;}*/
-/*}*/
