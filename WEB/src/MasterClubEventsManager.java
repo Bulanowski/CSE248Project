@@ -2,6 +2,7 @@ import java.io.StringReader;
 import java.util.HashMap;
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -26,11 +27,13 @@ public class MasterClubEventsManager {
         Account account = AccountAccessManager.accountsBag.getUser(username);
         if (account instanceof Establishment) {
             Establishment establishment = (Establishment) account;
+            String name = jsonObject.getString("name");
+            String description = jsonObject.getString("description");
             String date = jsonObject.getString("date");
             String time = jsonObject.getString("time");
             Double price = jsonObject.getJsonNumber("price").doubleValue();
             Integer maxTickets = jsonObject.getInt("tickets");
-            ClubEvent clubEvent = new ClubEvent(establishment, date, time, price, maxTickets);
+            ClubEvent clubEvent = new ClubEvent(establishment, name, description, date, time, price, maxTickets);
             clubEvents.put(clubEvent.getEventID(), clubEvent);
             establishment.addEvent(clubEvent.getEventID());
             return "Event created successfully";

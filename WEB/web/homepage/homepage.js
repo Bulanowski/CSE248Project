@@ -32,17 +32,21 @@ function showSlides(n) {
 }
 
 function onImg() {
+    console.log("on")
     mouseOnImg = true;
     var elems= document.getElementsByClassName("imgOverlayBorderColor");
     for(var i = 0; i < elems.length; i++) {
+        console.log(elems)
         elems[i].style.display = "block";
     }
     elems = document.getElementsByClassName("imgOverlayColor");
     for(var i = 0; i < elems.length; i++) {
+        console.log(elems)
         elems[i].style.display = "block";
     }
     elems = document.getElementsByClassName("dot");
     for(var i = 0; i < elems.length; i++) {
+        console.log(elems)
         elems[i].style.display = "inline-flex";
     }
 
@@ -50,13 +54,16 @@ function onImg() {
 
 
 function offImg() {
+    console.log("off")
     mouseOnImg = false;
     var elems= document.getElementsByClassName("imgOverlayBorderColor");
     for(var i = 0; i < elems.length; i++) {
+        console.log(elems)
         elems[i].style.display = "none";
     }
     elems = document.getElementsByClassName("imgOverlayColor");
     for(var i = 0; i < elems.length; i++) {
+        console.log(elems)
         elems[i].style.display = "none";
     }
 

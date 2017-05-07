@@ -1,4 +1,7 @@
+import javax.json.Json;
+import javax.json.JsonObjectBuilder;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 
 /**
  * Created by Alex on 5/6/2017.
@@ -8,15 +11,19 @@ public class ClubEvent implements Serializable {
     private static int eventIDCounter = 1000000;
     private int eventID;
     private Establishment establishment;
+    private String name;
+    private String description;
     private String date;
     private String time;
     private double admissionPrice;
     private int maxTickets;
     private int purchasedTickets;
 
-    public ClubEvent(Establishment establishment, String date, String time, double admissionPrice, int maxTickets) {
+    public ClubEvent(Establishment establishment, String name, String description, String date, String time, double admissionPrice, int maxTickets) {
         eventID = eventIDCounter++;
         this.establishment = establishment;
+        this.name = name;
+        this.description = description;
         this.date = date;
         this.time = time;
         this.admissionPrice = admissionPrice;
@@ -30,6 +37,22 @@ public class ClubEvent implements Serializable {
 
     public Establishment getEstablishment() {
         return establishment;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getDate() {
@@ -78,5 +101,17 @@ public class ClubEvent implements Serializable {
         }
         this.purchasedTickets -= decreaseAmount;
         return true;
+    }
+
+    public String toJson() {
+        JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
+        for (Field f : ClubEvent.class.getDeclaredFields()) {
+            try {
+                jsonObjectBuilder.add(f.getName(), f.get(this).toString());
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        return jsonObjectBuilder.build().toString();
     }
 }
