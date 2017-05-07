@@ -3,7 +3,7 @@ import javax.json.JsonObjectBuilder;
 import java.lang.reflect.Field;
 
 /**
- * Created by bonaa23 on 5/3/2017.
+ * Created by Alex on 5/3/2017.
  */
 public abstract class Account {
 

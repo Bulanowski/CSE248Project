@@ -1,7 +1,7 @@
 import java.util.HashMap;
 
 /**
- * Created by bonaa23 on 5/3/2017.
+ * Created by Alex on 5/3/2017.
  */
 public class AccountsBag {
 

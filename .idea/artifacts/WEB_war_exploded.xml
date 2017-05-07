@@ -7,10 +7,7 @@
           <element id="module-output" name="WEB" />
           <element id="module-output" name="MODEL" />
         </element>
-        <element id="directory" name="lib">
-          <element id="library" level="project" name="Jersey-2.2" />
-          <element id="library" level="project" name="javax.json.processing-1.0" />
-        </element>
+        <element id="directory" name="lib" />
       </element>
       <element id="javaee-facet-resources" facet="WEB/web/Web" />
     </root>

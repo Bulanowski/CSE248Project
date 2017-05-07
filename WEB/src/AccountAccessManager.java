@@ -8,13 +8,13 @@ import javax.ws.rs.core.MediaType;
 import java.io.StringReader;
 
 /**
- * Created by bonaa23 on 5/3/2017.
+ * Created by Alex on 5/3/2017.
  */
 @Path("/account")
 public class AccountAccessManager {
 
-    private static final AccountsBag accountsBag = new AccountsBag();
-    private static final SessionIdentifierGenerator sig = new SessionIdentifierGenerator();
+    public static final AccountsBag accountsBag = new AccountsBag();
+    private static final TokenManager tokenManager = new TokenManager();
 
     @POST
     @Path("/register")
@@ -22,7 +22,7 @@ public class AccountAccessManager {
     @Produces(MediaType.TEXT_PLAIN)
     public String register(String jsonString) {
         JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
-        // check for validity and availability of entered information
+        // TODO check for validity and availability of entered information
         if (accountsBag.usernameInUse(jsonObject.getString("username"))) {
             return "Username in use";
         }
@@ -59,11 +59,13 @@ public class AccountAccessManager {
     @Produces(MediaType.TEXT_PLAIN)
     public String login(String jsonString) {
         JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
-        if (accountsBag.verifyLogin(jsonObject.getString("username"), jsonObject.getString("password"))) {
+        String username = jsonObject.getString("username");
+        String password = jsonObject.getString("password");
+        if (accountsBag.verifyLogin(username, password)) {
             JsonObject json = Json.createObjectBuilder()
                     .add("url", "homepage/")
-                    .add("token", sig.nextSessionId())
-                    .add("account", accountsBag.getUser(jsonObject.getString("username")).toJson())
+                    .add("token", tokenManager.assignNewToken(username))
+                    .add("account", accountsBag.getUser(username).toJson())
                     .build();
             return json.toString();
         } else

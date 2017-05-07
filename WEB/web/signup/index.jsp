@@ -36,6 +36,9 @@
                     <input type="password" id="password" class="form-control" placeholder="Password" name="password" required>
                     <p>Confirm password:</p>
                     <input type="password" id="password-confirm" class="form-control" placeholder="Confirm Password" name="password-confirm" required>
+                    <p>Account type</p>
+                    <input type="radio" id="radio-customer"  name="account-type" value="Customer" checked> Customer
+                    <input type="radio" id="radio-establishment" name="account-type" value="Establishment"> Business Owner <br>
             </form>
         </div>
         <div class="col-sm-6">
@@ -56,7 +59,7 @@
                         <input type="checkbox">I am not a robot
                     </label>
                 </div>
-                <button type="button" class="btn btnDark" onclick="CreateAccount()">Submit</button>
+                <button type="button" class="btn btnDark" onclick="attemptRegister()">Submit</button>
                 <a href="homepage-establishment/index.jsp" class="btn btnDark">Establishment home</a>
             </form>
         </div>

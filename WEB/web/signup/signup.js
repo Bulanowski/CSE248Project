@@ -2,7 +2,7 @@
  * Created by david on 4/28/17.
  */
 
-function CreateAccount() {
+function attemptRegister() {
     var json = {};
     json.username = document.getElementById("username").value;
     json.password = document.getElementById("password").value;
