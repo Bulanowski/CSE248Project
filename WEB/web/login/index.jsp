@@ -21,13 +21,6 @@
     <title>Login</title>
   </head>
   <script src="login/login.js"></script>
-  <script>
-      document.getElementById("password").onkeydown = function(e) {
-          if (e.keyCode == 13) {
-              attemptLogin(input[id='username'].value, input[id='username'].value)
-          }
-      }
-  </script>
   <body>
   <div class="container">
       <form action="" method="post" class="form-signin">
@@ -45,4 +38,11 @@
       </form>
   </div>
   </body>
+  <script>
+      document.getElementById("password").onkeydown = function(e) {
+          if (e.keyCode === 13) {
+              attemptLogin(document.getElementById('username').value, document.getElementById('password').value)
+          }
+      }
+  </script>
 </html>

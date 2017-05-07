@@ -35,6 +35,4 @@ function attemptRegister() {
         // should send confirmation email
         window.location.href = "/WEB_war_exploded/login/";
     }
-
-
 }

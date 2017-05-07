@@ -1,4 +1,5 @@
 import javax.json.Json;
+import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -14,20 +15,38 @@ public class ClubEvent implements Serializable {
     private String name;
     private String description;
     private String date;
+    private boolean dateLock;
     private String time;
+    private boolean timeLock;
     private double admissionPrice;
+    private boolean priceLock;
     private int maxTickets;
     private int purchasedTickets;
 
-    public ClubEvent(Establishment establishment, String name, String description, String date, String time, double admissionPrice, int maxTickets) {
+//    public ClubEvent(Establishment establishment, String name, String description, String date, String time, double admissionPrice, int maxTickets) {
+//        eventID = eventIDCounter++;
+//        this.establishment = establishment;
+//        this.name = name;
+//        this.description = description;
+//        this.date = date;
+//        this.time = time;
+//        this.admissionPrice = admissionPrice;
+//        this.maxTickets = maxTickets;
+//        purchasedTickets = 0;
+//    }
+
+    public ClubEvent(Establishment establishment, JsonObject jsonObject) {
         eventID = eventIDCounter++;
         this.establishment = establishment;
-        this.name = name;
-        this.description = description;
-        this.date = date;
-        this.time = time;
-        this.admissionPrice = admissionPrice;
-        this.maxTickets = maxTickets;
+        name = jsonObject.getString("name");
+        description = jsonObject.getString("description");
+        date = jsonObject.getString("date");
+        dateLock = false;
+        time = jsonObject.getString("time");
+        timeLock = false;
+        admissionPrice = jsonObject.getJsonNumber("price").doubleValue();
+        priceLock = false;
+        maxTickets = jsonObject.getInt("tickets");
         purchasedTickets = 0;
     }
 
@@ -60,7 +79,17 @@ public class ClubEvent implements Serializable {
     }
 
     public void setDate(String date) {
-        this.date = date;
+        if (!dateLock) {
+            this.date = date;
+        }
+    }
+
+    public boolean dateLocked() {
+        return dateLock;
+    }
+
+    public void lockDate() {
+        dateLock = true;
     }
 
     public String getTime() {
@@ -68,7 +97,17 @@ public class ClubEvent implements Serializable {
     }
 
     public void setTime(String time) {
-        this.time = time;
+        if (!timeLock) {
+            this.time = time;
+        }
+    }
+
+    public boolean timeLocked() {
+        return timeLock;
+    }
+
+    public void lockTime() {
+        timeLock = true;
     }
 
     public double getAdmissionPrice() {
@@ -76,7 +115,17 @@ public class ClubEvent implements Serializable {
     }
 
     public void setAdmissionPrice(double admissionPrice) {
-        this.admissionPrice = admissionPrice;
+        if (!priceLock) {
+            this.admissionPrice = admissionPrice;
+        }
+    }
+
+    public boolean priceLocked() {
+        return priceLock;
+    }
+
+    public void lockPrice() {
+        priceLock = true;
     }
 
     public int getMaxTickets() {
@@ -103,7 +152,7 @@ public class ClubEvent implements Serializable {
         return true;
     }
 
-    public String toJson() {
+    public String toJsonString() {
         JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
         for (Field f : ClubEvent.class.getDeclaredFields()) {
             try {

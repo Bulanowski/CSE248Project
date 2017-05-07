@@ -1,12 +1,10 @@
 import java.io.StringReader;
 import java.util.HashMap;
 import javax.json.Json;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -23,21 +21,59 @@ public class MasterClubEventsManager {
     @Produces(MediaType.TEXT_PLAIN)
     public String registerEvent(String jsonString) {
         JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
+        // TODO validity checking
         String username = jsonObject.getString("username");
         Account account = AccountAccessManager.accountsBag.getUser(username);
         if (account instanceof Establishment) {
             Establishment establishment = (Establishment) account;
-            String name = jsonObject.getString("name");
-            String description = jsonObject.getString("description");
-            String date = jsonObject.getString("date");
-            String time = jsonObject.getString("time");
-            Double price = jsonObject.getJsonNumber("price").doubleValue();
-            Integer maxTickets = jsonObject.getInt("tickets");
-            ClubEvent clubEvent = new ClubEvent(establishment, name, description, date, time, price, maxTickets);
+            ClubEvent clubEvent = new ClubEvent(establishment, jsonObject);
             clubEvents.put(clubEvent.getEventID(), clubEvent);
             establishment.addEvent(clubEvent.getEventID());
             return "Event created successfully";
         }
         return "Event creation failed";
+    }
+
+    @POST
+    @Path("/modify/{eventID}")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String modifyEvent(@PathParam("eventID") Integer eventID, String jsonString) {
+        JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
+        ClubEvent event = clubEvents.get(eventID);
+        event.setName(jsonObject.getString("name"));
+        event.setDescription(jsonObject.getString("description"));
+        if (!event.dateLocked()) {
+            event.setDate(jsonObject.getString("date"));
+        }
+        if (!event.timeLocked()) {
+            event.setTime(jsonObject.getString("time"));
+        }
+        if (!event.priceLocked()) {
+            event.setAdmissionPrice(jsonObject.getJsonNumber("price").doubleValue());
+        }
+        return event.toJsonString();
+    }
+
+    @POST
+    @Path("/get/{eventID}")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getEvent(@PathParam("eventID") Integer eventID) {
+        return clubEvents.get(eventID).toJsonString();
+    }
+
+
+    @POST
+    @Path("/get/all")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getAllEvents() {
+        JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
+        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+        for (ClubEvent event : clubEvents.values()) {
+            jsonArrayBuilder.add(event.toJsonString());
+        }
+        jsonObjectBuilder.add("events", jsonArrayBuilder.build());
+        return jsonObjectBuilder.build().toString();
     }
 }
