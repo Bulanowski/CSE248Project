@@ -33,7 +33,7 @@ function attemptRegister() {
     console.log(response);
     if(response == "Register Successful") {
         // should send confirmation email
-        window.location.href = "/CSE248_war_exploded/login/";
+        window.location.href = "/WEB_war_exploded/login/";
     }
 
 

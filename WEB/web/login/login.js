@@ -8,7 +8,7 @@ function attemptLogin(username, password) {
     json.password = password;
     console.log("Sent: " + json.username +" "+ json.password);
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/CSE248_war_exploded/app/account/login", false);
+    xhttp.open("POST", "/WEB_war_exploded/app/account/login", false);
     xhttp.setRequestHeader("Content-type", "text/plain");
     xhttp.send(JSON.stringify(json));
     var response = xhttp.responseText;

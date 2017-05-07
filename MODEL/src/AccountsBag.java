@@ -5,7 +5,11 @@ import java.util.HashMap;
  */
 public class AccountsBag {
 
-    HashMap<String, Account> accounts = new HashMap<>();
+    HashMap<String, Account> accounts = new HashMap<>();    // username, password
+
+    public AccountsBag() {
+        accounts.put("foo", new Customer("foo", "bar", "", "", "", "", ""));
+    }
 
     public void addAccount(Account a) {
 //        if (!usernameInUse(a.getUsername())) {
