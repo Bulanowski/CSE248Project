@@ -38,19 +38,29 @@
     </div>
 </nav>
     <div class="container">
+        <p>Event Name</p>
+        <input type="text" class="form-control" style="max-width: 500px">
+        <p>Description</p>
+        <textarea rows="4" cols="50" class="shit form-control"></textarea>
         <div class="row">
-            <p>Event Name</p>
-            <input type="text" class="form-control" style="max-width: 500px">
-            <p>Description</p>
-            <textarea rows="4" cols="50" class="shit form-control"></textarea>
-            <p>Date</p>
+            <div class="col-md-6">
+                <p>Date</p>
                 <input id="date" type="date" class="form-control" placeholder="mm/dd/yyyy" required>
-            <p>Time</p>
-            <input type="time" id="time" class="form-control shit" placeholder="11111" required>
-            <p>Price</p>
-            <input type="number" id="price" class="form-control"   required>
-            <p>Tickets</p>
-            <input type="number" id="tickets" class="form-control"  placeholder="" required>
+            </div>
+            <div class="col-md-6">
+                <p>Time</p>
+                <input type="time" id="time" class="form-control shit" placeholder="11111" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <p>Price</p>
+                <input type="number" id="price" class="form-control"   required>
+            </div>
+            <div class="col-md-6">
+                <p>Tickets</p>
+                <input type="number" id="tickets" class="form-control"  placeholder="" required>
+            </div>
         </div>
     </div>
 </body>

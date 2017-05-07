@@ -63,7 +63,7 @@ public class AccountAccessManager {
         String password = jsonObject.getString("password");
         if (accountsBag.verifyLogin(username, password)) {
             JsonObject json = Json.createObjectBuilder()
-                    .add("url", "homepage/")
+                    .add("url", (accountsBag.getUser(username) instanceof Customer ? "homepage/" : "homepage-establishment/"))
                     .add("token", tokenManager.assignNewToken(username))
                     .add("account", accountsBag.getUser(username).toJson())
                     .build();
