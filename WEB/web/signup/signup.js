@@ -26,7 +26,7 @@ function CreateAccount() {
     }
 
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/CSE248_war_exploded/app/account/register", false);
+    xhttp.open("POST", "app/account/register", false);
     xhttp.setRequestHeader("Content-type", "text/plain");
     xhttp.send(JSON.stringify(json));
     response = xhttp.responseText;
