@@ -9,6 +9,7 @@ public class AccountsBag {
 
     public AccountsBag() {
         accounts.put("foo", new Customer("foo", "bar", "", "", "", "", ""));
+        accounts.put("bar", new Establishment("bar", "foo", "", "", "", ""));
     }
 
     public void addAccount(Account a) {

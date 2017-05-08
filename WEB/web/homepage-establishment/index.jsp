@@ -16,6 +16,7 @@
     <link href="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet">
 
     <link href="theme.css" rel="stylesheet">
+    <script src="Test.js"></script>
     <title>Establishment Home</title>
 </head>
 <body style="padding-top: 0px">
@@ -32,7 +33,7 @@
             <li><a href="#">Manage Employees</a></li>
             <li><a href="#">Finances</a></li>
             <li><a href="#">Account Settings</a></li>
-            <li><a href="#">Signout</a></li>
+            <li><a onclick="signOut()">Sign Out</a></li>
         </ul>
     </div>
 </nav>

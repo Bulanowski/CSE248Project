@@ -32,7 +32,7 @@
             <input type="checkbox" value="remember-me">Remember me
           </label>
         </div>
-        <button type="button" onclick="attemptLogin(document.getElementById('username').value, document.getElementById('password').value)" class="btn btnDark">Login</button>
+        <button type="button" onclick="sendLoginRequest(document.getElementById('username').value, document.getElementById('password').value)" class="btn btnDark">Login</button>
         <a href="signup/index.jsp" class="btn btnDark">Sign up</a>
         <p id="test"></p>
       </form>
@@ -41,7 +41,7 @@
   <script>
       document.getElementById("password").onkeydown = function(e) {
           if (e.keyCode === 13) {
-              attemptLogin(document.getElementById('username').value, document.getElementById('password').value)
+              sendLoginRequest(document.getElementById('username').value, document.getElementById('password').value)
           }
       }
   </script>

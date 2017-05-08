@@ -2,7 +2,7 @@
      * Created by phil on 4/20/17.
      */
 
-function  getCookie(cname) {
+function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
@@ -16,4 +16,15 @@ function  getCookie(cname) {
         }
     }
     return "";
+}
+
+function signOut() {
+    var token = getCookie("token");
+    console.log("Signout with token: " + token);
+    var client = new XMLHttpRequest();
+    client.open("POST", "/WEB_war_exploded/app/account/signOut", true);
+    client.setRequestHeader("Content-type", "text/plain");
+    client.send(token);
+    document.cookie = "token=0;path=/";
+    window.location.href = "login/";
 }

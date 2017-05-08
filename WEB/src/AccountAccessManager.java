@@ -1,5 +1,6 @@
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.json.JsonValue;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -70,5 +71,28 @@ public class AccountAccessManager {
             return json.toString();
         } else
             return "Login Failed";
+    }
+
+    @POST
+    @Path("/signOut")
+    @Consumes(MediaType.TEXT_PLAIN)
+    public void signOut(String token) {
+        tokenManager.removeUser(token);
+    }
+
+    @POST
+    @Path("/token")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getUserFromToken(String token) {
+        String username = tokenManager.getUsername(token);
+        if (username == null) {
+            return "Token Not Found";
+        }
+        Account account = accountsBag.getUser(username);
+        if (account == null) {
+            return "Username Not Found";
+        }
+        return account.toJson().toString();
     }
 }

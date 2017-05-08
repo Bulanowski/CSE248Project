@@ -1,4 +1,5 @@
 import javax.json.Json;
+import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import java.lang.reflect.Field;
 
@@ -47,7 +48,7 @@ public abstract class Account {
         return phone;
     }
 
-    public String toJson() {
+    public JsonObject toJson() {
         JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
         Field[] fields = Account.class.getDeclaredFields();
         for (Field f : fields) {
@@ -57,7 +58,21 @@ public abstract class Account {
                 e.printStackTrace();
             }
         }
-        return jsonObjectBuilder.build().toString();
+        if (this instanceof  Customer) {
+            jsonObjectBuilder.add("homepage", "homepage/");
+        } else {
+            jsonObjectBuilder.add("homepage", "homepage-establishment/");
+        }
+        jsonObjectBuilder.add("type", this.getClass().getName());
+        fields = this.getClass().getDeclaredFields();
+        for (Field f : fields) {
+            try {
+                jsonObjectBuilder.add(f.getName(), f.get(this).toString());
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        return jsonObjectBuilder.build();
     }
 
     public String toString() {

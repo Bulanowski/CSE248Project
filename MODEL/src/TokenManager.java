@@ -5,8 +5,8 @@ import java.util.HashMap;
  */
 public class TokenManager {
 
-    private HashMap<String, String> tokens = new HashMap<>(); // token, username
-    private SessionIdentifierGenerator sig = new SessionIdentifierGenerator();
+    private final HashMap<String, String> tokens = new HashMap<>(); // token, username
+    private final SessionIdentifierGenerator sig = new SessionIdentifierGenerator();
 
     public String assignNewToken(String username) {
         String token = sig.nextSessionId();
@@ -16,5 +16,9 @@ public class TokenManager {
 
     public String getUsername(String token) {
         return tokens.get(token);
+    }
+
+    public void removeUser(String token) {
+        tokens.remove(token);
     }
 }

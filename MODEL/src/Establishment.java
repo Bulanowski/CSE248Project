@@ -12,10 +12,6 @@ public class Establishment extends Account {
         super(username, password, email, address, zip, phone);
     }
 
-    public String toJson() {
-        return super.toString();
-    }
-
     public void addEvent(int eventID) {
         events.add(eventID);
     }
