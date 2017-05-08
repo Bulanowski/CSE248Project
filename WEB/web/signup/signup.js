@@ -2,7 +2,7 @@
  * Created by david on 4/28/17.
  */
 
-function attemptRegister() {
+function sendRegisterRequest() {
     var json = {};
     json.username = document.getElementById("username").value;
     json.password = document.getElementById("password").value;
@@ -25,14 +25,37 @@ function attemptRegister() {
         console.log("GOOD\n" + json.password + '\n' + document.getElementById("password-confirm").value);
     }
 
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "app/account/register", false);
-    xhttp.setRequestHeader("Content-type", "text/plain");
-    xhttp.send(JSON.stringify(json));
-    response = xhttp.responseText;
+    var client = new XMLHttpRequest();
+    client.onload = handleRegisterResponse;
+    client.open("POST", "app/account/register", true);
+    client.setRequestHeader("Content-type", "text/plain");
+    client.send(JSON.stringify(json));
+}
+
+function handleRegisterResponse() {
+    var response = this.responseText;
     console.log(response);
     if(response == "Register Successful") {
-        // should send confirmation email
         window.location.href = "/WEB_war_exploded/login/";
+    } else {
+        var json = JSON.parse(response);
+        if (json.hasAttribute("username")) {
+
+        }
+        if (json.hasAttribute("email")) {
+
+        }
+        if (json.hasAttribute("address")) {
+
+        }
+        if (json.hasAttribute("zip")) {
+
+        }
+        if (json.hasAttribute("birthday")) {
+
+        }
+        if (json.hasAttribute("phone")) {
+
+        }
     }
 }

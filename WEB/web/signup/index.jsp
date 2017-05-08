@@ -59,7 +59,7 @@
                         <input type="checkbox">I am not a robot
                     </label>
                 </div>
-                <button type="button" class="btn btnDark" onclick="attemptRegister()">Submit</button>
+                <button type="button" class="btn btnDark" onclick="sendRegisterRequest()">Submit</button>
                 <a href="homepage-establishment/index.jsp" class="btn btnDark">Establishment home</a>
             </form>
         </div>

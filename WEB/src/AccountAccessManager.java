@@ -1,5 +1,6 @@
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -24,8 +25,12 @@ public class AccountAccessManager {
     public String register(String jsonString) {
         JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
         // TODO check for validity and availability of entered information
+        JsonObjectBuilder registrationErrorBuilder = Json.createObjectBuilder();
         if (accountsBag.usernameInUse(jsonObject.getString("username"))) {
-            return "Username in use";
+            registrationErrorBuilder.add("username", "Username is already in use");
+        }
+        if (!jsonObject.getString("email").matches("(\\S+@\\w+\\.\\S+)")) {
+            registrationErrorBuilder.add("email", "This is not a valid email address");
         }
         Account account;
         if (jsonObject.getString("account").equals("Customer")) {
