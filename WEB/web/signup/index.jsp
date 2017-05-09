@@ -36,7 +36,7 @@
                     <p>Enter a password: (Must contain an uppercase, a lowercase, a number the sacrafice of a first born, and the blood of a demi-god)</p>
                     <input type="password" id="password" class="form-control" placeholder="Password" name="password" required>
                     <p>Confirm password:</p>
-                    <input type="password" id="password-confirm" class="form-control" placeholder="Confirm Password" name="password-confirm" required>
+                    <input type="password" id="password-confirm" class="form-control" placeholder="Retype Password" name="password-confirm" required>
                     <p>Account type</p>
                     <input type="radio" id="radio-customer"  name="account-type" value="Customer" checked> Customer
                     <input type="radio" id="radio-establishment" name="account-type" value="Establishment"> Business Owner <br>

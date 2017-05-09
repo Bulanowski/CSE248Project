@@ -34,7 +34,7 @@
             <li><a href="#">Manage Employees</a></li>
             <li><a href="#">Finances</a></li>
             <li><a href="#">Account Settings</a></li>
-            <li><a onclick="signOut()">Sign Out</a></li>
+            <li><a href="" onclick="signOut()">Sign Out</a></li>
         </ul>
     </div>
 </nav>

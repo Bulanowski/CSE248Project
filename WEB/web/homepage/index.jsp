@@ -32,10 +32,11 @@
     <nav class="navbar navbar-custom">
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
+                <li><a href="homepage/"><span class=""></span> Home</a></li>
                 <li class="nav-item"><a href="#" class="nav-link active"><span class="glyphicon-envelope"></span>
                     Tickets</a>
                 </li>
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Account Settings</a></li>
+                <li><a href="homepage/settings"><span class="glyphicon glyphicon-user"></span> Account Settings</a></li>
                 <li>
                     <form class="nav navbar-form">
                         <div class="form-group">
@@ -44,6 +45,7 @@
                         </div>
                     </form>
                 </li>
+                <li><a href="" onclick="signOut()">Sign Out</a></li>
             </ul>
         </div>
     </nav>
