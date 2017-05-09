@@ -1,6 +1,6 @@
-    /**
-     * Created by phil on 4/20/17.
-     */
+/**
+ * Created by phil on 4/20/17.
+ */
 
 function getCookie(cname) {
     var name = cname + "=";
@@ -27,4 +27,35 @@ function signOut() {
     client.send(token);
     document.cookie = "token=0;path=/";
     window.location.href = "login/";
+}
+
+var token = getCookie("token");
+console.log("Sent: " + token);
+var client = new XMLHttpRequest();
+if (document.body != null) {
+    document.body.style.display = "none";
+}
+client.onload = handler;
+client.open("POST", "/WEB_war_exploded/app/account/token", true);
+client.setRequestHeader("Content-type", "text/plain");
+client.send(token);
+
+function handler() {
+    if (this.status == 200 && this.responseText != null) {
+        var response = this.responseText;
+        console.log(response);
+        if(response == "Token Not Found" || response == "Username Not Found") {
+            window.location.href = "login/";
+        } else {
+            if (document.documentURI == "http://localhost:8080/WEB_war_exploded/") {
+                var inComingJson = JSON.parse(response);
+                console.log("Going to " + inComingJson.homepage);
+                window.location.href = inComingJson.homepage;
+            } else {
+                document.body.style.display="";
+            }
+        }
+    } else {
+        console.log("An error occurred")
+    }
 }
