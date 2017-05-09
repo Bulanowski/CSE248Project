@@ -28,7 +28,7 @@
             <a class="navbar-brand" href="#">Buissness Name</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
+            <li class="active"><a disabled="true">Home</a></li>
             <li><a href="homepage-establishment/eventEditor/">Create Event</a></li>
             <li><a href="#">View Planned Events</a></li>
             <li><a href="#">Manage Employees</a></li>

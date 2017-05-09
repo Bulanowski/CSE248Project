@@ -28,13 +28,13 @@
             <a class="navbar-brand" href="#">Business Name</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a disabled="true">Create Event</a></li>
+            <li><a href="homepage-establishment/">Home</a></li>
+            <li class="active"><a disabled="true">Create Event</a></li>
             <li><a href="#">View Planned Events</a></li>
             <li><a href="#">Manage Employees</a></li>
             <li><a href="#">Finances</a></li>
             <li><a href="#">Account Settings</a></li>
-            <li><a onclick="signOut()">Sign Out</a></li>
+            <li><a href="" onclick="signOut()">Sign Out</a></li>
         </ul>
     </div>
 </nav>
