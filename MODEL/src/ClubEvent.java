@@ -15,25 +15,10 @@ public class ClubEvent implements Serializable {
     private String name;
     private String description;
     private String date;
-    private boolean dateLock;
     private String time;
-    private boolean timeLock;
     private double admissionPrice;
-    private boolean priceLock;
     private int maxTickets;
     private int purchasedTickets;
-
-//    public ClubEvent(Establishment establishment, String name, String description, String date, String time, double admissionPrice, int maxTickets) {
-//        eventID = eventIDCounter++;
-//        this.establishment = establishment;
-//        this.name = name;
-//        this.description = description;
-//        this.date = date;
-//        this.time = time;
-//        this.admissionPrice = admissionPrice;
-//        this.maxTickets = maxTickets;
-//        purchasedTickets = 0;
-//    }
 
     public ClubEvent(Establishment establishment, JsonObject jsonObject) {
         eventID = eventIDCounter++;
@@ -41,11 +26,8 @@ public class ClubEvent implements Serializable {
         name = jsonObject.getString("name");
         description = jsonObject.getString("description");
         date = jsonObject.getString("date");
-        dateLock = false;
         time = jsonObject.getString("time");
-        timeLock = false;
         admissionPrice = jsonObject.getJsonNumber("price").doubleValue();
-        priceLock = false;
         maxTickets = jsonObject.getInt("tickets");
         purchasedTickets = 0;
     }
@@ -79,17 +61,7 @@ public class ClubEvent implements Serializable {
     }
 
     public void setDate(String date) {
-        if (!dateLock) {
-            this.date = date;
-        }
-    }
-
-    public boolean dateLocked() {
-        return dateLock;
-    }
-
-    public void lockDate() {
-        dateLock = true;
+        this.date = date;
     }
 
     public String getTime() {
@@ -97,17 +69,7 @@ public class ClubEvent implements Serializable {
     }
 
     public void setTime(String time) {
-        if (!timeLock) {
-            this.time = time;
-        }
-    }
-
-    public boolean timeLocked() {
-        return timeLock;
-    }
-
-    public void lockTime() {
-        timeLock = true;
+        this.time = time;
     }
 
     public double getAdmissionPrice() {
@@ -115,17 +77,7 @@ public class ClubEvent implements Serializable {
     }
 
     public void setAdmissionPrice(double admissionPrice) {
-        if (!priceLock) {
-            this.admissionPrice = admissionPrice;
-        }
-    }
-
-    public boolean priceLocked() {
-        return priceLock;
-    }
-
-    public void lockPrice() {
-        priceLock = true;
+        this.admissionPrice = admissionPrice;
     }
 
     public int getMaxTickets() {

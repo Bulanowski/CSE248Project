@@ -16,7 +16,8 @@
     <link href="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet">
 
     <link href="theme.css" rel="stylesheet">
-    <script src="Test.js"></script>
+    <script src="main.js"></script>
+
     <title>Establishment Home</title>
 </head>
 <body style="padding-top: 0px">
@@ -28,7 +29,7 @@
         </div>
         <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Create Event</a></li>
+            <li><a href="homepage-establishment/eventEditor/">Create Event</a></li>
             <li><a href="#">View Planned Events</a></li>
             <li><a href="#">Manage Employees</a></li>
             <li><a href="#">Finances</a></li>

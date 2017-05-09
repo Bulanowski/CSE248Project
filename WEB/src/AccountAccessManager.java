@@ -1,7 +1,6 @@
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-import javax.json.JsonValue;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -16,7 +15,7 @@ import java.io.StringReader;
 public class AccountAccessManager {
 
     public static final AccountsBag accountsBag = new AccountsBag();
-    private static final TokenManager tokenManager = new TokenManager();
+    public static final TokenManager tokenManager = new TokenManager();
 
     @POST
     @Path("/register")

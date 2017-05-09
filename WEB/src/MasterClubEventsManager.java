@@ -22,8 +22,12 @@ public class MasterClubEventsManager {
     public String registerEvent(String jsonString) {
         JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
         // TODO validity checking
-        String username = jsonObject.getString("username");
-        Account account = AccountAccessManager.accountsBag.getUser(username);
+        String token = jsonObject.getString("token");
+        String username = AccountAccessManager.tokenManager.getUsername(token);
+        if (username == null) {
+            return "Invalid token";
+        }
+        Account account = AccountAccessManager.accountsBag.getUser(username); // If this is null the user account doesn't exist
         if (account instanceof Establishment) {
             Establishment establishment = (Establishment) account;
             ClubEvent clubEvent = new ClubEvent(establishment, jsonObject);
@@ -43,15 +47,9 @@ public class MasterClubEventsManager {
         ClubEvent event = clubEvents.get(eventID);
         event.setName(jsonObject.getString("name"));
         event.setDescription(jsonObject.getString("description"));
-        if (!event.dateLocked()) {
-            event.setDate(jsonObject.getString("date"));
-        }
-        if (!event.timeLocked()) {
-            event.setTime(jsonObject.getString("time"));
-        }
-        if (!event.priceLocked()) {
-            event.setAdmissionPrice(jsonObject.getJsonNumber("price").doubleValue());
-        }
+        event.setDate(jsonObject.getString("date"));
+        event.setTime(jsonObject.getString("time"));
+        event.setAdmissionPrice(jsonObject.getJsonNumber("price").doubleValue());
         return event.toJsonString();
     }
 

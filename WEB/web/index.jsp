@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Title</title>
-    <script src="Test.js"></script>
+    <script src="main.js"></script>
     <script>
         var token = getCookie("token");
         console.log("Sent: " + token);

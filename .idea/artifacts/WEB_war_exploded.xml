@@ -7,7 +7,10 @@
           <element id="module-output" name="WEB" />
           <element id="module-output" name="MODEL" />
         </element>
-        <element id="directory" name="lib" />
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="javax.json" />
+          <element id="library" level="project" name="javax.ws.rs-api" />
+        </element>
       </element>
       <element id="javaee-facet-resources" facet="WEB/web/Web" />
     </root>

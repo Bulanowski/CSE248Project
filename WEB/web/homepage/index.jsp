@@ -21,6 +21,7 @@
     <link href="homepage/homepage.css" rel="stylesheet">
 
 
+    <script src="main.js"></script>
     <script src="homepage/homepage.js"></script>
 
 

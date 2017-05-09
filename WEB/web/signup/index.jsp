@@ -17,7 +17,7 @@
 
     <link href="theme.css" rel="stylesheet">
 
-    <title>Signup</title>
+    <title>Sign Up</title>
 </head>
 <script src="signup/signup.js"></script>
 <body>

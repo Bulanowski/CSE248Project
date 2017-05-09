@@ -30,17 +30,40 @@ p {
     padding: 10px;
     font-size: 16px;
 }
+
 .checkbox {
     color: white;
 }
-.form-signin input[type="username"], input[type="email"], input[type="tel"],
-input[type="date"], input[type="number"], input[type="text"], input[type="radio"]{
+
+.form-control {
+    color: white;
+    background-color: #0f0f0f;
+    margin-bottom: 10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin input {
     color: white;
     background-color: #0f0f0f;
     margin-bottom: 10px;
     /*border-bottom-right-radius: 0;*/
     /*border-bottom-left-radius: 0;*/
 }
+
+input[type="password"] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+/*.form-signin input[type="username"], input[type="email"], input[type="tel"],*/
+/*input[type="date"], input[type="number"], input[type="text"], input[type="radio"]{*/
+    /*color: white;*/
+    /*background-color: #0f0f0f;*/
+    /*margin-bottom: 10px;*/
+    /*!*border-bottom-right-radius: 0;*!*/
+    /*!*border-bottom-left-radius: 0;*!*/
+/*}*/
 
 .btnDark {
     background-color: #0f0f0f;
@@ -52,13 +75,13 @@ input[type="date"], input[type="number"], input[type="text"], input[type="radio"
     background-color: #000000;
 }
 
-.form-signin input[type="password"] {
-    color: white;
-    background-color: #0f0f0f;
-    margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}
+/*.form-signin input[type="password"] {*/
+    /*color: white;*/
+    /*background-color: #0f0f0f;*/
+    /*margin-bottom: 10px;*/
+    /*border-top-left-radius: 0;*/
+    /*border-top-right-radius: 0;*/
+/*}*/
 
 .navbar .navbar-nav {
     display: inline-block;
