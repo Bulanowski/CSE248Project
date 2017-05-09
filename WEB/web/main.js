@@ -29,16 +29,18 @@ function signOut() {
     window.location.href = "login/";
 }
 
-var token = getCookie("token");
-console.log("Sent: " + token);
-var client = new XMLHttpRequest();
-if (document.body != null) {
-    document.body.style.display = "none";
+if (document.documentURI != "http://localhost:8080/WEB_war_exploded/login/") {
+    var token = getCookie("token");
+    console.log("Sent: " + token);
+    var client = new XMLHttpRequest();
+    if (document.body != null) {
+        document.body.style.display = "none";
+    }
+    client.onload = handler;
+    client.open("POST", "/WEB_war_exploded/app/account/token", true);
+    client.setRequestHeader("Content-type", "text/plain");
+    client.send(token);
 }
-client.onload = handler;
-client.open("POST", "/WEB_war_exploded/app/account/token", true);
-client.setRequestHeader("Content-type", "text/plain");
-client.send(token);
 
 function handler() {
     if (this.status == 200 && this.responseText != null) {
