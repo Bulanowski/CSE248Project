@@ -49,7 +49,7 @@ function handler() {
         if(response == "Token Not Found" || response == "Username Not Found") {
             window.location.href = "login/";
         } else {
-            if (document.documentURI == "http://localhost:8080/WEB_war_exploded/") {
+            if (document.documentURI == "http://localhost:8080/WEB_war_exploded/" || document.documentURI == "http://localhost:8080/WEB_war_exploded/index.jsp") {
                 var inComingJson = JSON.parse(response);
                 console.log("Going to " + inComingJson.homepage);
                 window.location.href = inComingJson.homepage;
