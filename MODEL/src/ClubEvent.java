@@ -104,7 +104,7 @@ public class ClubEvent implements Serializable {
         return true;
     }
 
-    public String toJsonString() {
+    public JsonObject toJson() {
         JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
         for (Field f : ClubEvent.class.getDeclaredFields()) {
             try {
@@ -113,6 +113,6 @@ public class ClubEvent implements Serializable {
                 e.printStackTrace();
             }
         }
-        return jsonObjectBuilder.build().toString();
+        return jsonObjectBuilder.build();
     }
 }

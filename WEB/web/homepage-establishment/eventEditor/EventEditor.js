@@ -9,11 +9,10 @@ function sendRegisterEventRequest() {
     json.description = document.getElementById("description").value;
     json.date = document.getElementById("date").value;
     json.time = document.getElementById("time").value;
-    json.price = document.getElementById("price").value;
-    json.tickets = document.getElementById("tickets").value;
+    json.price = parseFloat(document.getElementById("price").value);
+    json.tickets = parseInt(document.getElementById("tickets").value);
     console.log("Collected:\nName: " + json.name +"\nDescription: " + json.description + "\nDate: " + json.date
-        + "\nTime: " + json.time + "\nPrice: " + json.price + "\nTickets: " + json.tickets
-        + "\n LOCKS NEED TO BE IMPLEMENTED");
+        + "\nTime: " + json.time + "\nPrice: " + json.price + "\nTickets: " + json.tickets);
 
     var client = new XMLHttpRequest();
     client.onload = handleRegisterEventResponse;

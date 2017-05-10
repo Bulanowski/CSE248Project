@@ -1,5 +1,10 @@
+import javafx.collections.transformation.FilteredList;
+
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
@@ -50,7 +55,40 @@ public class MasterClubEventsManager {
         event.setDate(jsonObject.getString("date"));
         event.setTime(jsonObject.getString("time"));
         event.setAdmissionPrice(jsonObject.getJsonNumber("price").doubleValue());
-        return event.toJsonString();
+        return event.toJson().toString();
+    }
+
+    @POST
+    @Path("/search")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String searchEvents(String jsonString) {
+        JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
+        String query = jsonObject.getString("query");
+        Integer page = jsonObject.getInt("page");
+        ArrayList<ClubEvent> searchResult = new ArrayList<>();
+        for (ClubEvent e : clubEvents.values()) {
+            if (e.getName().contains(query)) {
+                searchResult.add(e);
+            }
+        }
+        if (searchResult.size() == 0) {
+            return "No results found";
+        }
+        if (searchResult.size() < 10 * (page - 1)) {
+            page = 1;
+        }
+        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+        for (int i = 10 * (page - 1); i < page * 10; i++) {
+            if (i >= searchResult.size()) {
+                break;
+            }
+            jsonArrayBuilder.add(searchResult.get(i).toJson());
+        }
+        JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
+        jsonObjectBuilder.add("pages", Math.ceil((double) searchResult.size() / 10));
+        jsonObjectBuilder.add("result", jsonArrayBuilder.build());
+        return jsonObjectBuilder.build().toString();
     }
 
     @POST
@@ -58,7 +96,7 @@ public class MasterClubEventsManager {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String getEvent(@PathParam("eventID") Integer eventID) {
-        return clubEvents.get(eventID).toJsonString();
+        return clubEvents.get(eventID).toJson().toString();
     }
 
 
@@ -69,7 +107,7 @@ public class MasterClubEventsManager {
         JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
         for (ClubEvent event : clubEvents.values()) {
-            jsonArrayBuilder.add(event.toJsonString());
+            jsonArrayBuilder.add(event.toJson().toString());
         }
         jsonObjectBuilder.add("events", jsonArrayBuilder.build());
         return jsonObjectBuilder.build().toString();

@@ -2,18 +2,20 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Alex on 5/3/2017.
  */
 public abstract class Account {
 
-    String username;    // stored as plaintext
-    String password;    // stored as SHA256
-    String email;
-    String address;
-    String zip;
-    String phone;
+    private String username;    // stored as plaintext
+    private String password;    // stored as SHA256
+    private String email;
+    private String address;
+    private String zip;
+    private String phone;
 
     public Account(String username, String password, String email, String address, String zip, String phone) {
         this.username = username;
@@ -50,9 +52,10 @@ public abstract class Account {
 
     public JsonObject toJson() {
         JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
-        Field[] fields = Account.class.getDeclaredFields();
+        List<Field> fields = Arrays.asList(this.getClass().getDeclaredFields());
         for (Field f : fields) {
             try {
+                f.setAccessible(true);
                 jsonObjectBuilder.add(f.getName(), f.get(this).toString());
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
@@ -64,14 +67,6 @@ public abstract class Account {
             jsonObjectBuilder.add("homepage", "homepage-establishment/");
         }
         jsonObjectBuilder.add("type", this.getClass().getName());
-        fields = this.getClass().getDeclaredFields();
-        for (Field f : fields) {
-            try {
-                jsonObjectBuilder.add(f.getName(), f.get(this).toString());
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
         return jsonObjectBuilder.build();
     }
 
