@@ -5,5 +5,5 @@ import javax.ws.rs.core.Application;
  * Created by phil on 4/20/17.
  */
 @ApplicationPath("/app")
-public class Myapp extends Application{
+public class MyApp extends Application {
 }

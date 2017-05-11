@@ -1,12 +1,19 @@
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by Alex on 5/3/2017.
  */
-public class Customer extends Account {
+public class Customer extends Profile {
 
-    String birthday;
+    private String birthday = "";
+    private Set<TagType> preferences = new HashSet<>();
 
-    public Customer(String username, String password, String email, String address, String zip, String phone, String birthday) {
-        super(username, password, email, address, zip, phone);
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 }

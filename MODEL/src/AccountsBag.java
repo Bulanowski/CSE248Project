@@ -1,21 +1,28 @@
+import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Observable;
 
 /**
  * Created by Alex on 5/3/2017.
  */
-public class AccountsBag {
+public class AccountsBag extends Observable implements Serializable {
 
-    HashMap<String, Account> accounts = new HashMap<>();    // username, password
+    private final HashMap<String, Account> accounts;    // username, account
 
-    public AccountsBag() {
-        accounts.put("foo", new Customer("foo", "bar", "", "", "", "", ""));
-        accounts.put("bar", new Establishment("bar", "foo", "", "", "", ""));
+    public AccountsBag(DataStorageHandler dataStorageHandler) {
+        Object o = dataStorageHandler.readFromFile("accounts");
+        if (o != null && o instanceof HashMap) {
+            accounts = (HashMap<String, Account>) o;
+        } else {
+            accounts = new HashMap<>();
+        }
     }
 
     public void addAccount(Account a) {
-//        if (!usernameInUse(a.getUsername())) {
+        if (!usernameInUse(a.getUsername())) {
             accounts.put(a.getUsername(), a);
-//        }
+            saveChanges();
+        }
     }
 
     public boolean usernameInUse(String username) {
@@ -28,5 +35,10 @@ public class AccountsBag {
 
     public Account getUser(String username) {
         return accounts.get(username);
+    }
+
+    public void saveChanges() {
+        setChanged();
+        notifyObservers(accounts);
     }
 }
