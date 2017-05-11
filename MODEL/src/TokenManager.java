@@ -1,8 +1,10 @@
+import javax.ejb.Singleton;
 import java.util.HashMap;
 
 /**
  * Created by Alex on 5/6/2017.
  */
+@Singleton
 public class TokenManager {
 
     private final HashMap<String, String> tokens = new HashMap<>(); // token, username

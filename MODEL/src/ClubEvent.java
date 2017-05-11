@@ -4,7 +4,6 @@ import javax.json.JsonObjectBuilder;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**

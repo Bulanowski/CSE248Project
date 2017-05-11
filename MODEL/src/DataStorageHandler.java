@@ -1,15 +1,43 @@
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.collections.ObservableMap;
+
+import javax.ejb.Singleton;
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
 import java.io.*;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.LinkedList;
 
 /**
  * Created by Alex on 5/10/2017.
  */
-public class DataStorageHandler implements Observer {
+@Singleton
+public class DataStorageHandler {
 
-    public void beginObserving(AccountsBag accountsBag, ClubEventsBag clubEventsBag) {
-        accountsBag.addObserver(this);
-        clubEventsBag.addObserver(this);
+    public void connectAccountsListener(ObservableMap<String, Account> observableMap) {
+        observableMap.addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                LinkedList<Account> accounts = new LinkedList<>();
+                for (Account a : ((ObservableMap<String, Account>) observable).values()) {
+                    accounts.add(a);
+                }
+                saveToFile("accounts", accounts);
+            }
+        });
+    }
+
+    public void connectClubEventsListener(ObservableMap<Integer, ClubEvent> observableMap) {
+        observableMap.addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+                for (ClubEvent clubEvent : ((ObservableMap<String, ClubEvent>) observable).values()) {
+                    jsonArrayBuilder.add(clubEvent.toJson());
+                }
+                saveToFile("events", jsonArrayBuilder.build().toString());
+            }
+        });
     }
 
     public Object readFromFile(String fileName) {
@@ -18,9 +46,11 @@ public class DataStorageHandler implements Observer {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(getFile(fileName)));
             o = ois.readObject();
             ois.close();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (EOFException e) {
+            return null;
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return o;
@@ -31,6 +61,8 @@ public class DataStorageHandler implements Observer {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(getFile(fileName)));
             oos.writeObject(o);
             oos.close();
+        } catch (EOFException e) {
+            return;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,18 +76,14 @@ public class DataStorageHandler implements Observer {
         if (!folder.exists()) {
             folder.mkdirs();
         }
-        return new File(folderDir.concat(File.separatorChar + fileName + ".txt"));
-    }
-
-    @Override
-    public void update(Observable observable, Object o) {
-        if (observable instanceof AccountsBag) {
-            saveToFile("accounts", o);
-        } else if (observable instanceof ClubEventsBag) {
-            saveToFile("clubEvents", o);
-        } else {
-            saveToFile("oops", "Shit");
+        file = new File(folderDir.concat(File.separatorChar + fileName + ".txt"));
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+        return file;
     }
-
 }

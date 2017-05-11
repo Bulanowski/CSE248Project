@@ -1,5 +1,6 @@
 import java.io.StringReader;
 import java.util.ArrayList;
+import javax.ejb.EJB;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
@@ -13,6 +14,15 @@ import javax.ws.rs.core.MediaType;
 @Path("/event")
 public class MasterClubEventsManager {
 
+    @EJB
+    AccountsBag accountsBag = new AccountsBag();
+
+    @EJB
+    TokenManager tokenManager = new TokenManager();
+
+    @EJB
+    ClubEventsBag clubEventsBag = new ClubEventsBag();
+
     @POST
     @Path("/register")
     @Consumes(MediaType.TEXT_PLAIN)
@@ -21,15 +31,15 @@ public class MasterClubEventsManager {
         JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
         // TODO validity checking
         String token = jsonObject.getString("token");
-        String username = LifecycleBean.tokenManager.getUsername(token);
+        String username = tokenManager.getUsername(token);
         if (username == null) {
             return "Invalid token";
         }
-        Account account = LifecycleBean.accountsBag.getUser(username); // If this is null the user account doesn't exist
+        Account account = accountsBag.getUser(username); // If this is null the user account doesn't exist
         if (account.getProfile() instanceof Establishment) {
             Establishment establishment = (Establishment) account.getProfile();
             ClubEvent clubEvent = new ClubEvent(establishment, jsonObject);
-            LifecycleBean.clubEventsBag.addEvent(clubEvent);
+            clubEventsBag.addEvent(clubEvent);
             establishment.addEvent(clubEvent.getEventID());
             return "Event created successfully";
         }
@@ -42,7 +52,7 @@ public class MasterClubEventsManager {
     @Produces(MediaType.TEXT_PLAIN)
     public String modifyEvent(@PathParam("eventID") Integer eventID, String jsonString) {
         JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
-        ClubEvent event = LifecycleBean.clubEventsBag.getEvent(eventID);
+        ClubEvent event = clubEventsBag.getEvent(eventID);
         event.setName(jsonObject.getString("name"));
         event.setDescription(jsonObject.getString("description"));
         event.setDate(jsonObject.getString("date"));
@@ -59,7 +69,7 @@ public class MasterClubEventsManager {
         JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
         String query = jsonObject.getString("query");
         Integer page = jsonObject.getInt("page");
-        ArrayList<ClubEvent> searchResult = LifecycleBean.clubEventsBag.search(query);
+        ArrayList<ClubEvent> searchResult = clubEventsBag.search(query);
         if (searchResult.size() == 0) {
             return "No results found";
         }
@@ -84,7 +94,7 @@ public class MasterClubEventsManager {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String getEvent(@PathParam("eventID") Integer eventID) {
-        return LifecycleBean.clubEventsBag.getEvent(eventID).toJson().toString();
+        return clubEventsBag.getEvent(eventID).toJson().toString();
     }
 
 
@@ -94,7 +104,7 @@ public class MasterClubEventsManager {
     public String getAllEvents() {
         JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-        for (ClubEvent event : LifecycleBean.clubEventsBag.getAllEvents()) {
+        for (ClubEvent event : clubEventsBag.getAllEvents()) {
             jsonArrayBuilder.add(event.toJson().toString());
         }
         jsonObjectBuilder.add("events", jsonArrayBuilder.build());

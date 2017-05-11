@@ -18,6 +18,20 @@ public class Account implements Serializable {
     private String email;
     private Profile profile;
 
+    public Account(JsonObject jsonObject) throws InvalidAttributeIdentifierException {
+        username = jsonObject.getString("username");
+        password = jsonObject.getString("password");
+        email = jsonObject.getString("email");
+        String accountType = jsonObject.getString("type");
+        if (accountType.equals("Customer")) {
+            profile = new Customer();
+        } else if (accountType.equals("Establishment")) {
+            profile = new Establishment();
+        } else {
+            throw new InvalidAttributeIdentifierException();
+        }
+    }
+
     public Account(String username, String password, String email, String accountType) throws InvalidAttributeIdentifierException {
         this.username = username;
         this.password = password;

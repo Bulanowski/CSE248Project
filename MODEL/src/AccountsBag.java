@@ -1,28 +1,40 @@
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Observable;
+import javafx.beans.InvalidationListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
+
+import javax.ejb.EJB;
+import javax.ejb.Singleton;
+import java.util.LinkedList;
 
 /**
  * Created by Alex on 5/3/2017.
  */
-public class AccountsBag extends Observable implements Serializable {
+@Singleton
+public class AccountsBag {
 
-    private final HashMap<String, Account> accounts;    // username, account
+    @EJB
+    DataStorageHandler dataStorageHandler = new DataStorageHandler();
 
-    public AccountsBag(DataStorageHandler dataStorageHandler) {
+    private final ObservableMap<String, Account> accounts = FXCollections.observableHashMap();  // username, account
+
+    public AccountsBag() {
         Object o = dataStorageHandler.readFromFile("accounts");
-        if (o != null && o instanceof HashMap) {
-            accounts = (HashMap<String, Account>) o;
-        } else {
-            accounts = new HashMap<>();
+        if (o != null) {
+            for (Account a : (LinkedList<Account>) o) {
+                accounts.put(a.getUsername(), a);
+            }
         }
+        dataStorageHandler.connectAccountsListener(accounts);
     }
 
     public void addAccount(Account a) {
         if (!usernameInUse(a.getUsername())) {
             accounts.put(a.getUsername(), a);
-            saveChanges();
         }
+    }
+
+    public void addListener(InvalidationListener listener) {
+        accounts.addListener(listener);
     }
 
     public boolean usernameInUse(String username) {
@@ -37,8 +49,4 @@ public class AccountsBag extends Observable implements Serializable {
         return accounts.get(username);
     }
 
-    public void saveChanges() {
-        setChanged();
-        notifyObservers(accounts);
-    }
 }

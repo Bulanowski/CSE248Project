@@ -1,28 +1,33 @@
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
+
+import javax.ejb.EJB;
+import javax.ejb.Singleton;
+import java.util.*;
 
 /**
  * Created by Alex on 5/10/2017.
  */
-public class ClubEventsBag extends Observable implements Serializable {
+@Singleton
+public class ClubEventsBag {
 
-    private final HashMap<Integer, ClubEvent> clubEvents; // eventID, event
+    @EJB
+    DataStorageHandler dataStorageHandler = new DataStorageHandler();
 
-    public ClubEventsBag (DataStorageHandler dataStorageHandler) {
+    private final ObservableMap<Integer, ClubEvent> clubEvents = FXCollections.observableHashMap(); // eventID, event
+
+    public ClubEventsBag() {
         Object o = dataStorageHandler.readFromFile("events");
-        if (o != null && o instanceof HashMap) {
-            clubEvents = (HashMap) o;
-        } else {
-            clubEvents = new HashMap<>();
+        if (o != null) {
+            for (ClubEvent e : (LinkedList<ClubEvent>) o) {
+                clubEvents.put(e.getEventID(), e);
+            }
         }
+        dataStorageHandler.connectClubEventsListener(clubEvents);
     }
 
     public void addEvent(ClubEvent e) {
         clubEvents.put(e.getEventID(), e);
-        saveChanges();
     }
 
     public ClubEvent getEvent(Integer id) {
@@ -41,10 +46,5 @@ public class ClubEventsBag extends Observable implements Serializable {
             }
         }
         return searchResult;
-    }
-
-    public void saveChanges() {
-        setChanged();
-        notifyObservers(clubEvents);
     }
 }

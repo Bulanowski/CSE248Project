@@ -1,5 +1,4 @@
-import com.sun.media.jfxmedia.logging.Logger;
-
+import javax.ejb.EJB;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
@@ -17,6 +16,12 @@ import java.io.*;
 @Path("/account")
 public class AccountAccessManager {
 
+    @EJB
+    AccountsBag accountsBag = new AccountsBag();
+
+    @EJB
+    TokenManager tokenManager = new TokenManager();
+
     @POST
     @Path("/register")
     @Consumes(MediaType.TEXT_PLAIN)
@@ -26,7 +31,7 @@ public class AccountAccessManager {
         // TODO check for validity and availability of entered information
         JsonObjectBuilder registrationErrorBuilder = Json.createObjectBuilder();
         boolean error = false;
-        if (LifecycleBean.accountsBag.usernameInUse(jsonObject.getString("username"))) {
+        if (accountsBag.usernameInUse(jsonObject.getString("username"))) {
             registrationErrorBuilder.add("username", "Username is already in use");
             error = true;
         }
@@ -39,7 +44,7 @@ public class AccountAccessManager {
         }
         try {
             // TODO change this to just pass through the jsonObject
-            LifecycleBean.accountsBag.addAccount(new Account(
+            accountsBag.addAccount(new Account(
                     jsonObject.getString("username"),
                     jsonObject.getString("password"),
                     jsonObject.getString("email"),
@@ -59,11 +64,11 @@ public class AccountAccessManager {
         JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
         String username = jsonObject.getString("username");
         String password = jsonObject.getString("password");
-        if (LifecycleBean.accountsBag.verifyLogin(username, password)) {
+        if (accountsBag.verifyLogin(username, password)) {
             JsonObject json = Json.createObjectBuilder()
-                    .add("url", (LifecycleBean.accountsBag.getUser(username).getProfile() instanceof Customer ? "homepage/" : "homepage-establishment/"))
-                    .add("token", LifecycleBean.tokenManager.assignNewToken(username))
-                    .add("account", LifecycleBean.accountsBag.getUser(username).toJson())
+                    .add("url", (accountsBag.getUser(username).getProfile() instanceof Customer ? "homepage/" : "homepage-establishment/"))
+                    .add("token", tokenManager.assignNewToken(username))
+                    .add("account", accountsBag.getUser(username).toJson())
                     .build();
             return json.toString();
         } else
@@ -74,7 +79,7 @@ public class AccountAccessManager {
     @Path("/signOut")
     @Consumes(MediaType.TEXT_PLAIN)
     public void signOut(String token) {
-        LifecycleBean.tokenManager.removeUser(token);
+        tokenManager.removeUser(token);
     }
 
     @POST
@@ -82,11 +87,11 @@ public class AccountAccessManager {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String getUserFromToken(String token) {
-        String username = LifecycleBean.tokenManager.getUsername(token);
+        String username = tokenManager.getUsername(token);
         if (username == null) {
             return "Token Not Found";
         }
-        Account account = LifecycleBean.accountsBag.getUser(username);
+        Account account = accountsBag.getUser(username);
         if (account == null) {
             return "Username Not Found";
         }
