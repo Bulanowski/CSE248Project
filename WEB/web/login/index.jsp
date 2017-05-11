@@ -17,7 +17,6 @@
 
     <link href="theme.css" rel="stylesheet">
     <link href="login/login.css" rel="stylesheet">
-    <script src="main.js"></script>
 
     <title>Login</title>
   </head>

@@ -16,7 +16,6 @@
     <link href="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet">
 
     <link href="theme.css" rel="stylesheet">
-    <script src="main.js"></script>
 
     <title>Sign Up</title>
 </head>
