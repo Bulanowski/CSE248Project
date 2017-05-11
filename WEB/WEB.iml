@@ -11,16 +11,6 @@
         </webroots>
       </configuration>
     </facet>
-    <facet type="web" name="Web2">
-      <configuration>
-        <descriptors>
-          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/web/WEB-INF/web.xml" />
-        </descriptors>
-        <webroots>
-          <root url="file://$MODULE_DIR$/web" relative="/" />
-        </webroots>
-      </configuration>
-    </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
@@ -30,8 +20,9 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="GlassFish 4.1.2" level="application_server_libraries" />
+    <orderEntry type="module" module-name="MODEL" />
     <orderEntry type="library" scope="PROVIDED" name="GlassFish 4.1.2 - RESTful Web Service" level="application_server_libraries" />
     <orderEntry type="library" scope="PROVIDED" name="GlassFish 4.1.2 - JSON Processing (JSR 353)" level="application_server_libraries" />
-    <orderEntry type="module" module-name="MODEL" />
+    <orderEntry type="library" scope="PROVIDED" name="GlassFish 4.1.2 - EJB" level="application_server_libraries" />
   </component>
 </module>
