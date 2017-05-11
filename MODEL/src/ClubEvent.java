@@ -3,6 +3,9 @@ import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Alex on 5/6/2017.
@@ -12,6 +15,7 @@ public class ClubEvent implements Serializable {
     private static int eventIDCounter = 1000000;
     private int eventID;
     private Establishment establishment;
+    private Set<TagType> preferences;
     private String name;
     private String description;
     private String date;
@@ -23,6 +27,7 @@ public class ClubEvent implements Serializable {
     public ClubEvent(Establishment establishment, JsonObject jsonObject) {
         eventID = eventIDCounter++;
         this.establishment = establishment;
+        preferences = new HashSet<>();
         name = jsonObject.getString("name");
         description = jsonObject.getString("description");
         date = jsonObject.getString("date");
