@@ -17,7 +17,7 @@
 
     <link href="theme.css" rel="stylesheet">
 
-    <title>Sign Up</title>
+    <title>Signup</title>
 </head>
 <script src="signup/signup.js"></script>
 <body>
@@ -25,46 +25,36 @@
     <div class="row">
         <div class="col-sm-6">
             <form action="" method="post" class="form-signin">
-                <%--<h1 class="form-signin-heading">Register Account</h1>--%>
                 <h3 class="form-signin-heading">Account Info</h3>
 
-                    <p>Enter your email:</p>
-                    <input type="email" id="email" class="form-control" placeholder="john@stuff.net" name="email" required>
-                    <p>Enter a username:</p>
-                    <input type="username" id="username" class="form-control" placeholder="Username" name="username" required>
-                    <p>Enter a password: (Must contain an uppercase, a lowercase, a number the sacrafice of a first born, and the blood of a demi-god)</p>
-                    <input type="password" id="password" class="form-control" placeholder="Password" name="password" required>
-                    <p>Confirm password:</p>
-                    <input type="password" id="password-confirm" class="form-control" placeholder="Retype Password" name="password-confirm" required>
-                    <p>Account type</p>
-                    <input type="radio" id="radio-customer"  name="account-type" value="Customer" checked> Customer
-                    <input type="radio" id="radio-establishment" name="account-type" value="Establishment"> Business Owner <br>
+                <p>Enter your email:</p>
+                <input type="email" id="email" class="form-control" placeholder="john@stuff.net" name="email" required>
+                <p>Enter a username:</p>
+                <input type="username" id="username" class="form-control" placeholder="Username" name="username" required>
+                <p>Account type:</p>
+                <input type="radio" name="account-type" id="radio-customer" onclick=CustomerAccountForm() checked>
+                <label for="radio-customer" class="text">Customer</label><br>
+                <input type="radio" name="account-type" id="radio-establishment" onclick=BuisnessAccountForm()>
+                <label for="radio-establishment" class="text">Business Owner</label>
             </form>
         </div>
         <div class="col-sm-6">
             <form action="" method="post" class="form-signin">
-                <b></b><b></b>
-                <h3 class="form-signin-heading">Account Owner Info</h3>
-
-                <p>Address</p>
-                <input id="address" type="text" class="form-control" placeholder="42 University St." name="address" required>
-                <p>Zip Code</p>
-                <input type="number" id="zip" class="form-control" placeholder="11111" name="zip" required>
-                <p>Birthday</p>
-                <input type="date" id="birthday" class="form-control"  name="birthday" required>
-                <p>Phone Number</p>
-                <input type="tel" id="phone" class="form-control" name="phone" placeholder="631-222-1984" required>
+                <h3 class="form-signin-heading">Password</h3>
+                <p>Enter a password: (Must contain an uppercase, a lowercase, a number the sacrafice of a first born, and the blood of a demi-god)</p>
+                <input type="password" id="password" class="form-control" placeholder="Password" name="password" required>
+                <input type="password" id="password-confirm" class="form-control" placeholder="Retype Password" name="password-confirm" required>
                 <div class="checkbox">
                     <label>
                         <input type="checkbox">I am not a robot
                     </label>
+                    <br><br>
+                    <button type="button" class="btn btnDark" onclick="sendRegisterRequest()">Submit</button>
+                    <a href="homepage-establishment/index.jsp" class="btn btnDark">Establishment home</a>
                 </div>
-                <button type="button" class="btn btnDark" onclick="sendRegisterRequest()">Submit</button>
-                <a href="homepage-establishment/index.jsp" class="btn btnDark">Establishment home</a>
             </form>
         </div>
     </div>
 </div>
-
 </body>
 </html>

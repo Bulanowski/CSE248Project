@@ -32,7 +32,7 @@
                 <li class="nav-item"><a href="#" class="nav-link active"><span class="glyphicon-envelope"></span>
                     Tickets</a>
                 </li>
-                <li><a href="#"><span class=" active glyphicon glyphicon-user"></span> Account Settings</a></li>
+                <li><a disabled="true"><span class=" active glyphicon glyphicon-user"></span> Account Settings</a></li>
                 <li>
                     <form class="nav navbar-form">
                         <div class="form-group">
@@ -47,14 +47,60 @@
     </nav>
 </div>
 <div class="container">
-    <form action="" method="post" class="form-signin">
-        <p>Change password</p>
-        <input type="password" id="oldpassword" class="form-control" placeholder="Old Password" name="password" required>
-        <input type="password" id="password" class="form-control" placeholder="New Password" name="password" required>
-        <input type="password" id="password-confirm" class="form-control" placeholder="Retype new Password" name="password-confirm" required>
-        <div class="checkbox">
+    <div class="row">
+        <div class="col-sm-4">
+            <form action="" method="post" class="form-signin">
+                <h2>Change Password</h2>
+                <input type="password" id="old-password" class="form-control" placeholder="Old Password" name="password">
+                <input type="password" id="password" class="form-control" placeholder="New Password" name="password">
+                <input type="password" id="password-confirm" class="form-control" placeholder="Retype new Password" name="password-confirm">
+                <button type="button" class="btn btnDark" onclick="">Change Password</button>
+            </form>
         </div>
-    </form>
+        <div class="col-sm-4">
+            <form action="" method="post" class="form-signin">
+                <h2>User Info</h2>
+                <p>Name</p>
+                <input type="text" id="name" name="name" class="form-control" placeholder="Name">
+                <p>Gender</p>
+                <input type="range" id="gender" name="range">
+                <p>Birthdate</p>
+                <input type="date" id="birthday" name ="birthday" class="form-control">
+                <p>Phone Number</p>
+                <input type="number" id="phone" name="phone" class="form-control" placeholder="Phone Number">
+                <p>Address</p>
+                <input type="text" id="address" name="address" class="form-control" placeholder="Street Address">
+                <input type="number" id="zip" name="zip" class="form-control" placeholder="Zip Code">
+                <button type="button" class="btn btnDark" onclick="">Update Info</button>
+            </form>
+        </div>
+        <div class="col-sm-4">
+            <form action="" method="post" class="form-signin">
+                <h2>Preferences</h2>
+                <p>Favorite Music Genre</p>
+                <select class="selection" id="music-type" name="music-type">
+                    <option value="hip-hop">Hip Hop</option>
+                    <option value="rock">Rock 'N Roll</option>
+                    <option value="jazz">Jazz</option>
+                    <option value="dance">Dance</option>
+                    <option value="metal">Metal</option>
+                </select>
+
+                <p>Favorite Foods</p>
+                <select class="selection" id="food-type" name="food-type">
+                    <option value="spanish">Spanish Food</option>
+                    <option value="italian">Italian Food</option>
+                    <option value="greek">Greek Food</option>
+                    <option value="pizza">Pizza</option>
+                    <option value="fast-food">Fast Food</option>
+                    <option value="persian-food">Persian Food</option>
+                </select>
+                <br>
+                <button type="button" class="btn btnDark" onclick="">Submit Preferences</button>
+            </form>
+        </div>
+    </div>
+
 </div>
 </body>
 </html>

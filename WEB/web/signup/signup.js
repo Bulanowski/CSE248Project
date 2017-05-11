@@ -7,10 +7,10 @@ function sendRegisterRequest() {
     json.username = document.getElementById("username").value;
     json.password = document.getElementById("password").value;
     json.email = document.getElementById("email").value;
-    json.address = document.getElementById("address").value;
-    json.zip = document.getElementById("zip").value;
-    json.birthday = document.getElementById("birthday").value;
-    json.phone = document.getElementById("phone").value;
+    // json.address = document.getElementById("address").value;
+    // json.zip = document.getElementById("zip").value;
+    // json.birthday = document.getElementById("birthday").value;
+    // json.phone = document.getElementById("phone").value;
     if(document.getElementById("radio-customer").checked){
         json.account = "Customer"
     } else {
@@ -45,17 +45,17 @@ function handleRegisterResponse() {
         if (json.hasAttribute("email")) {
 
         }
-        if (json.hasAttribute("address")) {
-
-        }
-        if (json.hasAttribute("zip")) {
-
-        }
-        if (json.hasAttribute("birthday")) {
-
-        }
-        if (json.hasAttribute("phone")) {
-
-        }
+        // if (json.hasAttribute("address")) {
+        //
+        // }
+        // if (json.hasAttribute("zip")) {
+        //
+        // }
+        // if (json.hasAttribute("birthday")) {
+        //
+        // }
+        // if (json.hasAttribute("phone")) {
+        //
+        // }
     }
 }
