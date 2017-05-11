@@ -2,17 +2,18 @@
   <artifact type="exploded-war" name="WEB:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/WEB_war_exploded</output-path>
     <root id="root">
+      <element id="javaee-facet-resources" facet="WEB/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="WEB" />
           <element id="module-output" name="MODEL" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="javax.json" />
-          <element id="library" level="project" name="javax.ws.rs-api" />
+          <element id="library" level="project" name="javax.json.processing-1.0" />
+          <element id="library" level="project" name="Jersey-2.2" />
+          <element id="library" level="project" name="Java EE 6-Java EE 6" />
         </element>
       </element>
-      <element id="javaee-facet-resources" facet="WEB/web/Web" />
     </root>
   </artifact>
 </component>
