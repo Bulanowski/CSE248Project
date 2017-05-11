@@ -3,10 +3,7 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.naming.directory.InvalidAttributeIdentifierException;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.*;
 
@@ -44,12 +41,7 @@ public class AccountAccessManager {
         }
         try {
             // TODO change this to just pass through the jsonObject
-            accountsBag.addAccount(new Account(
-                    jsonObject.getString("username"),
-                    jsonObject.getString("password"),
-                    jsonObject.getString("email"),
-                    jsonObject.getString("account")
-            ));
+            accountsBag.addAccount(new Account(jsonObject));
         } catch (InvalidAttributeIdentifierException ex) {
             return "Registration failed";
         }
@@ -80,6 +72,38 @@ public class AccountAccessManager {
     @Consumes(MediaType.TEXT_PLAIN)
     public void signOut(String token) {
         tokenManager.removeUser(token);
+    }
+
+    @POST
+    @Path("/settings/get")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getSettings(String token) {
+        if (tokenManager.authenticateToken(token)) {
+            Account account = accountsBag.getUser(tokenManager.getUsername(token));
+            return account.getProfile().toJson().toString();
+        }
+        return null;
+    }
+
+    @POST
+    @Path("/settings/set")
+    @Consumes(MediaType.TEXT_PLAIN)
+    public void setSettings(String jsonString) {
+        JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
+        if (tokenManager.authenticateToken(jsonObject.getString("token"))) {
+            Profile profile = accountsBag.getUser(tokenManager.getUsername(jsonObject.getString("token"))).getProfile();
+            profile.setName(jsonObject.getString("name"));
+            profile.setAddress(jsonObject.getString("address"));
+            profile.setPhone(jsonObject.getString("phone"));
+            profile.setZip(jsonObject.getString("zip"));
+            if (profile instanceof Customer) {
+                Customer customer = (Customer) profile;
+                customer.setBirthday(jsonObject.getString("birthday"));
+            } else if (profile instanceof Establishment) {
+
+            }
+        }
     }
 
     @POST

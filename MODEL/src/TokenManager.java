@@ -16,6 +16,10 @@ public class TokenManager {
         return token;
     }
 
+    public boolean authenticateToken(String token) {
+        return tokens.containsKey(token);
+    }
+
     public String getUsername(String token) {
         return tokens.get(token);
     }
