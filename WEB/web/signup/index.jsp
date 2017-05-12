@@ -32,9 +32,9 @@
                 <p>Enter a username:</p>
                 <input type="username" id="username" class="form-control" placeholder="Username" name="username" required>
                 <p>Account type:</p>
-                <input type="radio" name="account-type" id="radio-customer" onclick=CustomerAccountForm() checked>
+                <input type="radio" name="account-type" id="radio-customer" checked>
                 <label for="radio-customer" class="text">Customer</label><br>
-                <input type="radio" name="account-type" id="radio-establishment" onclick=BuisnessAccountForm()>
+                <input type="radio" name="account-type" id="radio-establishment">
                 <label for="radio-establishment" class="text">Business Owner</label>
             </form>
         </div>

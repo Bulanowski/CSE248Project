@@ -117,7 +117,9 @@ public class AccountAccessManager {
                 Customer customer = (Customer) profile;
                 customer.setBirthday(jsonObject.getString("birthday"));
             } else if (profile instanceof Establishment) {
-
+                Establishment establishment = (Establishment) profile;
+                establishment.setTimeOpen(jsonObject.getString("timeOpen"));
+                establishment.setTimeClose(jsonObject.getString("timeClose"));
             }
             return "Settings changed successfully";
         }

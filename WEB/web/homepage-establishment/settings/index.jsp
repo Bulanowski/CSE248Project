@@ -20,7 +20,8 @@
     <link href="theme.css" rel="stylesheet">
     <%--<link href="homepage/homepage.css?v=0.0.7" rel="stylesheet">--%>
 
-    <%--<script src="main.js"></script>--%>
+    <script src="main.js"></script>
+    <script src="homepage-establishment/settings/settings.js"></script>
     <title>Settings</title>
 </head>
 <body>
@@ -36,7 +37,7 @@
                 <li><a href="#">View Planned Events</a></li>
                 <li><a href="#">Manage Employees</a></li>
                 <li><a href="#">Finances</a></li>
-                <li><a href="#">Account Settings</a></li>
+                <li class="active"><a disabled="true">Account Settings</a></li>
                 <li><a href="" onclick="signOut()">Sign Out</a></li>
             </ul>
         </div>
@@ -50,7 +51,7 @@
                 <input type="password" id="old-password" class="form-control" placeholder="Old Password" name="password">
                 <input type="password" id="password" class="form-control" placeholder="New Password" name="password">
                 <input type="password" id="password-confirm" class="form-control" placeholder="Retype new Password" name="password-confirm">
-                <button type="button" class="btn btnDark" onclick="">Change Password</button>
+                <button type="button" class="btn btnDark" onclick="sendChangePasswordRequest()">Change Password</button>
             </form>
         </div>
         <div class="col-sm-4">

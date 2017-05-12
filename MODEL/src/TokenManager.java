@@ -9,6 +9,7 @@ public class TokenManager {
 
     private final HashMap<String, String> tokens = new HashMap<>(); // token, username
     private final SessionIdentifierGenerator sig = new SessionIdentifierGenerator();
+    //Token: long timeImMilliseconds, default expiration time, String username
 
     public String assignNewToken(String username) {
         String token = sig.nextSessionId();
