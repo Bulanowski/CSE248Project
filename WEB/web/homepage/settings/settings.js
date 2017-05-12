@@ -3,6 +3,7 @@
  */
 
 window.onload = function() {
+    // sendGetSettingsRequest
     var client = new XMLHttpRequest();
     client.onload = handleGetSettingsResponse;
     client.open("POST", "/WEB_war_exploded/app/account/settings/get", true);
@@ -36,16 +37,15 @@ function sendChangePasswordRequest() {
     json.token = getCookie("token");
     json.oldPassword = document.getElementById("old-password").value;
     json.newPassword = document.getElementById("password").value;
-    json.confirmPassword = document.getElementById("password-confirm").value;
-    if (json.newPassword != json.confirmPassword) {
+    if (json.newPassword != document.getElementById("password-confirm").value) {
         console.log("Passwords do not match");
-    } else {
-        var client = new XMLHttpRequest();
-        client.onload = handleChangePasswordResponse;
-        client.open("POST", "/WEB_war_exploded/app/account/settings/changePassword", true);
-        client.setRequestHeader("Content-type", "text/plain");
-        client.send(JSON.stringify(json));
+        return;
     }
+    var client = new XMLHttpRequest();
+    client.onload = handleChangePasswordResponse;
+    client.open("POST", "/WEB_war_exploded/app/account/settings/changePassword", true);
+    client.setRequestHeader("Content-type", "text/plain");
+    client.send(JSON.stringify(json));
 }
 
 function handleChangePasswordResponse() {
