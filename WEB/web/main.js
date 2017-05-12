@@ -2,6 +2,17 @@
  * Created by phil on 4/20/17.
  */
 
+var token = getCookie("token");
+console.log("Sent: " + token);
+var client = new XMLHttpRequest();
+if (document.body != null) {
+    document.body.style.display = "none";
+}
+client.onload = handler;
+client.open("POST", "/WEB_war_exploded/app/account/token", true);
+client.setRequestHeader("Content-type", "text/plain");
+client.send(token);
+
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -35,17 +46,6 @@ function signOut() {
     document.cookie = "token=0;path=/";
     window.location.href = "login/";
 }
-
-var token = getCookie("token");
-console.log("Sent: " + token);
-var client = new XMLHttpRequest();
-if (document.body != null) {
-    document.body.style.display = "none";
-}
-client.onload = handler;
-client.open("POST", "/WEB_war_exploded/app/account/token", true);
-client.setRequestHeader("Content-type", "text/plain");
-client.send(token);
 
 function handler() {
     if (this.status == 200 && this.responseText != null) {
