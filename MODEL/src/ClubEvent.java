@@ -112,7 +112,11 @@ public class ClubEvent implements Serializable {
         JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
         for (Field f : ClubEvent.class.getDeclaredFields()) {
             try {
-                jsonObjectBuilder.add(f.getName(), f.get(this).toString());
+                if (f.getName().equals("establishment")) {
+                    jsonObjectBuilder.add(f.getName(), establishment.toJson());
+                } else {
+                    jsonObjectBuilder.add(f.getName(), f.get(this).toString());
+                }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
