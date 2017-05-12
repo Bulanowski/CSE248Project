@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by bonaa23 on 5/10/2017.
+ * Created by Alex on 5/10/2017.
  */
 public abstract class Profile implements Serializable {
 
@@ -58,6 +58,7 @@ public abstract class Profile implements Serializable {
             try {
                 f.setAccessible(true);
                 jsonObjectBuilder.add(f.getName(), f.get(this).toString());
+                f.setAccessible(false);
             } catch (NullPointerException e) {
                 jsonObjectBuilder.add(f.getName(), "");
             } catch (IllegalAccessException e) {
