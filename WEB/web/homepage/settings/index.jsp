@@ -21,6 +21,7 @@
     <link href="homepage/homepage.css?v=0.0.7" rel="stylesheet">
 
     <script src="main.js"></script>
+    <script src="homepage/settings/settings.js"></script>
     <title>Settings</title>
 </head>
 <body>
@@ -54,7 +55,7 @@
                 <input type="password" id="old-password" class="form-control" placeholder="Old Password" name="password">
                 <input type="password" id="password" class="form-control" placeholder="New Password" name="password">
                 <input type="password" id="password-confirm" class="form-control" placeholder="Retype new Password" name="password-confirm">
-                <button type="button" class="btn btnDark" onclick="">Change Password</button>
+                <button type="button" class="btn btnDark" onclick="sendChangePasswordRequest()">Change Password</button>
             </form>
         </div>
         <div class="col-sm-4">
@@ -64,14 +65,14 @@
                 <input type="text" id="name" name="name" class="form-control" placeholder="Name">
                 <p>Gender</p>
                 <input type="range" id="gender" name="range">
-                <p>Birthdate</p>
+                <p>Birth Date</p>
                 <input type="date" id="birthday" name ="birthday" class="form-control">
                 <p>Phone Number</p>
                 <input type="number" id="phone" name="phone" class="form-control" placeholder="Phone Number">
                 <p>Address</p>
                 <input type="text" id="address" name="address" class="form-control" placeholder="Street Address">
                 <input type="number" id="zip" name="zip" class="form-control" placeholder="Zip Code">
-                <button type="button" class="btn btnDark" onclick="">Update Info</button>
+                <button type="button" class="btn btnDark" onclick="sendSetSettingsRequest()">Update Info</button>
             </form>
         </div>
         <div class="col-sm-4">

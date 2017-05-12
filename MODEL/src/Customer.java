@@ -7,6 +7,7 @@ import java.util.Set;
 public class Customer extends Profile {
 
     private String birthday = "";
+    private String gender = "";
     private Set<TagType> preferences = new HashSet<>();
 
     public String getBirthday() {
@@ -15,5 +16,13 @@ public class Customer extends Profile {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

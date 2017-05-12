@@ -75,6 +75,20 @@ public class AccountAccessManager {
     }
 
     @POST
+    @Path("/settings/changePassword")
+    @Consumes(MediaType.TEXT_PLAIN)
+    public String changePassword(String jsonString) {
+        JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
+        if (tokenManager.authenticateToken(jsonObject.getString("token"))) {
+            Account account = accountsBag.getUser(tokenManager.getUsername(jsonObject.getString("token")));
+            if (account.changePassword(jsonObject.getString("oldPassword"), jsonObject.getString("newPassword"))) {
+                return "Password changed successfully";
+            }
+        }
+        return "Password change failed";
+    }
+
+    @POST
     @Path("/settings/get")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
@@ -83,7 +97,7 @@ public class AccountAccessManager {
             Account account = accountsBag.getUser(tokenManager.getUsername(token));
             return account.getProfile().toJson().toString();
         }
-        return null;
+        return "Invalid Token";
     }
 
     @POST

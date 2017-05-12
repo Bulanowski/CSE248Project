@@ -3,10 +3,6 @@ import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.naming.directory.InvalidAttributeIdentifierException;
 import java.io.Serializable;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Created by Alex on 5/3/2017.
@@ -22,7 +18,7 @@ public class Account implements Serializable {
         username = jsonObject.getString("username");
         password = jsonObject.getString("password");
         email = jsonObject.getString("email");
-        String accountType = jsonObject.getString("type");
+        String accountType = jsonObject.getString("accountType");
         if (accountType.equals("Customer")) {
             profile = new Customer();
         } else if (accountType.equals("Establishment")) {
@@ -40,6 +36,15 @@ public class Account implements Serializable {
         return this.password.equals(password);
     }
 
+    public boolean changePassword(String oldPassword, String newPassword) {
+        if (verifyPassword(oldPassword)) {
+            this.password = newPassword;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public String getEmail() {
         return email;
     }
@@ -53,21 +58,8 @@ public class Account implements Serializable {
         jsonObjectBuilder.add("username", username);
         jsonObjectBuilder.add("password", password);
         jsonObjectBuilder.add("email", email);
-        jsonObjectBuilder.add("type", profile.getClass().getName());
+        jsonObjectBuilder.add("accountType", profile.getClass().getName());
         jsonObjectBuilder.add("profile", profile.toJson());
-//        List<Field> fields = new ArrayList<>();
-//        Collections.addAll(fields, profile.getClass().getSuperclass().getDeclaredFields());
-//        Collections.addAll(fields, profile.getClass().getDeclaredFields());
-//        for (Field f : fields) {
-//            try {
-//                f.setAccessible(true);
-//                jsonObjectBuilder.add(f.getName(), f.get(profile).toString());
-//            } catch (NullPointerException e) {
-//                jsonObjectBuilder.add(f.getName(), "");
-//            } catch (IllegalAccessException e) {
-//                e.printStackTrace();
-//            }
-//        }
         if (profile instanceof Customer) {
             jsonObjectBuilder.add("homepage", "homepage/");
         } else {
