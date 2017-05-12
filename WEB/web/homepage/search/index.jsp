@@ -1,14 +1,14 @@
 <%--
   Created by IntelliJ IDEA.
   User: phil
-  Date: 4/23/17
-  Time: 1:59 AM
+  Date: 5/10/17
+  Time: 3:08 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <base href="../">
+    <base href="../../">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%--bootstrap core--%>
@@ -19,14 +19,12 @@
     <link href="w3.css" rel="stylesheet">
     <link href="theme.css?v=0.0.7" rel="stylesheet">
     <link href="homepage/homepage.css" rel="stylesheet">
-
+    <link href="homepage/search/search.css" rel="stylesheet">
 
     <script src="main.js"></script>
     <script src="homepage/search/search.js"></script>
-    <script src="homepage/homepage.js"></script>
 
-
-    <title>Home</title>
+    <title>Search</title>
 </head>
 <body>
 <div class="container">
@@ -51,32 +49,32 @@
         </div>
     </nav>
 </div>
-<div class="slideshow-container" onmouseenter="onImg()" onmouseleave="offImg()">
-    <div class=" mySlides w3-animate-opacity">
-        <img class="img-rounded"  src="images/img1.jpg" style="width:100%">
-        <div class="text imgOverlayColor" style="display: none" >Caption Text</div>
-    </div>
+<div id="event-container" class="container">
+    <p id="noResults" style="display: none">No results found.</p>
+    <ul id="eventList">
+        <li id="event1"style="padding: 20px; display: none">
+            <div onclick="" class="searchEventBorder">
+                <div class="first">
+                    <img class="searchEventImg" src="images/icon.jpg">
+                    <p class="searchTitle">Title Paragraph</p>
+                </div>
+                <div class="second">
+                    <p class="searchDescription">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dictum neque at eros tempor, id dictum est cursus. Phasellus finibus arcu sit amet est fermentum, ac iaculis arcu venenatis. In eu maximus quam, non dapibus ante. Aenean posuere ligula pellentesque, mattis mi eu, efficitur tortor. Curabitur imperdiet justo ut lacinia ullamcorper. Duis id orci a nisi iaculis ornare ullamcorper vel libero. Maecenas leo sem, tempor eu laoreet vel, luctus ut est. Donec suscipit tristique luctus. In in efficitur libero, varius hendrerit mauris.
+                    </p>
+                </div>
+            </div>
+        </li>
 
-    <div class=" mySlides w3-animate-opacity">
-        <img class="img-rounded"  src="images/img2.jpg" style="width:100%">
-        <div class="text imgOverlayColor" style="display: none" >Caption Two</div>
-    </div>
 
-    <div class=" mySlides w3-animate-opacity">
-        <img  class="img-rounded" src="images/img3.jpg" style="width:100%">
-        <div class="text imgOverlayColor" style="display: none" >Caption Three</div>
-    </div>
-    <div class="w3-center w3-display-bottommiddle" style="width:50%">
-        <span class="dot imgOverlayBorderColor" style="display: none" onclick="currentSlide(1)"></span>
-        <span class="dot imgOverlayBorderColor" style="display: none" onclick="currentSlide(2)"></span>
-        <span class="dot imgOverlayBorderColor" style="display: none" onclick="currentSlide(3)"></span>
-    </div>
-    <button class="myArrows imgOverlayColor imgOverlayBorderColor w3-display-left w3-hover-text-k" style="display: none"  onclick="plusSlides(-1)">&#10094;</button>
-    <button class="myArrows imgOverlayColor imgOverlayBorderColor w3-display-right w3-hover-text-khaki" style="display: none"  onclick="plusSlides(1)">&#10095;</button>
+    </ul>
 </div>
-<br>
+<div class="container page-container">
+    <a onclick="" class="page" style="display:none;">1</a>
+</div>
 </body>
     <script>
-        showSlides(slideIndex);
+        getSearch(1)
     </script>
+
 </html>
