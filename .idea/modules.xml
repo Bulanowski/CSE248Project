@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CSE248.iml" filepath="$PROJECT_DIR$/CSE248.iml" />
-      <module fileurl="file://E:\IdeaProjects\CSE248Project\.idea\CSE248Project.iml" filepath="E:\IdeaProjects\CSE248Project\.idea\CSE248Project.iml" />
       <module fileurl="file://$PROJECT_DIR$/MODEL/MODEL.iml" filepath="$PROJECT_DIR$/MODEL/MODEL.iml" />
       <module fileurl="file://$PROJECT_DIR$/WEB/WEB.iml" filepath="$PROJECT_DIR$/WEB/WEB.iml" />
     </modules>
