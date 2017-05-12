@@ -12,13 +12,13 @@ function sendRegisterRequest() {
     // json.birthday = document.getElementById("birthday").value;
     // json.phone = document.getElementById("phone").value;
     if(document.getElementById("radio-customer").checked){
-        json.account = "Customer"
+        json.accountType = "Customer"
     } else {
-        json.account = "Establishment"
+        json.accountType = "Establishment"
     }
     console.log("Collected:\nUsername: " + json.username +"\nPassword: " + json.password + "\nEmail: " + json.email
         + "\nAddress: " + json.address + "\nZip: " + json.zip + "\nPhone Number: " + json.phone + "\nBirthday: " + json.birthday
-        + "\nAccount Type: " + json.account);
+        + "\nAccount Type: " + json.accountType);
     if(json.password != document.getElementById("password-confirm").value){
         console.log("BAD\n" + json.password + '\n' + document.getElementById("password-confirm").value);
     } else {
