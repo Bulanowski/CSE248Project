@@ -19,9 +19,7 @@ public class DataStorageHandler {
             @Override
             public void invalidated(Observable observable) {
                 LinkedList<Account> accounts = new LinkedList<>();
-                for (Account a : ((ObservableMap<String, Account>) observable).values()) {
-                    accounts.add(a);
-                }
+                accounts.addAll(((ObservableMap<String, Account>) observable).values());
                 saveToFile("accounts", accounts);
             }
         });
@@ -41,30 +39,45 @@ public class DataStorageHandler {
     }
 
     public Object readFromFile(String fileName) {
+        ObjectInputStream ois = null;
         Object o = null;
         try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(getFile(fileName)));
-            o = ois.readObject();
-            ois.close();
-        } catch (EOFException e) {
-            return null;
-        } catch (IOException e) {
+            FileInputStream fis = new FileInputStream(getFile(fileName));
+            if (fis.available() < 0) {
+                ois = new ObjectInputStream(fis);
+                o = ois.readObject();
+            }
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } finally {
+            if (ois != null) {
+                try {
+                    ois.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return o;
     }
 
     private void saveToFile(String fileName, Object o) {
+        ObjectOutputStream oos = null;
         try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(getFile(fileName)));
+            oos = new ObjectOutputStream(new FileOutputStream(getFile(fileName)));
             oos.writeObject(o);
-            oos.close();
         } catch (EOFException e) {
-            return;
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (oos != null) {
+                try {
+                    oos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
