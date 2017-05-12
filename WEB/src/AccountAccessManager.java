@@ -77,6 +77,7 @@ public class AccountAccessManager {
     @POST
     @Path("/settings/changePassword")
     @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
     public String changePassword(String jsonString) {
         JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
         if (tokenManager.authenticateToken(jsonObject.getString("token"))) {
@@ -103,7 +104,8 @@ public class AccountAccessManager {
     @POST
     @Path("/settings/set")
     @Consumes(MediaType.TEXT_PLAIN)
-    public void setSettings(String jsonString) {
+    @Produces(MediaType.TEXT_PLAIN)
+    public String setSettings(String jsonString) {
         JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
         if (tokenManager.authenticateToken(jsonObject.getString("token"))) {
             Profile profile = accountsBag.getUser(tokenManager.getUsername(jsonObject.getString("token"))).getProfile();
@@ -117,7 +119,9 @@ public class AccountAccessManager {
             } else if (profile instanceof Establishment) {
 
             }
+            return "Settings changed successfully";
         }
+        return "Settings change failed";
     }
 
     @POST

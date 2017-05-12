@@ -49,10 +49,8 @@ function sendChangePasswordRequest() {
 }
 
 function handleChangePasswordResponse() {
-    console.log("Status: " + this.status);
     if (this.status == 200 && this.responseText != null) {
         var response = this.responseText;
-        console.log(response);
         if (response == "Password changed successfully") {
             document.getElementById("old-password").value = "";
             document.getElementById("password").value = "";
@@ -60,6 +58,8 @@ function handleChangePasswordResponse() {
         } else {
             // TODO tell the user password change failed and what went wrong
         }
+        // for some reason this alert appears before above fields are cleared
+        alert(response);
     } else {
         console.log("An error occurred");
     }
@@ -82,5 +82,15 @@ function sendSetSettingsRequest() {
 }
 
 function handleSetSettingsResponse() {
-    // If setSettings ever returns something it should be handled here
+    console.log("Status: " + this.status);
+    if (this.status == 200 && this.responseText != null) {
+        var response = this.responseText;
+        if (response == "Settings changed successfully") {
+
+        } else {
+
+        }
+    } else {
+        console.log("An error occurred");
+    }
 }
