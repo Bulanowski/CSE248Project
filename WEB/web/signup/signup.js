@@ -28,17 +28,20 @@ function sendRegisterRequest() {
 }
 
 function handleRegisterResponse() {
-    var response = this.responseText;
-    console.log(response);
-    if(response == "Register Successful") {
-        window.location.href = "/WEB_war_exploded/login/";
-    } else {
-        var json = JSON.parse(response);
-        if (json.hasAttribute("username")) {
+    console.log("Status: " + this.status);
+    if (this.status == 200 && this.responseText != null) {
+        var response = this.responseText;
+        console.log(response);
+        if (response == "Register Successful") {
+            window.location.href = "/WEB_war_exploded/login/";
+        } else {
+            var json = JSON.parse(response);
+            if (json.hasAttribute("username")) {
 
-        }
-        if (json.hasAttribute("email")) {
+            }
+            if (json.hasAttribute("email")) {
 
+            }
         }
     }
 }
