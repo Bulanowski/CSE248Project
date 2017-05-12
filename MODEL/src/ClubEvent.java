@@ -17,6 +17,7 @@ public class ClubEvent implements Serializable {
     private Set<TagType> preferences;
     private String name;
     private String description;
+    private String imageSrc;
     private String date;
     private String time;
     private double admissionPrice;
@@ -29,6 +30,7 @@ public class ClubEvent implements Serializable {
         preferences = new HashSet<>();
         name = jsonObject.getString("name");
         description = jsonObject.getString("description");
+        imageSrc = jsonObject.getString("imageSrc");
         date = jsonObject.getString("date");
         time = jsonObject.getString("time");
         admissionPrice = jsonObject.getJsonNumber("price").doubleValue();
@@ -58,6 +60,14 @@ public class ClubEvent implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImageSrc() {
+        return imageSrc;
+    }
+
+    public void setImageSrc(String imageSrc) {
+        this.imageSrc = imageSrc;
     }
 
     public String getDate() {
@@ -112,11 +122,11 @@ public class ClubEvent implements Serializable {
         JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
         for (Field f : ClubEvent.class.getDeclaredFields()) {
             try {
-                if (f.getName().equals("establishment")) {
-                    jsonObjectBuilder.add(f.getName(), establishment.toJson());
-                } else {
+//                if (f.getName().equals("establishment")) {
+//                    jsonObjectBuilder.add(f.getName(), establishment.toJson());
+//                } else {
                     jsonObjectBuilder.add(f.getName(), f.get(this).toString());
-                }
+//                }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }

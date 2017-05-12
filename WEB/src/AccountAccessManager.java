@@ -118,6 +118,7 @@ public class AccountAccessManager {
                 customer.setBirthday(jsonObject.getString("birthday"));
             } else if (profile instanceof Establishment) {
                 Establishment establishment = (Establishment) profile;
+                establishment.setImageSrc(jsonObject.getString("imageSrc"));
                 establishment.setTimeOpen(jsonObject.getString("timeOpen"));
                 establishment.setTimeClose(jsonObject.getString("timeClose"));
             }

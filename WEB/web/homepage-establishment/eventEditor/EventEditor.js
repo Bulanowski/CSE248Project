@@ -7,11 +7,12 @@ function sendRegisterEventRequest() {
     json.token = getCookie("token");
     json.name = document.getElementById("name").value;
     json.description = document.getElementById("description").value;
+    json.imageSrc = document.getElementById("imageSrc").value;
     json.date = document.getElementById("date").value;
     json.time = document.getElementById("time").value;
     json.price = parseFloat(document.getElementById("price").value);
     json.tickets = parseInt(document.getElementById("tickets").value);
-    console.log("Collected:\nName: " + json.name +"\nDescription: " + json.description + "\nDate: " + json.date
+    console.log("Collected:\nName: " + json.name + "\nDescription: " + json.description + "\nImage Src: " + json.imageSrc + "\nDate: " + json.date
         + "\nTime: " + json.time + "\nPrice: " + json.price + "\nTickets: " + json.tickets);
 
     var client = new XMLHttpRequest();

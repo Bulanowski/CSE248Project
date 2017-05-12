@@ -44,6 +44,8 @@
             <input type="text" id="name" class="form-control" style="max-width: 500px" />
             <p>Description</p>
             <textarea id="description" rows="4" cols="50" class="form-control" style="resize:none"></textarea>
+            <p>Image</p>
+            <input type="text" id="imageSrc" class="form-control" style="max-width: 500px" />
             <div class="row">
                 <div class="col-md-6">
                     <p>Date</p>

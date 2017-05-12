@@ -72,6 +72,7 @@ function sendSetSettingsRequest() {
     json.phone = document.getElementById("phone").value;
     json.address = document.getElementById("address").value;
     json.zip = document.getElementById("zip").value;
+    json.imageSrc = document.getElementById("imageSrc").value;
     json.timeOpen = document.getElementById("time-open").value;
     json.timeClose = document.getElementById("time-close").value;
     var client = new XMLHttpRequest();

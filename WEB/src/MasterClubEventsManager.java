@@ -55,6 +55,7 @@ public class MasterClubEventsManager {
         ClubEvent event = clubEventsBag.getEvent(eventID);
         event.setName(jsonObject.getString("name"));
         event.setDescription(jsonObject.getString("description"));
+        event.setImageSrc(jsonObject.getString("imageSrc"));
         event.setDate(jsonObject.getString("date"));
         event.setTime(jsonObject.getString("time"));
         event.setAdmissionPrice(jsonObject.getJsonNumber("price").doubleValue());

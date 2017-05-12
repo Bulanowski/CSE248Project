@@ -7,8 +7,17 @@ import java.util.List;
 public class Establishment extends Profile {
 
     private List<Integer> events = new ArrayList<>();
+    private String imageSrc = "";
     private String timeOpen = "";
     private String timeClose = "";
+
+    public String getImageSrc() {
+        return imageSrc;
+    }
+
+    public void setImageSrc(String imageSrc) {
+        this.imageSrc = imageSrc;
+    }
 
     public void addEvent(int eventID) {
         events.add(eventID);
@@ -29,4 +38,5 @@ public class Establishment extends Profile {
     public void setTimeClose(String timeClose) {
         this.timeClose = timeClose;
     }
+
 }

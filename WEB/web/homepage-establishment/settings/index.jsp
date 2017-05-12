@@ -64,6 +64,7 @@
                 <p>Business Address</p>
                 <input type="text" id="address" name="address" class="form-control" placeholder="Street Address">
                 <input type="number" id="zip" name="zip" class="form-control" placeholder="Zip Code">
+                <input type="text" id="imageSrc" name="imageSrc" class="form-control" placeholder="Image">
                 <button type="button" class="btn btnDark" onclick="">Update Info</button>
             </form>
         </div>
