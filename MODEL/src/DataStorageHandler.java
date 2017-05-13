@@ -3,8 +3,7 @@ import javafx.beans.Observable;
 import javafx.collections.ObservableMap;
 
 import javax.ejb.Singleton;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
+import javax.json.*;
 import java.io.*;
 import java.nio.CharBuffer;
 import java.util.LinkedList;
@@ -57,51 +56,32 @@ public class DataStorageHandler {
             }
         }
         return s;
-//        ObjectInputStream ois = null;
-//        Object o = null;
-//        try {
-//            FileInputStream fis = new FileInputStream(getFile(fileName));
-//            ois = new ObjectInputStream(fis);
-//            o = ois.readObject();
-//        } catch (EOFException e) {
-//
-//        } catch (IOException | ClassNotFoundException e) {
-//            e.printStackTrace();
-//        } finally {
-//            if (ois != null) {
-//                try {
-//                    ois.close();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//        return o;
     }
 
-    public void saveToFile(String fileName, String s) {
-//        Writer output = null;
-//        String text = "Www.criandcric.com. is my site";
-//        File file = new File("write.txt");
-//        output = new BufferedWriter(new FileWriter(file));
-//        output.write(text);
-//        output.close();
-        Writer out = null;
-//        ObjectOutputStream oos = null;
+    public void saveToFile(String fileName, JsonArray jsonArray) {
+        JsonWriter jsonWriter = null;
         try {
-            out = new BufferedWriter(new FileWriter(getFile(fileName)));
-            out.write(s);
-//            oos = new ObjectOutputStream(new FileOutputStream(getFile(fileName)));
-//            oos.writeObject(o);
+            jsonWriter = Json.createWriter(new FileWriter(getFile(fileName)));
+            jsonWriter.writeArray(jsonArray);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (out != null) {
-                try {
-                    out.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            if (jsonWriter != null) {
+                jsonWriter.close();
+            }
+        }
+    }
+
+    public void saveToFile(String fileName, JsonObject jsonObject) {
+        JsonWriter jsonWriter = null;
+        try {
+            jsonWriter = Json.createWriter(new FileWriter(getFile(fileName)));
+            jsonWriter.writeObject(jsonObject);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (jsonWriter != null) {
+                jsonWriter.close();
             }
         }
     }

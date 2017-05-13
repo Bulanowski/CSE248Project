@@ -9,7 +9,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Created by Alex on 5/3/2017.
  */
-public class Account implements Serializable {
+public class Account {
 
     private String username;    // stored as plaintext
     private String password;    // stored as SHA256
@@ -37,9 +37,9 @@ public class Account implements Serializable {
         email = jsonObject.getString("email");
         String accountType = jsonObject.getString("accountType");
         if (accountType.equals("Customer")) {
-            profile = new Customer();
+            profile = new Customer(jsonObject.getJsonObject("profile"));
         } else if (accountType.equals("Establishment")) {
-            profile = new Establishment();
+            profile = new Establishment(jsonObject.getJsonObject("profile"));
         } else {
             throw new InvalidAttributeIdentifierException();
         }

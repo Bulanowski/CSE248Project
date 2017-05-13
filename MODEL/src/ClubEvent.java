@@ -8,11 +8,10 @@ import java.util.Set;
 /**
  * Created by Alex on 5/6/2017.
  */
-public class ClubEvent implements Serializable {
+public class ClubEvent {
 
     private static int eventIDCounter = 1000000;
     private int eventID;
-    // change to just hold a String of the establishment username
     private String establishment;
     private Set<TagType> tags;
     private String name;
@@ -39,7 +38,8 @@ public class ClubEvent implements Serializable {
     }
 
     protected ClubEvent(JsonObject jsonObject) {
-        eventID = Integer.parseInt(jsonObject.getString("eventID"));
+//        eventID = Integer.parseInt(jsonObject.getString("eventID"));
+        eventID = jsonObject.getInt("eventID");
         establishment = jsonObject.getString("establishment");
         tags = new HashSet<>();
         for (JsonString value : jsonObject.getJsonArray("tags").getValuesAs(JsonString.class)) {
@@ -50,9 +50,12 @@ public class ClubEvent implements Serializable {
         imageSrc = jsonObject.getString("imageSrc");
         date = jsonObject.getString("date");
         time = jsonObject.getString("time");
-        price = Double.parseDouble(jsonObject.getString("price"));
-        maxTickets = Integer.parseInt(jsonObject.getString("maxTickets"));
-        purchasedTickets = Integer.parseInt(jsonObject.getString("purchasedTickets"));
+        price = jsonObject.getJsonNumber("price").doubleValue();
+        maxTickets = jsonObject.getInt("maxTickets");
+        purchasedTickets = jsonObject.getInt("purchasedTickets");
+//        price = Double.parseDouble(jsonObject.getString("price"));
+//        maxTickets = Integer.parseInt(jsonObject.getString("maxTickets"));
+//        purchasedTickets = Integer.parseInt(jsonObject.getString("purchasedTickets"));
     }
 
     public static void setEventIDCounter(int eventIDCounter) {
@@ -77,6 +80,10 @@ public class ClubEvent implements Serializable {
 
     public void removeTag(TagType e) {
         tags.remove(e);
+    }
+
+    public Set<TagType> getTags() {
+        return tags;
     }
 
     public String getName() {
@@ -153,24 +160,25 @@ public class ClubEvent implements Serializable {
 
     public JsonObject toJson() {
         JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
-        for (Field f : ClubEvent.class.getDeclaredFields()) {
-            try {
-                if (f.getName().equals("tags")) {
-                    JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-                    for (TagType tag : tags) {
-                        jsonArrayBuilder.add(tag.toString());
-                    }
-                    jsonObjectBuilder.add("tags", jsonArrayBuilder.build());
-                } else
-                    if (!f.getName().equals("eventIDCounter")) {
-                    jsonObjectBuilder.add(f.getName(), f.get(this).toString());
-                }
-            } catch (NullPointerException e) {
-                jsonObjectBuilder.add(f.getName(), "");
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
+        jsonObjectBuilder.add("eventID", getEventID());
+        jsonObjectBuilder.add("establishment", getEstablishment());
+        if (tags.size() > 0) {
+            JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+            for (TagType t : getTags()) {
+                jsonArrayBuilder.add(t.name());
             }
+            jsonObjectBuilder.add("tags", jsonArrayBuilder.build());
+        } else {
+            jsonObjectBuilder.add("tags", Json.createArrayBuilder().build());
         }
+        jsonObjectBuilder.add("name", getName());
+        jsonObjectBuilder.add("description", getDescription());
+        jsonObjectBuilder.add("imageSrc", getImageSrc());
+        jsonObjectBuilder.add("date", getDate());
+        jsonObjectBuilder.add("time", getTime());
+        jsonObjectBuilder.add("price", getPrice());
+        jsonObjectBuilder.add("maxTickets", getMaxTickets());
+        jsonObjectBuilder.add("purchasedTickets", getPurchasedTickets());
         return jsonObjectBuilder.build();
     }
 }

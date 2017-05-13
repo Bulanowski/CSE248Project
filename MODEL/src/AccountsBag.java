@@ -66,7 +66,7 @@ public class AccountsBag {
         for (Account a : accounts.values()) {
             jsonArrayBuilder.add(a.toJson());
         }
-        dataStorageHandler.saveToFile("accounts", jsonArrayBuilder.build().toString());
+        dataStorageHandler.saveToFile("accounts", jsonArrayBuilder.build());
     }
 
     public void addAccount(Account a) {

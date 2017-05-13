@@ -30,6 +30,7 @@ public class ClubEventsBag {
             try {
                 JsonObject jsonObject = Json.createReader(new StringReader(s)).readObject();
                 ClubEvent.setEventIDCounter(jsonObject.getInt("eventIDCounter"));
+                Ticket.setTicketIDCounter(jsonObject.getInt("ticketIDCounter"));
                 JsonArray jsonArray = jsonObject.getJsonArray("events");
                 for (JsonObject eventJson : jsonArray.getValuesAs(JsonObject.class)) {
                     ClubEvent clubEvent = new ClubEvent(eventJson);
@@ -58,7 +59,7 @@ public class ClubEventsBag {
             json.add("time","1");
             json.add("price",1.0);
             json.add("maxTickets",1);
-            ClubEvent event = new ClubEvent(null,json.build());
+            ClubEvent event = new ClubEvent("", json.build());
             event.addTag(((i % 3) == 0 ? TagType.Rock : ((i % 3) == 1 ? TagType.Pop : TagType.Jazz)));
             addEvent(event);
         }
@@ -69,12 +70,14 @@ public class ClubEventsBag {
         System.out.println("Saving events to events.dat");
         JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
         jsonObjectBuilder.add("eventIDCounter", ClubEvent.getEventIDCounter());
+        jsonObjectBuilder.add("ticketIDCounter", Ticket.getTicketIDCounter());
+//        jsonObjectBuilder.add("ticketIDCounter", 1000000);
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
         for (ClubEvent clubEvent : clubEvents.values()) {
             jsonArrayBuilder.add(clubEvent.toJson());
         }
         jsonObjectBuilder.add("events", jsonArrayBuilder.build());
-        dataStorageHandler.saveToFile("events", jsonObjectBuilder.build().toString());
+        dataStorageHandler.saveToFile("events", jsonObjectBuilder.build());
     }
 
     public void addEvent(ClubEvent e) {

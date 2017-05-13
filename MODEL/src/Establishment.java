@@ -1,3 +1,4 @@
+import javax.json.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -6,10 +7,27 @@ import java.util.Set;
  */
 public class Establishment extends Profile {
 
-    private Set<Integer> events = new HashSet<>();
-    private String imageSrc = "";
-    private String timeOpen = "";
-    private String timeClose = "";
+    private String imageSrc;
+    private String timeOpen;
+    private String timeClose;
+    private Set<Integer> events;
+
+    public Establishment() {
+        imageSrc = "";
+        timeOpen = "";
+        timeClose = "";
+        events = new HashSet<>();
+    }
+
+    public Establishment(JsonObject jsonObject) {
+        super(jsonObject);
+        imageSrc = jsonObject.getString("imageSrc");
+        timeOpen = jsonObject.getString("timeOpen");
+        timeClose = jsonObject.getString("timeClose");
+        for (JsonString tagJson : jsonObject.getJsonArray("events").getValuesAs(JsonString.class)) {
+            events.add(Integer.parseInt(tagJson.getString()));
+        }
+    }
 
     public String getImageSrc() {
         return imageSrc;
@@ -45,6 +63,36 @@ public class Establishment extends Profile {
 
     public void setTimeClose(String timeClose) {
         this.timeClose = timeClose;
+    }
+
+    public JsonObject toJson() {
+        JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
+        jsonObjectBuilder.add("name", getName());
+        jsonObjectBuilder.add("address", getAddress());
+        jsonObjectBuilder.add("phone", getPhone());
+        jsonObjectBuilder.add("zip", getZip());
+        if (getTickets().size() > 0) {
+            JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+            for (Ticket t : getTickets()) {
+                jsonArrayBuilder.add(t.toJson());
+            }
+            jsonObjectBuilder.add("tickets", jsonArrayBuilder.build());
+        } else {
+            jsonObjectBuilder.add("tickets", Json.createArrayBuilder().build());
+        }
+        jsonObjectBuilder.add("imageSrc", getImageSrc());
+        jsonObjectBuilder.add("timeOpen", getTimeOpen());
+        jsonObjectBuilder.add("timeClose", getTimeClose());
+        if (events.size() > 0) {
+            JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+            for (Integer i : getEvents()) {
+                jsonArrayBuilder.add(i);
+            }
+            jsonObjectBuilder.add("event", jsonArrayBuilder.build());
+        } else {
+            jsonObjectBuilder.add("events", Json.createArrayBuilder().build());
+        }
+        return jsonObjectBuilder.build();
     }
 
 }

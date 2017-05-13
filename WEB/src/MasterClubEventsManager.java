@@ -94,10 +94,10 @@ public class MasterClubEventsManager {
     @Path("/get/{eventID}")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String getEvent(@PathParam("eventID") Integer eventID) {
-        return clubEventsBag.getEvent(eventID).toJson().toString();
+    public String getEvent(Integer eventID) {
+        ClubEvent clubEvent = clubEventsBag.getEvent(eventID);
+        return clubEvent.toJson().toString();
     }
-
 
     @POST
     @Path("/get/all")
@@ -110,5 +110,32 @@ public class MasterClubEventsManager {
         }
         jsonObjectBuilder.add("events", jsonArrayBuilder.build());
         return jsonObjectBuilder.build().toString();
+    }
+
+    @POST
+    @Path("/buyTicket")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String purchaseTicket(String jsonString) {
+        JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
+        String token = jsonObject.getString("token");
+        String username = tokenManager.getUsername(token);
+        if (username == null) {
+            return "Invalid token";
+        }
+        Account account = accountsBag.getUser(username);
+        if (account.getProfile() instanceof Customer) {
+            Customer customer = (Customer) account.getProfile();
+            Integer eventID = jsonObject.getInt("eventID");
+            Integer amount = jsonObject.getInt("amount");
+            if (clubEventsBag.getEvent(eventID).increasePurchasedTickets(amount)) {
+                Establishment establishment = (Establishment) accountsBag.getUser(clubEventsBag.getEvent(eventID).getEstablishment()).getProfile();
+                Ticket t = new Ticket(eventID, username, amount);
+                customer.addTicket(t);
+                establishment.addTicket(t);
+                return "Tickets purchased successfully";
+            }
+        }
+        return "Tickets purchase failed";
     }
 }
