@@ -91,12 +91,15 @@ public class MasterClubEventsManager {
     }
 
     @POST
-    @Path("/get/{eventID}")
+    @Path("/get")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String getEvent(Integer eventID) {
-        ClubEvent clubEvent = clubEventsBag.getEvent(eventID);
-        return clubEvent.toJson().toString();
+        ClubEvent c = clubEventsBag.getEvent(eventID);
+        System.out.println("NAME: "+c.getName());
+        System.out.println("JSON: "+c.toJson().toString());
+
+        return clubEventsBag.getEvent(eventID).toJson().toString();
     }
 
     @POST

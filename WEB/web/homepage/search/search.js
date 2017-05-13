@@ -33,6 +33,9 @@ function getResponse() {
             event1.style.display = "";
             var list = document.getElementById("eventList");
 
+            var mouseOver = event1.getElementsByClassName("searchEventBorder");
+            mouseOver[0].setAttribute("onclick","goToEventPage("+eventArray[0].eventID+')');
+
             var first = event1.getElementsByClassName("first");
             var title = first[0].getElementsByClassName("searchTitle");
             var img = first[0].getElementsByClassName("searchEventImg");
@@ -57,11 +60,21 @@ function getResponse() {
                 img[0].src = eventArray[i].imageSrc;
                 description[0].innerHTML = eventArray[i].description;
 
+                var mouseOver = clone.getElementsByClassName("searchEventBorder");
+                mouseOver[0].setAttribute("onclick","goToEventPage("+eventArray[i].eventID+')');
+
                 list.appendChild(clone);
             }
             document.body.style.height ="100%";
         }
     }
+}
+
+function goToEventPage(eventID) {
+    var uri = document.documentURI;
+    uri = uri.substring(0,uri.indexOf("/search"));
+    uri = uri+"/event/?e="+eventID;
+    window.location.href = uri;
 }
 
 

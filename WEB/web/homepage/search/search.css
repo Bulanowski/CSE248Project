@@ -11,6 +11,10 @@
 
 }
 
+.searchEventBorder:hover {
+    cursor: hand;
+}
+
 ul {
     list-style-type: none;
 }

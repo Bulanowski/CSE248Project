@@ -59,8 +59,8 @@
             <p id="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mauris est, volutpat vel nulla in, sodales consectetur velit. Donec suscipit nisi enim, ut mattis mauris maximus eget. Pellentesque condimentum nulla sit amet nisl feugiat rutrum. Nunc ante enim, pulvinar at metus eu, mattis lacinia justo. Nam sit amet purus orci. In bibendum ultrices eros a aliquam. Nulla ultricies lectus eu augue sed.</p>
             <br>
             <div  class="dateTime" style="display: flex;">
-                <p style="margin-right: 20%;">Date</p>
-                <p>Time</p>
+                <p id="date" style="margin-right: 20%;">Date</p>
+                <p id="time">Time</p>
             </div>
         <button id="buyTicketsbtn" onclick="showTicketInfo()" class="btn btnBright">Buy Tickets</button>
         <div  class="ticketInfoBox" id="ticketInfo" style="display: none">
@@ -80,4 +80,5 @@
 
 </div>
 </body>
+ <script>parseURI()</script>
 </html>
