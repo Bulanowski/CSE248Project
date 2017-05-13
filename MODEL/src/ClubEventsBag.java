@@ -36,7 +36,7 @@ public class ClubEventsBag {
                 json.add("price",1.0);
                 json.add("tickets",1);
                 ClubEvent event = new ClubEvent(null,json.build());
-                addEvent(event);
+                clubEvents.put(event.getEventID(), event);
             }
         }
         dataStorageHandler.connectClubEventsListener(clubEvents);
