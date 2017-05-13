@@ -38,7 +38,7 @@ public class MasterClubEventsManager {
         Account account = accountsBag.getUser(username); // If this is null the user account doesn't exist
         if (account.getProfile() instanceof Establishment) {
             Establishment establishment = (Establishment) account.getProfile();
-            ClubEvent clubEvent = new ClubEvent(establishment, jsonObject);
+            ClubEvent clubEvent = new ClubEvent(username, jsonObject);
             clubEventsBag.addEvent(clubEvent);
             establishment.addEvent(clubEvent.getEventID());
             return "Event created successfully";
@@ -58,7 +58,7 @@ public class MasterClubEventsManager {
         event.setImageSrc(jsonObject.getString("imageSrc"));
         event.setDate(jsonObject.getString("date"));
         event.setTime(jsonObject.getString("time"));
-        event.setAdmissionPrice(jsonObject.getJsonNumber("price").doubleValue());
+        event.setPrice(jsonObject.getJsonNumber("price").doubleValue());
         return event.toJson().toString();
     }
 

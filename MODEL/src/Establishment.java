@@ -1,12 +1,12 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Alex on 5/3/2017.
  */
 public class Establishment extends Profile {
 
-    private List<Integer> events = new ArrayList<>();
+    private Set<Integer> events = new HashSet<>();
     private String imageSrc = "";
     private String timeOpen = "";
     private String timeClose = "";
@@ -21,6 +21,14 @@ public class Establishment extends Profile {
 
     public void addEvent(int eventID) {
         events.add(eventID);
+    }
+
+    public void removeEvent(int eventID) {
+        events.remove(eventID);
+    }
+
+    public Set<Integer> getEvents() {
+        return events;
     }
 
     public String getTimeOpen() {

@@ -25,4 +25,16 @@ public class Customer extends Profile {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
+    public void addPreference(TagType e) {
+        preferences.add(e);
+    }
+
+    public void removePreference(TagType e) {
+        preferences.remove(e);
+    }
+
+    public Set<TagType> getPreferences() {
+        return preferences;
+    }
 }

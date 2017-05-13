@@ -30,6 +30,21 @@ public class Account implements Serializable {
         }
     }
 
+    // hash should be false when reading from file
+    protected Account(JsonObject jsonObject, boolean hash) throws InvalidAttributeIdentifierException {
+        username = jsonObject.getString("username");
+        password = (hash ? hashPassword(jsonObject.getString("password")) : jsonObject.getString("password"));
+        email = jsonObject.getString("email");
+        String accountType = jsonObject.getString("accountType");
+        if (accountType.equals("Customer")) {
+            profile = new Customer();
+        } else if (accountType.equals("Establishment")) {
+            profile = new Establishment();
+        } else {
+            throw new InvalidAttributeIdentifierException();
+        }
+    }
+
     public String getUsername() {
         return username;
     }
@@ -40,7 +55,6 @@ public class Account implements Serializable {
             md.update(password.getBytes());
             byte[] digest = md.digest();
             String hashed = String.format("%064x", new java.math.BigInteger(1, digest));
-            System.out.println("Hashed " + password + " to " + hashed);
             return hashed;
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();

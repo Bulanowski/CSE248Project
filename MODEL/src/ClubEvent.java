@@ -1,7 +1,6 @@
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
+import javax.json.*;
 import java.io.Serializable;
+import java.io.StringReader;
 import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,28 +14,53 @@ public class ClubEvent implements Serializable {
     private int eventID;
     // change to just hold a String of the establishment username
     private String establishment;
-    private Set<TagType> preferences;
+    private Set<TagType> tags;
     private String name;
     private String description;
     private String imageSrc;
     private String date;
     private String time;
-    private double admissionPrice;
+    private double price;
     private int maxTickets;
     private int purchasedTickets;
 
     public ClubEvent(String establishment, JsonObject jsonObject) {
         eventID = eventIDCounter++;
         this.establishment = establishment;
-        preferences = new HashSet<>();
+        tags = new HashSet<>();
         name = jsonObject.getString("name");
         description = jsonObject.getString("description");
         imageSrc = jsonObject.getString("imageSrc");
         date = jsonObject.getString("date");
         time = jsonObject.getString("time");
-        admissionPrice = jsonObject.getJsonNumber("price").doubleValue();
-        maxTickets = jsonObject.getInt("tickets");
+        price = jsonObject.getJsonNumber("price").doubleValue();
+        maxTickets = jsonObject.getInt("maxTickets");
         purchasedTickets = 0;
+    }
+
+    protected ClubEvent(JsonObject jsonObject) {
+        eventID = Integer.parseInt(jsonObject.getString("eventID"));
+        establishment = jsonObject.getString("establishment");
+        tags = new HashSet<>();
+        for (JsonString value : jsonObject.getJsonArray("tags").getValuesAs(JsonString.class)) {
+            tags.add(TagType.valueOf(value.getString()));
+        }
+        name = jsonObject.getString("name");
+        description = jsonObject.getString("description");
+        imageSrc = jsonObject.getString("imageSrc");
+        date = jsonObject.getString("date");
+        time = jsonObject.getString("time");
+        price = Double.parseDouble(jsonObject.getString("price"));
+        maxTickets = Integer.parseInt(jsonObject.getString("maxTickets"));
+        purchasedTickets = Integer.parseInt(jsonObject.getString("purchasedTickets"));
+    }
+
+    public static void setEventIDCounter(int eventIDCounter) {
+        ClubEvent.eventIDCounter = eventIDCounter;
+    }
+
+    public static int getEventIDCounter() {
+        return ClubEvent.eventIDCounter;
     }
 
     public int getEventID() {
@@ -45,6 +69,14 @@ public class ClubEvent implements Serializable {
 
     public String getEstablishment() {
         return establishment;
+    }
+
+    public void addTag(TagType e) {
+        tags.add(e);
+    }
+
+    public void removeTag(TagType e) {
+        tags.remove(e);
     }
 
     public String getName() {
@@ -87,12 +119,12 @@ public class ClubEvent implements Serializable {
         this.time = time;
     }
 
-    public double getAdmissionPrice() {
-        return admissionPrice;
+    public double getPrice() {
+        return price;
     }
 
-    public void setAdmissionPrice(double admissionPrice) {
-        this.admissionPrice = admissionPrice;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public int getMaxTickets() {
@@ -123,11 +155,16 @@ public class ClubEvent implements Serializable {
         JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
         for (Field f : ClubEvent.class.getDeclaredFields()) {
             try {
-//                if (f.getName().equals("establishment")) {
-//                    jsonObjectBuilder.add(f.getName(), establishment.toJson());
-//                } else {
-                jsonObjectBuilder.add(f.getName(), f.get(this).toString());
-//                }
+                if (f.getName().equals("tags")) {
+                    JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+                    for (TagType tag : tags) {
+                        jsonArrayBuilder.add(tag.toString());
+                    }
+                    jsonObjectBuilder.add("tags", jsonArrayBuilder.build());
+                } else
+                    if (!f.getName().equals("eventIDCounter")) {
+                    jsonObjectBuilder.add(f.getName(), f.get(this).toString());
+                }
             } catch (NullPointerException e) {
                 jsonObjectBuilder.add(f.getName(), "");
             } catch (IllegalAccessException e) {

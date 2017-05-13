@@ -3,4 +3,5 @@
  */
 public enum TagType {
     // TODO put preference types here
+    Rock, Pop, Jazz
 }
