@@ -75,42 +75,13 @@ public abstract class Profile {
         tickets.remove(t.getTicketID());
     }
 
+    public Ticket getTicket(Integer ticketID) {
+        return tickets.get(ticketID);
+    }
+
     public Collection<Ticket> getTickets() {
         return tickets.values();
     }
 
     public abstract JsonObject toJson();
-//    {
-//        JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
-//        List<Field> fields = new ArrayList<>();
-//        Collections.addAll(fields, this.getClass().getSuperclass().getDeclaredFields());
-//        Collections.addAll(fields, this.getClass().getDeclaredFields());
-//        for (Field f : fields) {
-//            try {
-//                f.setAccessible(true);
-//                if ((f.getName().equals("preferences") || f.getName().equals("events")) && f.get(this) instanceof Set) {
-//                    JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-//                    for (Object o : (Set) f.get(this)) {
-//                        jsonArrayBuilder.add(o.toString());
-//                    }
-//                    jsonObjectBuilder.add(f.getName(), jsonArrayBuilder.build());
-//                } else if (f.getName().equals("tickets")) {
-//                    JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-//                    for (Ticket t : ((HashMap<Integer, Ticket>) f.get(this)).values()) {
-//                        jsonArrayBuilder.add(t.toJson());
-//                    }
-//                    jsonObjectBuilder.add(f.getName(), jsonArrayBuilder.build());
-//                } else {
-//                    jsonObjectBuilder.add(f.getName(), f.get(this).toString());
-//                }
-//            } catch (NullPointerException e) {
-//                jsonObjectBuilder.add(f.getName(), "");
-//            } catch (IllegalAccessException e) {
-//                e.printStackTrace();
-//            } finally {
-//                f.setAccessible(false);
-//            }
-//        }
-//        return jsonObjectBuilder.build();
-//    }
 }

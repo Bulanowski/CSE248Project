@@ -1,7 +1,6 @@
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-import java.io.Serializable;
 
 /**
  * Created by Alex on 5/13/2017.
@@ -9,10 +8,10 @@ import java.io.Serializable;
 public class Ticket {
 
     private static int ticketIDCounter = 1000000;
-    private int ticketID;
-    private Integer eventID;
-    private String customer;
-    private int amount;
+    private final int ticketID;
+    private final Integer eventID;
+    private final String customer;
+    private final int amount;
 
     public Ticket(Integer eventID, String customer, int amount) {
         ticketID = ticketIDCounter++;
@@ -44,24 +43,12 @@ public class Ticket {
         return eventID;
     }
 
-    public void setEventID(Integer eventID) {
-        this.eventID = eventID;
-    }
-
     public String getCustomer() {
         return customer;
     }
 
-    public void setCustomer(String customer) {
-        this.customer = customer;
-    }
-
     public int getAmount() {
         return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
     }
 
     public JsonObject toJson() {
@@ -72,4 +59,13 @@ public class Ticket {
         jsonObjectBuilder.add("amount", amount);
         return jsonObjectBuilder.build();
     }
+
+    public boolean equals(Object o) {
+        if (o instanceof  Ticket) {
+            Ticket ticket = (Ticket) o;
+            return ticket.getTicketID() == this.getTicketID();
+        }
+        return false;
+    }
+
 }

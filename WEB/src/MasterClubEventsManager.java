@@ -47,12 +47,12 @@ public class MasterClubEventsManager {
     }
 
     @POST
-    @Path("/modify/{eventID}")
+    @Path("/modify")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String modifyEvent(@PathParam("eventID") Integer eventID, String jsonString) {
+    public String modifyEvent(String jsonString) {
         JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
-        ClubEvent event = clubEventsBag.getEvent(eventID);
+        ClubEvent event = clubEventsBag.getEvent(jsonObject.getInt("eventID"));
         event.setName(jsonObject.getString("name"));
         event.setDescription(jsonObject.getString("description"));
         event.setImageSrc(jsonObject.getString("imageSrc"));
@@ -137,5 +137,33 @@ public class MasterClubEventsManager {
             }
         }
         return "Tickets purchase failed";
+    }
+
+    @POST
+    @Path("/cancelTicket")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String cancelTicket(String jsonString) {
+        JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
+        String token = jsonObject.getString("token");
+        String username = tokenManager.getUsername(token);
+        if (username == null) {
+            return "Invalid token";
+        }
+        Account account = accountsBag.getUser(username);
+        if (account.getProfile() instanceof Customer) {
+            Customer customer = (Customer) account.getProfile();
+            Integer ticketID = jsonObject.getInt("ticketID");
+            Ticket t = customer.getTicket(ticketID);
+            if (t != null && clubEventsBag.getEvent(t.getEventID()).decreasePurchasedTickets(t.getAmount())) {
+                Establishment establishment = (Establishment) accountsBag.getUser(clubEventsBag.getEvent(t.getEventID()).getEstablishment()).getProfile();
+                customer.removeTicket(t);
+                establishment.removeTicket(t);
+                return "Ticket canceled successfully";
+            } else {
+                return "Invalid ticket ID";
+            }
+        }
+        return "Ticket cancel failed";
     }
 }

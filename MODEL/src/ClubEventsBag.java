@@ -50,6 +50,7 @@ public class ClubEventsBag {
     private void loadDefaultEvents() {
         System.out.println("Unable to load events from events.dat, loading default events.");
         ClubEvent.setEventIDCounter(1000000);
+        Ticket.setTicketIDCounter(1000000);
         for (int i=0;i<35;i++) {
             JsonObjectBuilder json = Json.createObjectBuilder();
             json.add("name","Event Name "+i);
