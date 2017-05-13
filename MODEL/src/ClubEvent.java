@@ -13,7 +13,8 @@ public class ClubEvent implements Serializable {
 
     private static int eventIDCounter = 1000000;
     private int eventID;
-    private Establishment establishment;
+    // change to just hold a String of the establishment username
+    private String establishment;
     private Set<TagType> preferences;
     private String name;
     private String description;
@@ -24,7 +25,7 @@ public class ClubEvent implements Serializable {
     private int maxTickets;
     private int purchasedTickets;
 
-    public ClubEvent(Establishment establishment, JsonObject jsonObject) {
+    public ClubEvent(String establishment, JsonObject jsonObject) {
         eventID = eventIDCounter++;
         this.establishment = establishment;
         preferences = new HashSet<>();
@@ -42,7 +43,7 @@ public class ClubEvent implements Serializable {
         return eventID;
     }
 
-    public Establishment getEstablishment() {
+    public String getEstablishment() {
         return establishment;
     }
 
@@ -125,8 +126,10 @@ public class ClubEvent implements Serializable {
 //                if (f.getName().equals("establishment")) {
 //                    jsonObjectBuilder.add(f.getName(), establishment.toJson());
 //                } else {
-                    jsonObjectBuilder.add(f.getName(), f.get(this).toString());
+                jsonObjectBuilder.add(f.getName(), f.get(this).toString());
 //                }
+            } catch (NullPointerException e) {
+                jsonObjectBuilder.add(f.getName(), "");
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
