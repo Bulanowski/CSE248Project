@@ -18,13 +18,17 @@ function getResponse() {
             var pageContainer = document.getElementsByClassName("page-container");
             var uri = document.documentURI;
             uri = uri.substring(0,uri.indexOf("?=")+2);
-            pagebtn[0].href = uri+1;
+            pagebtn[0].href = '#';
+            pagebtn[0].setAttribute("onclick", "changePage("+1+");return false;");
+
             for(var i = 0; i < pages-1; i++) {
                 var pageClone = pagebtn[0].cloneNode(true);
                 pageClone.innerHTML = i+2;
-                pageClone.href =  uri+(i+2);
+                pageClone.href = '#';
+                pageClone.setAttribute("onclick", "changePage("+(i+2)+"); return false;");
                 pageContainer[0].appendChild(pageClone);
             }
+
             var event1 = document.getElementById("event1");
             event1.style.display = "";
             var list = document.getElementById("eventList");
@@ -84,15 +88,29 @@ function populateTest() {
     }
 }
 
+
+function changePage(pageNum) {
+    var uri = document.documentURI;
+    var query = uri.substring(uri.indexOf("?q=")+3, uri.indexOf("&p="));
+    uri = uri.substring(0,uri.indexOf("?q="));
+    window.location.href = uri + "?q="+query+"&p="+pageNum;
+}
+
 function getSearch() {
     var uri = document.documentURI;
-    var pageNum = uri.substring(uri.indexOf("?=")+2);
+    var query = uri.substring(uri.indexOf("?q=")+3, uri.indexOf("&p="));
+    var pageNum = uri.substring(uri.indexOf("&p=")+3);
     console.log("page num: '"+pageNum+ "'");
-    if(getCookie("search") != null && document.getElementById("event1") != null) {
-        document.getElementById("searchField").value = getCookie("search");
+    if(query != null && document.getElementById("event1") != null) {
+        query = query.replace(/(\%3F)/g, "?");
+        query = query.replace(/(\%3D)/g, "=");
+        query = query.replace(/(\%26)/g, "&");
+        query = query.replace(/(\%2B)/g, "+");
+        document.getElementById("searchField").value = query.replace(/\++/g, " ");
+
         var request = new XMLHttpRequest();
         var search = {};
-        search.query = getCookie("search");
+        search.query = query;
         search.page = pageNum;
         request.onload = getResponse;
         request.open("POST", "/WEB_war_exploded/app/event/search", true);
@@ -105,14 +123,18 @@ function getSearch() {
 
 
 function search() {
-
-    var searchQuery = document.getElementById("searchField").value;
+    var searchQuery = document.getElementById("searchField").value.replace(/\s+/g, "+");
+    searchQuery = searchQuery.replace(/\?/g, "%3F");
+    searchQuery = searchQuery.replace(/\=/g, "%3D");
+    searchQuery = searchQuery.replace(/\&/g, "%26");
+    searchQuery = searchQuery.replace(/\+/g, "%2B");
     setCookie("search", searchQuery, 1);
     var uri = document.documentURI;
-    if (uri.includes("/search/")) {
-        location.reload();
+    if (uri.includes("/search")) {
+        uri = uri.substring(0,uri.indexOf("?q="));
+        window.location.href = uri + "?q="+searchQuery+"&p=1";
     } else {
-        window.location.href = document.documentURI + "search/?=1";
+        window.location.href = document.documentURI + "search/?q="+searchQuery+"&p=1";
     }
 
 }

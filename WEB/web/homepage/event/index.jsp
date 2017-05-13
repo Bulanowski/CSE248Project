@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: phil
-  Date: 5/10/17
-  Time: 3:08 PM
+  Date: 5/13/17
+  Time: 12:14 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -19,12 +19,10 @@
     <link href="w3.css" rel="stylesheet">
     <link href="theme.css?v=0.0.7" rel="stylesheet">
     <link href="homepage/homepage.css" rel="stylesheet">
-    <link href="homepage/search/search.css" rel="stylesheet">
+    <link href="homepage/event/event.css" rel="stylesheet">
 
     <script src="main.js"></script>
-    <script src="homepage/search/search.js"></script>
-
-    <title>Search</title>
+    <title>Event</title>
 </head>
 <body>
 <div class="container">
@@ -49,37 +47,22 @@
         </div>
     </nav>
 </div>
-<div id="event-container" class="container">
-    <p id="noResults" style="display: none">No results found.</p>
-    <ul id="eventList">
-        <li id="event1"style="padding: 20px; display: none">
-            <div onclick="" class="searchEventBorder">
-                <div class="first">
-                    <img class="searchEventImg" src="">
-                    <p class="searchTitle">Title Paragraph</p>
-                </div>
-                <div class="second">
-                    <div style="height: 15%">
-                        <h3 class="otherTitle">Other Title</h3>
-                        <p class="searchDescription"></p>
-                    </div>
-                    <div class="dateTime">
-                        <p style="margin-right:20%">Date</p>
-                        <p>Time</p>
-                    </div>
-                </div>
+
+
+<br>
+<div class="container">
+
+    <div class="desc">
+        <h1 id="eventName">Event Name</h1>
+        <h2 id="businessName">Business Name</h2>
+            <p id="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mauris est, volutpat vel nulla in, sodales consectetur velit. Donec suscipit nisi enim, ut mattis mauris maximus eget. Pellentesque condimentum nulla sit amet nisl feugiat rutrum. Nunc ante enim, pulvinar at metus eu, mattis lacinia justo. Nam sit amet purus orci. In bibendum ultrices eros a aliquam. Nulla ultricies lectus eu augue sed.</p>
+            <br>
+            <div  class="dateTime" style="display: flex;">
+                <p style="margin-right: 20%;">Date</p>
+                <p>Time</p>
             </div>
-        </li>
-
-
-    </ul>
-</div>
-<div class="container page-container">
-    <a class="page" style="display:none;">1</a>
+        <button class="btn btnBright">Buy Tickets</button>
+    </div>
 </div>
 </body>
-    <script>
-        getSearch()
-    </script>
-
 </html>
