@@ -96,10 +96,7 @@ public class MasterClubEventsManager {
     @Produces(MediaType.TEXT_PLAIN)
     public String getEvent(Integer eventID) {
         ClubEvent c = clubEventsBag.getEvent(eventID);
-        System.out.println("NAME: "+c.getName());
-        System.out.println("JSON: "+c.toJson().toString());
-
-        return clubEventsBag.getEvent(eventID).toJson().toString();
+        return c.toJson().toString();
     }
 
     @POST

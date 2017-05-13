@@ -2,8 +2,6 @@
  * Created by phil on 5/13/17.
  */
 
-var request;
-
 function showTicketInfo() {
     document.getElementById("buyTicketsbtn").style.display = "none";
     document.getElementById("ticketInfo").style.display = "grid";
@@ -13,23 +11,21 @@ function showTicketInfo() {
 function parseURI() {
     var uri = document.documentURI;
     var eventID = uri.substring(uri.indexOf("?e=")+3);
-    document.request = new XMLHttpRequest();
 
     console.log(eventID);
 
-    document.request.onload = displayData();
-    document.request.open("POST", "/WEB_war_exploded/app/event/get", true);
-    document.request.setRequestHeader("Content-type", "text/plain");
-    document.request.send(eventID);
+    var request = new XMLHttpRequest();
+    request.onload = displayData;
+    request.open("POST", "/WEB_war_exploded/app/event/get", true);
+    request.setRequestHeader("Content-type", "text/plain");
+    request.send(eventID);
 }
 
 function displayData() {
-    console.log(1);
-    if (document.request.status == 200 && document.request.responseText != null) {
+    console.log("Status: " + this.status);
+    if (this.status == 200 && this.responseText != null) {
 
-        console.log(2);
-
-        var event = this.responseText;
+        var event = JSON.parse(this.responseText);
 
         document.getElementById("eventName").innerHTML = event.name;
         document.getElementById("businessName").innerHTML = event.establishment;
@@ -39,6 +35,6 @@ function displayData() {
         document.getElementById("price").innerHTML = "$"+event.price;
 
     }
-    console.log("Response '"+document.request.responseText+"'");
+    console.log("Response '"+this.responseText+"'");
 
 }
