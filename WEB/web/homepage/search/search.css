@@ -1,7 +1,8 @@
 .searchEventBorder {
     border-radius: 50px;
-    border-style: solid;
-    border-color: #0f0f0f;
+    /*border-style: solid;*/
+    background-color: rgba(15, 15, 15, 0.51);
+    /*border-color: rgba(15, 15, 15, 0.51);*/
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 30px;
@@ -10,7 +11,14 @@
 
 }
 
-.first .second {}
+ul {
+    list-style-type: none;
+}
+
+.first {}
+.second {
+    width: 100%;
+}
 
 .searchEventImg {
     width: 200px;
@@ -23,6 +31,15 @@
     padding-left: 15%;
     font-size: 20px;
 }
+
+.otherTitle {
+    padding-left: 5%;
+}
+.dateTime {
+    display: flex;
+    padding-left: 5%;
+}
+
 .searchDescription {
     padding-top: 5px;
     padding-left: 5%;
@@ -31,21 +48,17 @@
 
 .page {
     color: white;
-    /*border-style: solid;*/
-    /*border-color: #0f0f0f;*/
-    /*background: -webkit-linear-gradient(white,goldenrod);*/
-    /*-webkit-border-radius: 50%/60% 60% 40% 40%;*/
     border-radius: 20%;
-    /*line-height: 40px;*/
-    /*text-align: center;*/
-    /*width: 40px;*/
-    /*height: 40px;*/
-    /*color: black;*/
-    background: -webkit-linear-gradient(blueviolet,black);
-    padding: 10px;
-    margin:auto;
+    background-color: rgba(138, 43, 226, 0.11);
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin:5px;
     font-size: 25px;
 }
 .page-container {
     text-align: center;
+    display: table;
+    margin-bottom: 40px;
 }

@@ -4,6 +4,7 @@ html {
 body {
     height: 100%;
     background: -webkit-linear-gradient(#400874,black);
+    background-attachment:fixed;
 }
 p, .text, h1, h2, h3, h4, h5, h6 {
     color: white;

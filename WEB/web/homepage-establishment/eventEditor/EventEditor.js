@@ -3,6 +3,21 @@
  */
 
 function sendRegisterEventRequest() {
+
+    var form = document.getElementsByClassName("form-control");
+    var blankFields = 0;
+    for(var i = 0; i<form.length; i++) {
+        if(form[i].value == null || form[i].value == '') {
+            form[i].style.borderColor = "red";
+            blankFields = 1;
+        } else {
+            form[i].style.borderColor = "";
+        }
+    }
+    if(blankFields == 1) {
+        return
+    }
+
     var json = {};
     json.token = getCookie("token");
     json.name = document.getElementById("name").value;

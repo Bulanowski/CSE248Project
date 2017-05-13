@@ -69,7 +69,7 @@ public class MasterClubEventsManager {
     public String searchEvents(String jsonString) {
         JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
         String query = jsonObject.getString("query");
-        Integer page = jsonObject.getInt("page");
+        Integer page = Integer.parseInt(jsonObject.getString("page"));
         ArrayList<ClubEvent> searchResult = clubEventsBag.search(query);
         if (searchResult.size() == 0) {
             return "No results found";
