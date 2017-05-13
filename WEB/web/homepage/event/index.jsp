@@ -22,6 +22,7 @@
     <link href="homepage/event/event.css" rel="stylesheet">
 
     <script src="main.js"></script>
+    <script src="homepage/event/event.js"></script>
     <title>Event</title>
 </head>
 <body>
@@ -61,8 +62,22 @@
                 <p style="margin-right: 20%;">Date</p>
                 <p>Time</p>
             </div>
-        <button class="btn btnBright">Buy Tickets</button>
+        <button id="buyTicketsbtn" onclick="showTicketInfo()" class="btn btnBright">Buy Tickets</button>
+        <div  class="ticketInfoBox" id="ticketInfo" style="display: none">
+            <div style="display: inline-flex">
+                <p style="padding-right: 300px">How Many Tickets?</p>
+                <p>Credit Card</p>
+            </div>
+            <div style="display: inline-flex">
+                <input id="maxTickets" class="form-control ticketField"  placeholder="" required />
+                <p style="margin-top:10px;padding-left:10px;padding-right: 300px" id="price">$ Price</p>
+
+                <input id="creditCard" class="form-control creditCard" required>
+            </div>
+        </div>
+        <button id="buyBtn" style="display: none; margin-top: 80px" class="btn btnBright">Buy</button>
     </div>
+
 </div>
 </body>
 </html>
