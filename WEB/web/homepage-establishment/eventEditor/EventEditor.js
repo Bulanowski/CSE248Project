@@ -26,9 +26,9 @@ function sendRegisterEventRequest() {
     json.date = document.getElementById("date").value;
     json.time = document.getElementById("time").value;
     json.price = parseFloat(document.getElementById("price").value);
-    json.tickets = parseInt(document.getElementById("tickets").value);
+    json.maxTickets = parseInt(document.getElementById("maxTickets").value);
     console.log("Collected:\nName: " + json.name + "\nDescription: " + json.description + "\nImage Src: " + json.imageSrc + "\nDate: " + json.date
-        + "\nTime: " + json.time + "\nPrice: " + json.price + "\nTickets: " + json.tickets);
+        + "\nTime: " + json.time + "\nPrice: " + json.price + "\nMax Tickets: " + json.maxTickets);
 
     var client = new XMLHttpRequest();
     client.onload = handleRegisterEventResponse;

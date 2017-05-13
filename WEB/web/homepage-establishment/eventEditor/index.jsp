@@ -63,7 +63,7 @@
                 </div>
                 <div class="col-md-6">
                     <p>Tickets</p>
-                    <input type="number" id="tickets" class="form-control"  placeholder="" required />
+                    <input type="number" id="maxTickets" class="form-control"  placeholder="" required />
                 </div>
             </div>
             <button type="button" class="btn btnDark" onclick="sendRegisterEventRequest()">Submit</button>
