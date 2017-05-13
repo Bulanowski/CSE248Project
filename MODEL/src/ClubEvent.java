@@ -127,7 +127,9 @@ public class ClubEvent implements Serializable {
 //                } else {
                     jsonObjectBuilder.add(f.getName(), f.get(this).toString());
 //                }
-            } catch (IllegalAccessException e) {
+            }catch (NullPointerException e) {
+                jsonObjectBuilder.add(f.getName(), "");
+            }  catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
         }

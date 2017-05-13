@@ -3,6 +3,21 @@
  */
 
 function sendRegisterRequest() {
+    var form = document.getElementsByClassName("form-control");
+    var blankFields = 0;
+    for(var i = 0; i<form.length; i++) {
+        if(form[i].value == null || form[i].value == '') {
+            form[i].style.borderColor = "red";
+            blankFields = 1;
+        } else {
+            form[i].style.borderColor = "";
+        }
+    }
+    if(blankFields == 1) {
+        return
+    }
+
+
     var json = {};
     json.username = document.getElementById("username").value;
     json.password = document.getElementById("password").value;

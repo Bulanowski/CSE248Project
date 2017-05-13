@@ -55,13 +55,18 @@
         <li id="event1"style="padding: 20px; display: none">
             <div onclick="" class="searchEventBorder">
                 <div class="first">
-                    <img class="searchEventImg" src="images/icon.jpg">
+                    <img class="searchEventImg" src="">
                     <p class="searchTitle">Title Paragraph</p>
                 </div>
                 <div class="second">
-                    <p class="searchDescription">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dictum neque at eros tempor, id dictum est cursus. Phasellus finibus arcu sit amet est fermentum, ac iaculis arcu venenatis. In eu maximus quam, non dapibus ante. Aenean posuere ligula pellentesque, mattis mi eu, efficitur tortor. Curabitur imperdiet justo ut lacinia ullamcorper. Duis id orci a nisi iaculis ornare ullamcorper vel libero. Maecenas leo sem, tempor eu laoreet vel, luctus ut est. Donec suscipit tristique luctus. In in efficitur libero, varius hendrerit mauris.
-                    </p>
+                    <div style="height: 15%">
+                        <h3 class="otherTitle">Other Title</h3>
+                        <p class="searchDescription"></p>
+                    </div>
+                    <div class="dateTime">
+                        <p style="margin-right:20%">Date</p>
+                        <p>Time</p>
+                    </div>
                 </div>
             </div>
         </li>
@@ -70,11 +75,11 @@
     </ul>
 </div>
 <div class="container page-container">
-    <a onclick="" class="page" style="display:none;">1</a>
+    <a href="" class="page" style="display:none;">1</a>
 </div>
 </body>
     <script>
-        getSearch(1)
+        getSearch()
     </script>
 
 </html>

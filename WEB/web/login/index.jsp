@@ -27,6 +27,8 @@
         <h2 class="form-signin-heading"> Please Sign in</h2>
         <input type="username" id="username" class="form-control" placeholder="Username" name="username" required autofocus>
         <input type="password" id="password" class="form-control" placeholder="Password" name="password" required>
+        <br>
+        <a id="signInFailed" style="display: none; color: red">Username or password incorrect.</a>
         <div class="checkbox">
           <label>
             <input type="checkbox" value="remember-me">Remember me
@@ -44,5 +46,6 @@
               sendLoginRequest(document.getElementById('username').value, document.getElementById('password').value)
           }
       }
+      focusFix();
   </script>
 </html>

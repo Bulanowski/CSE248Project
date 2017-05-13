@@ -27,7 +27,9 @@ body {
 
 .searchbar {
     height: 34px;
+    border-radius: 4px;
     border-color: white;
+    margin: 0px;
 }
 
 
