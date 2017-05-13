@@ -1,5 +1,7 @@
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
@@ -130,9 +132,12 @@ public class MasterClubEventsManager {
             Integer amount = jsonObject.getInt("amount");
             if (clubEventsBag.getEvent(eventID).increasePurchasedTickets(amount)) {
                 Establishment establishment = (Establishment) accountsBag.getUser(clubEventsBag.getEvent(eventID).getEstablishment()).getProfile();
-                Ticket t = new Ticket(eventID, username, amount);
-                customer.addTicket(t);
-                establishment.addTicket(t);
+                Ticket ticket = new Ticket(eventID, username, amount);
+                customer.addTicket(ticket);
+                Double price = clubEventsBag.getEvent(eventID).getPrice();
+                Transaction transaction = new Transaction(customer.getName(), establishment.getName(), amount.doubleValue() * price, eventID);
+                customer.addTransaction(transaction);
+                establishment.addTransaction(transaction);
                 return "Tickets purchased successfully";
             }
         }
@@ -158,12 +163,65 @@ public class MasterClubEventsManager {
             if (t != null && clubEventsBag.getEvent(t.getEventID()).decreasePurchasedTickets(t.getAmount())) {
                 Establishment establishment = (Establishment) accountsBag.getUser(clubEventsBag.getEvent(t.getEventID()).getEstablishment()).getProfile();
                 customer.removeTicket(t);
-                establishment.removeTicket(t);
+                Double price = clubEventsBag.getEvent(t.getEventID()).getPrice();
+                Transaction transaction = new Transaction(establishment.getName(), customer.getName(), (double) t.getAmount() * price, t.getEventID());
+                customer.addTransaction(transaction);
+                establishment.addTransaction(transaction);
                 return "Ticket canceled successfully";
             } else {
                 return "Invalid ticket ID";
             }
         }
         return "Ticket cancel failed";
+    }
+
+    @POST
+    @Path("/getTickets")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getTickets(String jsonString) {
+        JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
+        String token = jsonObject.getString("token");
+        String username = tokenManager.getUsername(token);
+        if (username == null) {
+            return "Invalid token";
+        }
+        Account account = accountsBag.getUser(username);
+        Profile profile = account.getProfile();
+        if (profile instanceof Customer) {
+            Customer customer = (Customer) profile;
+            JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+            for (Ticket t : customer.getTickets()) {
+                JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
+                jsonObjectBuilder.add("ticketID", t.getTicketID());
+                jsonObjectBuilder.add("eventID", t.getEventID());
+                jsonObjectBuilder.add("customer", t.getCustomer());
+                jsonObjectBuilder.add("amount", t.getAmount());
+                jsonObjectBuilder.add("event", clubEventsBag.getEvent(t.getEventID()).toJson());
+                jsonArrayBuilder.add(jsonObjectBuilder.build());
+            }
+            return jsonArrayBuilder.build().toString();
+        }
+        return "Failed to retrieve tickets";
+    }
+
+    @POST
+    @Path("/getTransactions")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getTransactions(String jsonString) {
+        JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
+        String token = jsonObject.getString("token");
+        String username = tokenManager.getUsername(token);
+        if (username == null) {
+            return "Invalid token";
+        }
+        Account account = accountsBag.getUser(username);
+        Profile profile = account.getProfile();
+        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+        for (Transaction t : profile.getTransactions()) {
+            jsonArrayBuilder.add(t.toJson());
+        }
+        return jsonArrayBuilder.build().toString();
     }
 }

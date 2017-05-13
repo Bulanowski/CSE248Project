@@ -38,7 +38,6 @@ public class ClubEvent {
     }
 
     protected ClubEvent(JsonObject jsonObject) {
-//        eventID = Integer.parseInt(jsonObject.getString("eventID"));
         eventID = jsonObject.getInt("eventID");
         establishment = jsonObject.getString("establishment");
         tags = new HashSet<>();
@@ -53,9 +52,6 @@ public class ClubEvent {
         price = jsonObject.getJsonNumber("price").doubleValue();
         maxTickets = jsonObject.getInt("maxTickets");
         purchasedTickets = jsonObject.getInt("purchasedTickets");
-//        price = Double.parseDouble(jsonObject.getString("price"));
-//        maxTickets = Integer.parseInt(jsonObject.getString("maxTickets"));
-//        purchasedTickets = Integer.parseInt(jsonObject.getString("purchasedTickets"));
     }
 
     public static void setEventIDCounter(int eventIDCounter) {

@@ -1,9 +1,4 @@
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.util.*;
 
 /**
@@ -15,7 +10,7 @@ public abstract class Profile {
     private String address;
     private String zip;
     private String phone;
-    private HashMap<Integer, Ticket> tickets = new HashMap<>(); // ticketID, ticket
+    private HashMap<Integer, Transaction> transactions = new HashMap<>(); // transactionID, transaction
 
     Profile() {
         name = "";
@@ -29,9 +24,9 @@ public abstract class Profile {
         address = jsonObject.getString("address");
         zip = jsonObject.getString("zip");
         phone = jsonObject.getString("phone");
-        for (JsonObject ticketJson : jsonObject.getJsonArray("tickets").getValuesAs(JsonObject.class)) {
-            Ticket t = new Ticket(ticketJson);
-            tickets.put(t.getTicketID(), t);
+        for (JsonObject transactionJson : jsonObject.getJsonArray("transactions").getValuesAs(JsonObject.class)) {
+            Transaction t = new Transaction(transactionJson);
+            transactions.put(t.getTransactionID(), t);
         }
     }
 
@@ -67,20 +62,16 @@ public abstract class Profile {
         this.phone = phone;
     }
 
-    public void addTicket(Ticket t) {
-        tickets.put(t.getTicketID(), t);
+    public void addTransaction(Transaction t) {
+        transactions.put(t.getTransactionID(), t);
     }
 
-    public void removeTicket(Ticket t) {
-        tickets.remove(t.getTicketID());
+    public Transaction getTransaction(Integer transactionID) {
+        return transactions.get(transactionID);
     }
 
-    public Ticket getTicket(Integer ticketID) {
-        return tickets.get(ticketID);
-    }
-
-    public Collection<Ticket> getTickets() {
-        return tickets.values();
+    public Collection<Transaction> getTransactions() {
+        return transactions.values();
     }
 
     public abstract JsonObject toJson();

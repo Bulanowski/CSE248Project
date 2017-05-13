@@ -71,14 +71,14 @@ public class Establishment extends Profile {
         jsonObjectBuilder.add("address", getAddress());
         jsonObjectBuilder.add("phone", getPhone());
         jsonObjectBuilder.add("zip", getZip());
-        if (getTickets().size() > 0) {
+        if (getTransactions().size() > 0) {
             JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-            for (Ticket t : getTickets()) {
+            for (Transaction t : getTransactions()) {
                 jsonArrayBuilder.add(t.toJson());
             }
-            jsonObjectBuilder.add("tickets", jsonArrayBuilder.build());
+            jsonObjectBuilder.add("transactions", jsonArrayBuilder.build());
         } else {
-            jsonObjectBuilder.add("tickets", Json.createArrayBuilder().build());
+            jsonObjectBuilder.add("transactions", Json.createArrayBuilder().build());
         }
         jsonObjectBuilder.add("imageSrc", getImageSrc());
         jsonObjectBuilder.add("timeOpen", getTimeOpen());
