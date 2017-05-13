@@ -29,7 +29,9 @@ public class AccountsBag {
         System.out.println("Loading accounts from accounts.dat");
         String s = dataStorageHandler.readFromFile("accounts");
         if (s != null) {
-            JsonArray jsonArray = Json.createReader(new StringReader(s)).readArray();
+            JsonObject jsonObject = Json.createReader(new StringReader(s)).readObject();
+            Transaction.setTransactionIDCounter(jsonObject.getInt("transactionIDCounter"));
+            JsonArray jsonArray = jsonObject.getJsonArray("accounts");
             for (JsonObject accountJson : jsonArray.getValuesAs(JsonObject.class)) {
                 try {
                     Account account = new Account(accountJson, false);
@@ -41,6 +43,7 @@ public class AccountsBag {
             System.out.println("Successfully loaded accounts from accounts.dat");
         } else {
             System.out.println("Unable to load accounts from accounts.dat, loading default accounts.");
+            Transaction.setTransactionIDCounter(1000000);
             try {
                 JsonObject accountFooJson = Json.createObjectBuilder().add("username", "foo").add("password", "bar").add("email", "foo@bar.com").add("accountType", "Customer").build();
                 Account accountFoo = new Account(accountFooJson);
@@ -62,11 +65,14 @@ public class AccountsBag {
     @PreDestroy
     public void destroy() {
         System.out.println("Saving accounts to accounts.dat");
+        JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
+        jsonObjectBuilder.add("transactionIDCounter", Transaction.getTransactionIDCounter());
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
         for (Account a : accounts.values()) {
             jsonArrayBuilder.add(a.toJson());
         }
-        dataStorageHandler.saveToFile("accounts", jsonArrayBuilder.build());
+        jsonObjectBuilder.add("accounts", jsonArrayBuilder.build());
+        dataStorageHandler.saveToFile("accounts", jsonObjectBuilder.build());
     }
 
     public void addAccount(Account a) {

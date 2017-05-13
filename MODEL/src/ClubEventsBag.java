@@ -72,7 +72,6 @@ public class ClubEventsBag {
         JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
         jsonObjectBuilder.add("eventIDCounter", ClubEvent.getEventIDCounter());
         jsonObjectBuilder.add("ticketIDCounter", Ticket.getTicketIDCounter());
-//        jsonObjectBuilder.add("ticketIDCounter", 1000000);
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
         for (ClubEvent clubEvent : clubEvents.values()) {
             jsonArrayBuilder.add(clubEvent.toJson());
