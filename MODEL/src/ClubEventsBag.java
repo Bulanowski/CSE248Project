@@ -3,6 +3,8 @@ import javafx.collections.ObservableMap;
 
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
+import javax.json.Json;
+import javax.json.JsonObjectBuilder;
 import java.util.*;
 
 /**
@@ -21,6 +23,20 @@ public class ClubEventsBag {
         if (o != null) {
             for (ClubEvent e : (LinkedList<ClubEvent>) o) {
                 clubEvents.put(e.getEventID(), e);
+            }
+        } else {
+            for (int i=0;i<35;i++) {
+                System.out.println("added event "+i);
+                JsonObjectBuilder json = Json.createObjectBuilder();
+                json.add("name","Event Name "+i);
+                json.add("description",i+" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac tellus tortor. Aliquam sit amet posuere libero, at semper magna. In nullam.");
+                json.add("imageSrc","https://i.imgur.com/1wc10tt.jpg");
+                json.add("date","1");
+                json.add("time","1");
+                json.add("price",1.0);
+                json.add("tickets",1);
+                ClubEvent event = new ClubEvent(null,json.build());
+                addEvent(event);
             }
         }
         dataStorageHandler.connectClubEventsListener(clubEvents);
