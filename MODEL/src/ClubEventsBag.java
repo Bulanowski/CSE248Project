@@ -92,13 +92,13 @@ public class ClubEventsBag {
         return clubEvents.values();
     }
 
-    public ArrayList<ClubEvent> search(String query) {
-        ArrayList<ClubEvent> searchResult = new ArrayList<>();
-        for (ClubEvent e : clubEvents.values()) {
-            if (e.getName().toLowerCase().contains(query.toLowerCase())) {
-                searchResult.add(e);
-            }
-        }
-        return searchResult;
-    }
+//    public ArrayList<ClubEvent> search(String query) {
+//        ArrayList<ClubEvent> searchResult = new ArrayList<>();
+//        for (ClubEvent e : clubEvents.values()) {
+//            if (e.getName().toLowerCase().contains(query.toLowerCase())) {
+//                searchResult.add(e);
+//            }
+//        }
+//        return searchResult;
+//    }
 }

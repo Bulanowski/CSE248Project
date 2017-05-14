@@ -11,6 +11,7 @@ public class Establishment extends Profile {
     private String timeOpen;
     private String timeClose;
     private Set<Integer> events;
+    // TODO private Set<Item> availableItems new Set<>();
 
     public Establishment() {
         imageSrc = "";

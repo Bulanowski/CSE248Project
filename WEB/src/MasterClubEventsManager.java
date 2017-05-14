@@ -72,7 +72,22 @@ public class MasterClubEventsManager {
         JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
         String query = jsonObject.getString("query");
         Integer page = Integer.parseInt(jsonObject.getString("page"));
-        ArrayList<ClubEvent> searchResult = clubEventsBag.search(query);
+        ArrayList<ClubEvent> searchResult = new ArrayList<>();
+        ArrayList<ClubEvent> zipResult = new ArrayList<>();
+        ArrayList<ClubEvent> nameResult = new ArrayList<>();
+        ArrayList<ClubEvent> descriptionResult = new ArrayList<>();
+        for (ClubEvent e : clubEventsBag.getAllEvents()) {
+            if (accountsBag.getUser(e.getEstablishment()).getProfile().getZip().toLowerCase().contains(query)) {
+                zipResult.add(e);
+            } else if (e.getName().toLowerCase().contains(query)) {
+                nameResult.add(e);
+            } else if (e.getDescription().toLowerCase().contains(query)) {
+                descriptionResult.add(e);
+            }
+        }
+        searchResult.addAll(zipResult);
+        searchResult.addAll(nameResult);
+        searchResult.addAll(descriptionResult);
         if (searchResult.size() == 0) {
             return "No results found";
         }
@@ -221,6 +236,28 @@ public class MasterClubEventsManager {
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
         for (Transaction t : profile.getTransactions()) {
             jsonArrayBuilder.add(t.toJson());
+        }
+        return jsonArrayBuilder.build().toString();
+    }
+
+    @POST
+    @Path("/searchTransactions")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String searchTransactions(String jsonString) {
+        JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
+        String token = jsonObject.getString("token");
+        String username = tokenManager.getUsername(token);
+        if (username == null) {
+            return "Invalid token";
+        }
+        String query = jsonObject.getString("query");
+        Profile profile = accountsBag.getUser(username).getProfile();
+        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+        for (Transaction t : profile.getTransactions()) {
+            if (t.getReceiver().toLowerCase().contains(query.toLowerCase()) || t.getSender().toLowerCase().contains(query.toLowerCase())) {
+                jsonArrayBuilder.add(t.toJson());
+            }
         }
         return jsonArrayBuilder.build().toString();
     }
