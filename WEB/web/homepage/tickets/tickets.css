@@ -13,13 +13,22 @@
     width: 86%;
 }
 
+.noTickets {
+    text-shadow: 4px 4px black;
+    margin-top: 50px;
+    margin-left: 40%;
+}
 
 .cancelBtn {
     margin-top: 30px;
     margin-left: 70px;
 }
 
-.yesNo{
-    margin-top: 30px;
-    margin-left: 70px;
+.no {
+    margin-left: 20px;
+}
+
+.animate {
+    transition: transform 3s;
+    transform: translate(-10000px,0px);
 }

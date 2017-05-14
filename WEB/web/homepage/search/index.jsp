@@ -32,7 +32,7 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="homepage/"><span class=""></span> Home</a></li>
-                <li class="nav-item"><a href="#" class="nav-link active"><span class="glyphicon-envelope"></span>
+                <li class="nav-item"><a href="homepage/tickets" class="nav-link active"><span class="glyphicon-envelope"></span>
                     Tickets</a>
                 </li>
                 <li><a href="homepage/settings"><span class="glyphicon glyphicon-user"></span> Account Settings</a></li>
@@ -60,12 +60,15 @@
                 </div>
                 <div class="second">
                     <div style="height: 15%">
-                        <h3 class="otherTitle">Other Title</h3>
+                        <div style="display: inline-flex; width: 800px">
+                            <h3 class="otherTitle">Other Title</h3>
+                            <p class="tickets" style="margin-top: 12px; margin-left: 70%;">Available Tickets:</p>
+                        </div>
                         <p class="searchDescription"></p>
                     </div>
                     <div class="dateTime">
-                        <p style="margin-right:20%">Date</p>
-                        <p>Time</p>
+                        <p class="date" style="margin-right:20%">Date</p>
+                        <p class="time">Time</p>
                     </div>
                 </div>
             </div>

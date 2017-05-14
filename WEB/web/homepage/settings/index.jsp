@@ -22,6 +22,7 @@
 
     <script src="main.js"></script>
     <script src="homepage/settings/settings.js"></script>
+    <script src="homepage/search/search.js"></script>
     <title>Settings</title>
 </head>
 <body>
@@ -30,17 +31,17 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="homepage/"><span class=""></span> Home</a></li>
-                <li class="nav-item"><a href="#" class="nav-link active"><span class="glyphicon-envelope"></span>
+                <li class="nav-item"><a href="homepage/tickets" class="nav-link active"><span class="glyphicon-envelope"></span>
                     Tickets</a>
                 </li>
                 <li><a disabled="true"><span class=" active glyphicon glyphicon-user"></span> Account Settings</a></li>
                 <li>
-                    <form class="nav navbar-form">
+                    <div class="nav navbar-form">
                         <div class="form-group">
-                            <input placeholder="Search" class=" Testy form-control searchbar">
-                            <button type="submit" class="Testy btn btnDark">Submit</button>
+                            <input id="searchField" placeholder="Search" class=" Testy form-control searchbar">
+                            <button onclick="search()" type="submit" class="Testy btn btnDark">Submit</button>
                         </div>
-                    </form>
+                    </div>
                 </li>
                 <li><a href="" onclick="signOut()">Sign Out</a></li>
             </ul>

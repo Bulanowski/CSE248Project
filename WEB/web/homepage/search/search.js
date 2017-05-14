@@ -42,9 +42,17 @@ function getResponse() {
 
             var second = event1.getElementsByClassName("second");
             var description = second[0].getElementsByClassName("searchDescription");
+            var businessName = second[0].getElementsByClassName("otherTitle");
+            var tickets = second[0].getElementsByClassName("tickets");
+            var date = second[0].getElementsByClassName("date");
+            var time = second[0].getElementsByClassName("time");
             title[0].innerHTML = eventArray[0].name;
             img[0].src = eventArray[0].imageSrc;
             description[0].innerHTML = eventArray[0].description;
+            businessName[0].innerHTML = eventArray[0].establishment;
+            tickets[0].innerHTML = "Available Tickets: "+ (eventArray[0].maxTickets - eventArray[0].purchasedTickets);
+            date[0].innerHTML = "Date: "+ eventArray[0].date;
+            time[0].innerHTML = "Time: "+ eventArray[0].time;
 
             for ( i = 1; i < eventArray.length; i++) {
                 var clone = event1.cloneNode(true);
@@ -56,9 +64,18 @@ function getResponse() {
 
                 second = clone.getElementsByClassName("second");
                 description = second[0].getElementsByClassName("searchDescription");
+                var businessName = second[0].getElementsByClassName("otherTitle");
+                var tickets = second[0].getElementsByClassName("tickets");
+                var date = second[0].getElementsByClassName("date");
+                var time = second[0].getElementsByClassName("time");
                 title[0].innerHTML = eventArray[i].name;
                 img[0].src = eventArray[i].imageSrc;
                 description[0].innerHTML = eventArray[i].description;
+                businessName[0].innerHTML = eventArray[i].establishment;
+                tickets[0].innerHTML = "Available Tickets: "+(eventArray[i].maxTickets - eventArray[i].purchasedTickets);
+                date[0].innerHTML = "Date: "+ eventArray[i].date;
+                time[0].innerHTML = "Time: "+ eventArray[i].time;
+
 
                 var mouseOver = clone.getElementsByClassName("searchEventBorder");
                 mouseOver[0].setAttribute("onclick","goToEventPage("+eventArray[i].eventID+')');
@@ -147,7 +164,10 @@ function search() {
         uri = uri.substring(0,uri.indexOf("?q="));
         window.location.href = uri + "?q="+searchQuery+"&p=1";
     } else {
-        window.location.href = document.documentURI + "search/?q="+searchQuery+"&p=1";
+        uri = document.documentURI;
+        uri = uri.substring(0,uri.indexOf("homepage/")+9);
+        console.log(uri);
+        window.location.href = uri + "search/?q="+searchQuery+"&p=1";
     }
 
 }

@@ -23,6 +23,7 @@
 
     <script src="main.js"></script>
     <script src="homepage/event/event.js"></script>
+    <script src="homepage/search/search.js"></script>
     <title>Event</title>
 </head>
 <body>
@@ -31,7 +32,7 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="homepage/"><span class=""></span> Home</a></li>
-                <li class="nav-item"><a href="#" class="nav-link active"><span class="glyphicon-envelope"></span>
+                <li class="nav-item"><a href="homepage/tickets" class="nav-link active"><span class="glyphicon-envelope"></span>
                     Tickets</a>
                 </li>
                 <li><a href="homepage/settings"><span class="glyphicon glyphicon-user"></span> Account Settings</a></li>
@@ -48,19 +49,19 @@
         </div>
     </nav>
 </div>
-
-
 <br>
 <div class="container">
 
-    <div class="desc">
+    <div class="event">
         <h1 id="eventName">Event Name</h1>
         <h2 id="businessName">Business Name</h2>
-            <p id="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mauris est, volutpat vel nulla in, sodales consectetur velit. Donec suscipit nisi enim, ut mattis mauris maximus eget. Pellentesque condimentum nulla sit amet nisl feugiat rutrum. Nunc ante enim, pulvinar at metus eu, mattis lacinia justo. Nam sit amet purus orci. In bibendum ultrices eros a aliquam. Nulla ultricies lectus eu augue sed.</p>
-            <br>
-            <div  class="dateTime" style="display: flex;">
-                <p id="date" style="margin-right: 20%;">Date</p>
-                <p id="time">Time</p>
+        <img class="eventImg" src="https://i.imgur.com/1wc10tt.jpg">
+            <div class="descriptionItems">
+                <p id="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mauris est, volutpat vel nulla in, sodales consectetur velit. Donec suscipit nisi enim, ut mattis mauris maximus eget. Pellentesque condimentum nulla sit amet nisl feugiat rutrum. Nunc ante enim, pulvinar at metus eu, mattis lacinia justo. Nam sit amet purus orci. In bibendum ultrices eros a aliquam. Nulla ultricies lectus eu augue sed.</p>
+                <div  class="dateTime" style="display: flex;">
+                    <p id="date" style="margin-right: 20%;">Date</p>
+                    <p id="time">Time</p>
+                </div>
             </div>
         <button id="buyTicketsbtn" onclick="showTicketInfo()" class="btn btnBright">Buy Tickets</button>
         <div  class="ticketInfoBox" id="ticketInfo" style="display: none">
@@ -68,7 +69,7 @@
                 <p style="padding-right: 300px">How Many Tickets?</p>
                 <p>Credit Card</p>
             </div>
-            <div style="display: inline-flex">
+            <div id="" style="display: inline-flex">
                 <select onchange="priceCalculator()" id="maxTickets" class="form-control ticketField"  placeholder="" required>
                     <option value="0">0</option>
                     <option value="1">1</option>

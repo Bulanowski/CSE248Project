@@ -60,7 +60,7 @@ public class ClubEventsBag {
             json.add("date","22/9/1963");
             json.add("time","12:30 p.m");
             json.add("price",(r.nextFloat()*50));
-            json.add("maxTickets",1);
+            json.add("maxTickets",r.nextInt(50)+10);
             ClubEvent event = new ClubEvent("bar", json.build());
             event.addTag(((i % 3) == 0 ? TagType.Rock : ((i % 3) == 1 ? TagType.Pop : TagType.Jazz)));
             addEvent(event);

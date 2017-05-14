@@ -23,6 +23,7 @@
 
     <script src="main.js"></script>
     <script src="homepage/tickets/tickets.js"></script>
+    <script src="homepage/search/search.js"></script>
     <title>Tickets</title>
 </head>
 <body>
@@ -31,7 +32,7 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="homepage/"><span class=""></span> Home</a></li>
-                <li class="nav-item"><a href="#" class="nav-link active"><span class="glyphicon-envelope"></span>
+                <li class="nav-item"><a disabled="true" class="nav-link active"><span class="glyphicon-envelope"></span>
                     Tickets</a>
                 </li>
                 <li><a href="homepage/settings"><span class="glyphicon glyphicon-user"></span> Account Settings</a></li>
@@ -48,6 +49,7 @@
         </div>
     </nav>
 </div>
+<h1 class="noTickets">No Tickets purchased.</h1>
 <div>
     <ol  id="ticketList" style="padding: 0%">
         <li id="ticket1" style="display: none" class="listItems">
@@ -62,10 +64,12 @@
             <div class="">
                 <p class="ticketID" style="margin-top: 10px">ID# 12345678</p>
                 <button class="btn btnBright cancelBtn">Cancel Ticket</button>
-                <div class="yesNo" style="display: inline-flex">
-                <p style="display: none">Are You Sure?</p>
-                <button style="display: none" class="btn btnBright yesNo yes">Yes</button>
-                <button style="display: none" class="btn btnBright yesNo no">No</button>
+                <div class="assuranceText w3-animate-right" style="display: none">
+                <p>Are You Sure?</p>
+                    <div style="display: inline-flex">
+                        <button class="btn btnBright yes">Yes</button>
+                        <button class="btn btnBright  no">No</button>
+                    </div>
                 </div>
             </div>
         </li>

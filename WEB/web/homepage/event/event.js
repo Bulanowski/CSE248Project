@@ -8,6 +8,7 @@ function showTicketInfo() {
     document.getElementById("buyTicketsbtn").style.display = "none";
     document.getElementById("ticketInfo").style.display = "grid";
     document.getElementById("buyBtn").style.display = "";
+    window.scrollBy(0,500);
 }
 
 function parseURI() {
@@ -32,8 +33,8 @@ function displayData() {
         document.getElementById("eventName").innerHTML = event.name;
         document.getElementById("businessName").innerHTML = event.establishment;
         document.getElementById("description").innerHTML = event.description;
-        document.getElementById("date").innerHTML = event.date;
-        document.getElementById("time").innerHTML = event.time;
+        document.getElementById("date").innerHTML = "Date: "+event.date;
+        document.getElementById("time").innerHTML = "Time: "+event.time;
         document.getElementById("price").innerHTML = "$"+((event.price).toFixed(2));
 
     }
@@ -42,11 +43,13 @@ function displayData() {
 }
 
 function assurance() {
+    document.getElementById("ticketInfo").style.display = "none";
     document.getElementById("buyBtn").style.display = "none";
     document.getElementById("assurance").style.display = "";
 }
 
 function no() {
+    document.getElementById("ticketInfo").style.display = "";
     document.getElementById("buyBtn").style.display = "";
     document.getElementById("assurance").style.display = "none";
 }

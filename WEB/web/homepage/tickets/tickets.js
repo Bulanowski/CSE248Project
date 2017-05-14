@@ -12,6 +12,7 @@ function populateTickets() {
         var response = this.responseText;
         if(response != "Invalid token" || response != "No tickets found" || response != "Failed to retrieve tickets") {
             var ticketJsonArray = JSON.parse(response);
+            document.getElementsByClassName("noTickets")[0].style.display = "none";
             var ticket = ticketJsonArray[0];
             var eventInfo = ticket.event;
 
@@ -65,21 +66,28 @@ function getTickets() {
 
 function switchBtns(btnID) {
     btnID.getElementsByClassName("cancelBtn")[0].style.display = "none";
-    btnID.getElementsByClassName("yes")[0].style.display = "";
-    btnID.getElementsByClassName("no")[0].style.display = "";
+    btnID.getElementsByClassName("assuranceText")[0].style.display = "";
 }
 
 function hideYesNo(btnID) {
     btnID.getElementsByClassName("cancelBtn")[0].style.display = "";
-    btnID.getElementsByClassName("yes")[0].style.display = "none";
-    btnID.getElementsByClassName("no")[0].style.display = "none";
+    btnID.getElementsByClassName("assuranceText")[0].style.display = "none";
 }
 
 function removeTicket() {
     console.log(this.responseText);
     if(this.status == 200 && this.responseText == "Ticket canceled successfully") {
         var ticket = document.getElementById("ticket"+ticketIDToRemove);
-        ticket.parentNode.removeChild(ticket);
+        ticket.className += " animate";
+        setTimeout(function e() {
+            ticket.parentNode.removeChild(ticket);
+            if(document.getElementsByClassName("info").length == 0) {
+                document.getElementsByClassName("noTickets")[0].style.display = "";
+                document.getElementsByClassName("noTickets")[0].className += " w3-animate-right";
+
+            }
+        },490);
+
     }
 }
 
