@@ -60,12 +60,22 @@ public class Customer extends Profile {
         return preferences;
     }
 
+    public int getMatchingPreferences(ClubEvent e) {
+        int matchingCount = 0;
+        for (TagType t : e.getTags()) {
+            if (preferences.contains(t)) {
+                matchingCount++;
+            }
+        }
+        return matchingCount;
+    }
+
     public void addTicket(Ticket t) {
         tickets.put(t.getTicketID(), t);
     }
 
-    public void removeTicket(Ticket t) {
-        tickets.remove(t.getTicketID());
+    public void removeTicket(Integer ticketID) {
+        tickets.remove(ticketID);
     }
 
     public Ticket getTicket(Integer ticketID) {

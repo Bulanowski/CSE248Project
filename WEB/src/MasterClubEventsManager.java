@@ -2,6 +2,7 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 import javax.ejb.EJB;
 import javax.json.*;
 import javax.ws.rs.*;
@@ -105,6 +106,62 @@ public class MasterClubEventsManager {
     }
 
     @POST
+    @Path("/recommendedSearch")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String searchRecommendedEvents(String jsonString) {
+        JsonObject jsonObject = Json.createReader(new StringReader((jsonString))).readObject();
+        String token = jsonObject.getString("token");
+        String query = jsonObject.getString("query").toLowerCase();
+        Integer page = Integer.parseInt(jsonObject.getString("page"));
+        String username = tokenManager.getUsername(token);
+        if (username == null) {
+            return "Invalid token";
+        }
+        Account account = accountsBag.getUser(username);
+        if (account.getProfile() instanceof Customer) {
+            Customer customer = (Customer) account.getProfile();
+            Set<TagType> preferences = customer.getPreferences();
+            Integer size = preferences.size();
+            ArrayList<ArrayList<ClubEvent>> recommendedResult = new ArrayList<>();
+            for (int i = 0; i < size + 1; i++) {
+                recommendedResult.add(new ArrayList<ClubEvent>());
+            }
+            if (recommendedResult.size() == 0) {
+                return "Preferences not set";
+            }
+            for (ClubEvent e : clubEventsBag.getAllEvents()) {
+//                if (accountsBag.getUser(e.getEstablishment()).getProfile().getZip().toLowerCase().contains(query) || e.getName().toLowerCase().contains(query) || e.getDescription().toLowerCase().contains(query)) {
+                if (e.getName().toLowerCase().contains(query) || e.getDescription().toLowerCase().contains(query)) {
+                    recommendedResult.get(customer.getMatchingPreferences(e)).add(e);
+                }
+            }
+            ArrayList<ClubEvent> searchResult = new ArrayList<>();
+            for (int i = size; i >= 0; i--) {
+                searchResult.addAll(recommendedResult.get(i));
+            }
+            if (searchResult.size() == 0) {
+                return "No results found";
+            }
+            if (searchResult.size() < 10 * (page - 1)) {
+                page = 1;
+            }
+            JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+            for (int i = 10 * (page - 1); i < page * 10; i++) {
+                if (i >= searchResult.size()) {
+                    break;
+                }
+                jsonArrayBuilder.add(searchResult.get(i).toJson());
+            }
+            JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
+            jsonObjectBuilder.add("pages", Math.ceil((double) searchResult.size() / 10));
+            jsonObjectBuilder.add("result", jsonArrayBuilder.build());
+            return jsonObjectBuilder.build().toString();
+        }
+        return "Establishments cannot use recommended search";
+    }
+
+    @POST
     @Path("/get")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
@@ -174,7 +231,7 @@ public class MasterClubEventsManager {
             Ticket t = customer.getTicket(ticketID);
             if (t != null && clubEventsBag.getEvent(t.getEventID()).decreasePurchasedTickets(t.getAmount())) {
                 Establishment establishment = (Establishment) accountsBag.getUser(clubEventsBag.getEvent(t.getEventID()).getEstablishment()).getProfile();
-                customer.removeTicket(t);
+                customer.removeTicket(t.getTicketID());
                 Double price = clubEventsBag.getEvent(t.getEventID()).getPrice();
                 Transaction transaction = new Transaction(establishment.getName(), customer.getName(), (double) t.getAmount() * price, t.getEventID());
                 customer.addTransaction(transaction);
