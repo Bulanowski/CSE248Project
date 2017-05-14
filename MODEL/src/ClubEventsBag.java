@@ -52,15 +52,16 @@ public class ClubEventsBag {
         ClubEvent.setEventIDCounter(1000000);
         Ticket.setTicketIDCounter(1000000);
         for (int i=0;i<35;i++) {
+            Random r = new Random();
             JsonObjectBuilder json = Json.createObjectBuilder();
             json.add("name","Event Name "+i);
             json.add("description",i+" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac tellus tortor. Aliquam sit amet posuere libero, at semper magna. In nullam.");
             json.add("imageSrc","https://i.imgur.com/1wc10tt.jpg");
-            json.add("date","1");
-            json.add("time","1");
-            json.add("price",1.0);
+            json.add("date","22/9/1963");
+            json.add("time","12:30 p.m");
+            json.add("price",(r.nextFloat()*50));
             json.add("maxTickets",1);
-            ClubEvent event = new ClubEvent("", json.build());
+            ClubEvent event = new ClubEvent("bar", json.build());
             event.addTag(((i % 3) == 0 ? TagType.Rock : ((i % 3) == 1 ? TagType.Pop : TagType.Jazz)));
             addEvent(event);
         }

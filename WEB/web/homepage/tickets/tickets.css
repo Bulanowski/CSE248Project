@@ -1,0 +1,25 @@
+.listItems {
+    border-bottom-style: solid;
+    border-bottom-color: black;
+    border-top-style: solid;
+    border-top-color: black;
+    background-color: rgba(15, 15, 15, 0.4);
+    list-style-type: none;
+    width: 100%;
+    display: inline-flex;
+}
+
+.info {
+    width: 86%;
+}
+
+
+.cancelBtn {
+    margin-top: 30px;
+    margin-left: 70px;
+}
+
+.yesNo{
+    margin-top: 30px;
+    margin-left: 70px;
+}

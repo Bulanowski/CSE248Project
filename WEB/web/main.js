@@ -50,7 +50,7 @@ function signOut() {
 function handler() {
     if (this.status == 200 && this.responseText != null) {
         var response = this.responseText;
-        console.log(response);
+        // console.log(response);
         if(response == "Token Not Found" || response == "Username Not Found") {
             window.location.href = "login/";
         } else {

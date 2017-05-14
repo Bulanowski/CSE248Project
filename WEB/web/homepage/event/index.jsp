@@ -69,13 +69,34 @@
                 <p>Credit Card</p>
             </div>
             <div style="display: inline-flex">
-                <input id="maxTickets" class="form-control ticketField"  placeholder="" required />
-                <p style="margin-top:10px;padding-left:10px;padding-right: 300px" id="price">$ Price</p>
-
+                <select onchange="priceCalculator()" id="maxTickets" class="form-control ticketField"  placeholder="" required>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+                <div style="display:inline-flex; margin-top:10px;padding-left:10px;width: 360px">
+                    <p style="padding-right: 5px">x</p>
+                    <p style="padding-right: 5px" id="price">$ Price</p>
+                    <p id="ticketAmount">= $0.00</p>
+                </div>
                 <input id="creditCard" class="form-control creditCard" required>
             </div>
         </div>
-        <button id="buyBtn" style="display: none; margin-top: 80px" class="btn btnBright">Buy</button>
+        <button onclick="assurance()" id="buyBtn" style="display: none; margin-top: 80px" class="btn btnBright">Buy</button>
+        <div id="assurance" style="display: none">
+            <h3 style="margin-top: 80px; margin-bottom: 40px">Are you sure you would like to make this purchase?</h3>
+            <button  style="margin-right: 80px" class="btn btnDark" onclick="purchaseTicket()">Yes</button>
+            <button class="btn btnDark" onclick="no()">No</button>
+        </div>
+            <h3 id="purchaseMessage" style="display: none">Purchase Successful!</h3>
     </div>
 
 </div>

@@ -3,10 +3,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import javax.ejb.EJB;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
+import javax.json.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
@@ -194,9 +191,7 @@ public class MasterClubEventsManager {
     @Path("/getTickets")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String getTickets(String jsonString) {
-        JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
-        String token = jsonObject.getString("token");
+    public String getTickets(String token) {
         String username = tokenManager.getUsername(token);
         if (username == null) {
             return "Invalid token";
@@ -215,7 +210,11 @@ public class MasterClubEventsManager {
                 jsonObjectBuilder.add("event", clubEventsBag.getEvent(t.getEventID()).toJson());
                 jsonArrayBuilder.add(jsonObjectBuilder.build());
             }
-            return jsonArrayBuilder.build().toString();
+            JsonArray jsonArray = jsonArrayBuilder.build();
+            if (jsonArray.size() == 0) {
+                return "No tickets found";
+            }
+            return jsonArray.toString();
         }
         return "Failed to retrieve tickets";
     }

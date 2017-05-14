@@ -23,6 +23,7 @@ p, .text, h1, h2, h3, h4, h5, h6 {
 }
 
 
+
 .form-signin, .form-control {
     position: relative;
     height: auto;
@@ -80,6 +81,13 @@ input[type="date"], input[type="number"], input[type="text"], input[type="radio"
     border-color: white;
     color: white;
 }
+
+.btnBright {
+    background-color: #49107d;
+    border-color: white;
+    color: white;
+}
+
 
 .list {
     background-color: #000000;
