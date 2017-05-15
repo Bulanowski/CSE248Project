@@ -13,15 +13,23 @@ function showTicketInfo() {
 
 function parseURI() {
     var uri = document.documentURI;
-    eventID = uri.substring(uri.indexOf("?e=")+3);
+    if(uri.indexOf("?e=") != -1) {
+        eventID = uri.substring(uri.indexOf("?e=") + 3);
+    }
 
-    console.log(eventID);
+    console.log('"'+eventID+'"');
 
-    var request = new XMLHttpRequest();
-    request.onload = displayData;
-    request.open("POST", "/WEB_war_exploded/app/event/get", true);
-    request.setRequestHeader("Content-type", "text/plain");
-    request.send(eventID);
+    if(eventID != undefined && eventID != "") {
+
+        document.getElementById("noEvent").style.display = "none";
+
+        var request = new XMLHttpRequest();
+        request.onload = displayData;
+        request.open("POST", "/WEB_war_exploded/app/event/get", true);
+        request.setRequestHeader("Content-type", "text/plain");
+        request.send(eventID);
+
+    }
 }
 
 function displayData() {
@@ -36,6 +44,8 @@ function displayData() {
         document.getElementById("date").innerHTML = "Date: "+event.date;
         document.getElementById("time").innerHTML = "Time: "+event.time;
         document.getElementById("price").innerHTML = "$"+((event.price).toFixed(2));
+
+        document.getElementById("eventPage").style.display = "";
 
     }
     console.log("Response '"+this.responseText+"'");

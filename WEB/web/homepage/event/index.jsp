@@ -50,7 +50,8 @@
     </nav>
 </div>
 <br>
-<div class="container">
+<h1 id="noEvent" class="noEvent">No Event Found.</h1>
+<div id="eventPage" class="container" style="display: none">
 
     <div class="event">
         <h1 id="eventName">Event Name</h1>
@@ -71,7 +72,6 @@
             </div>
             <div id="" style="display: inline-flex">
                 <select onchange="priceCalculator()" id="maxTickets" class="form-control ticketField"  placeholder="" required>
-                    <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>

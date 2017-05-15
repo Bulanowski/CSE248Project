@@ -4,6 +4,12 @@ h2 {
     padding-left: 1%;
 }
 
+.noEvent {
+    text-shadow: 4px 4px black;
+    margin-top: 50px;
+    margin-left: 40%;
+}
+
 .event {
     width: 100%;
     padding: 5%;
