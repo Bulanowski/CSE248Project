@@ -47,24 +47,39 @@ function displayData() {
 
         document.getElementById("eventPage").style.display = "";
 
+        priceCalculator();
+
     }
     console.log("Response '"+this.responseText+"'");
 
 }
 
 function assurance() {
+    var creditCard = document.getElementsByClassName("creditCard");
+    var blankFields = 0;
+    if(creditCard[0].value == null || creditCard[0].value == '') {
+        creditCard[0].style.borderColor = "red";
+            blankFields = 1;
+        } else {
+        creditCard[0].style.borderColor = "";
+        }
+    if(blankFields == 1) {
+        return
+    }
+
     document.getElementById("ticketInfo").style.display = "none";
     document.getElementById("buyBtn").style.display = "none";
     document.getElementById("assurance").style.display = "";
 }
 
 function no() {
-    document.getElementById("ticketInfo").style.display = "";
+    document.getElementById("ticketInfo").style.display = "grid";
     document.getElementById("buyBtn").style.display = "";
     document.getElementById("assurance").style.display = "none";
 }
 
 function purchaseTicket() {
+
     var token = getCookie("token");
     var tickets = document.getElementById("maxTickets").value;
 
