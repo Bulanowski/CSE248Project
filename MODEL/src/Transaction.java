@@ -1,3 +1,5 @@
+import javafx.util.Pair;
+
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
@@ -15,14 +17,16 @@ public class Transaction {
     private String date;
     private double payment;
     private int eventID;
+    private String eventName;
 
-    public Transaction(String sender, String receiver, double payment, int eventID) {
+    public Transaction(String sender, String receiver, double payment, int eventID, String eventName) {
         transactionID = transactionIDCounter++;
         this.sender = sender;
         this.receiver = receiver;
         this.date = Calendar.getInstance().getTime().toString();
         this.payment = payment;
         this.eventID = eventID;
+        this.eventName = eventName;
     }
 
     public Transaction(JsonObject jsonObject) {
@@ -32,6 +36,7 @@ public class Transaction {
         date = jsonObject.getString("date");
         payment = jsonObject.getJsonNumber("payment").doubleValue();
         eventID = jsonObject.getInt("eventID");
+        eventName = jsonObject.getString("eventName");
     }
 
     public static void setTransactionIDCounter(int transactionIDCounter) {
@@ -62,8 +67,12 @@ public class Transaction {
         return payment;
     }
 
-    public int getEventID() {
+    public Integer getEventID() {
         return eventID;
+    }
+
+    public String getEventName() {
+        return eventName;
     }
 
     public JsonObject toJson() {
@@ -74,6 +83,7 @@ public class Transaction {
         jsonObjectBuilder.add("date", date);
         jsonObjectBuilder.add("payment", payment);
         jsonObjectBuilder.add("eventID", eventID);
+        jsonObjectBuilder.add("eventName", eventName);
         return jsonObjectBuilder.build();
     }
 }

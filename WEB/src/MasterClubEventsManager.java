@@ -202,7 +202,7 @@ public class MasterClubEventsManager {
                 Ticket ticket = new Ticket(eventID, username, amount);
                 customer.addTicket(ticket);
                 Double price = clubEventsBag.getEvent(eventID).getPrice();
-                Transaction transaction = new Transaction(customer.getName(), establishment.getName(), amount.doubleValue() * price, eventID);
+                Transaction transaction = new Transaction(customer.getName(), establishment.getName(), amount.doubleValue() * price, eventID, clubEventsBag.getEvent(eventID).getName());
                 customer.addTransaction(transaction);
                 establishment.addTransaction(transaction);
                 return "Tickets purchased successfully";
@@ -231,7 +231,7 @@ public class MasterClubEventsManager {
                 Establishment establishment = (Establishment) accountsBag.getUser(clubEventsBag.getEvent(t.getEventID()).getEstablishment()).getProfile();
                 customer.removeTicket(t.getTicketID());
                 Double price = clubEventsBag.getEvent(t.getEventID()).getPrice();
-                Transaction transaction = new Transaction(establishment.getName(), customer.getName(), (double) t.getAmount() * price, t.getEventID());
+                Transaction transaction = new Transaction(establishment.getName(), customer.getName(), (double) t.getAmount() * price, t.getEventID(), clubEventsBag.getEvent(t.getEventID()).getName());
                 customer.addTransaction(transaction);
                 establishment.addTransaction(transaction);
                 return "Ticket canceled successfully";
