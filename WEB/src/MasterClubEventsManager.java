@@ -66,7 +66,7 @@ public class MasterClubEventsManager {
     @Produces(MediaType.TEXT_PLAIN)
     public String searchEvents(String jsonString) {
         JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
-        String query = jsonObject.getString("query");
+        String query = jsonObject.getString("query").toLowerCase();
         Integer page = Integer.parseInt(jsonObject.getString("page"));
         ArrayList<ClubEvent> searchResult = new ArrayList<>();
         ArrayList<ClubEvent> zipResult = new ArrayList<>();
