@@ -10,42 +10,43 @@ function populateTickets() {
     if(this.status == 200 && this.responseText != null) {
 
         var response = this.responseText;
-        if(response != "Invalid token" || response != "No tickets found" || response != "Failed to retrieve tickets") {
+        if(response != "Invalid token" && response != "No tickets found" && response != "Failed to retrieve tickets") {
             var ticketJsonArray = JSON.parse(response);
             document.getElementsByClassName("noTickets")[0].style.display = "none";
-            var ticket = ticketJsonArray[0];
-            var eventInfo = ticket.event;
 
             var ticket1 = document.getElementById("ticket1");
-            ticket1.id = "ticket"+ticket.ticketID;
             ticket1.style.display = "";
-            ticket1.getElementsByClassName("event")[0].innerHTML = eventInfo.name;
-            ticket1.getElementsByClassName("amount")[0].innerHTML = "Amount Bought: "+ticket.amount;
-            ticket1.getElementsByClassName("date")[0].innerHTML = "Date of Event: "+eventInfo.date;
-            ticket1.getElementsByClassName("time")[0].innerHTML = "Time of Event: "+eventInfo.time;
-            ticket1.getElementsByClassName("ticketID")[0].innerHTML = "Ticket I.D. #"+ticket.ticketID;
-            ticket1.getElementsByClassName("cancelBtn")[0].setAttribute("onclick", "switchBtns(ticket"+ticket.ticketID+')');
-            ticket1.getElementsByClassName("yes")[0].setAttribute("onclick", "cancelTickets("+ticket.ticketID+')');
-            ticket1.getElementsByClassName("no")[0].setAttribute("onclick", "hideYesNo(ticket"+ticket.ticketID+')');
+
+            for(var i = 0; i < ticketJsonArray.length; i++) {
+
+                var ticketElement;
+
+                if(i == 0) {
+
+                    ticketElement = ticket1;
+
+                } else {
+
+                    var ticketElement = ticket1.cloneNode(true);
+
+                }
 
 
-            for(var i = 1; i < ticketJsonArray.length; i++) {
-                var clone = ticket1.cloneNode(true);
 
                 var ticket = ticketJsonArray[i];
-                eventInfo = ticket.event;
-                clone.id = "ticket"+ticket.ticketID;
+                var eventInfo = ticket.event;
+                ticketElement.id = "ticket"+ticket.ticketID;
 
-                clone.getElementsByClassName("event")[0].innerHTML = eventInfo.name;
-                clone.getElementsByClassName("amount")[0].innerHTML = "Amount Bought: "+ticket.amount;
-                clone.getElementsByClassName("date")[0].innerHTML = "Date of Event: "+eventInfo.date;
-                clone.getElementsByClassName("time")[0].innerHTML = "Time of Event: "+eventInfo.time;
-                clone.getElementsByClassName("ticketID")[0].innerHTML = "Ticket I.D. #"+ticket.ticketID;
-                clone.getElementsByClassName("cancelBtn")[0].setAttribute("onclick", "switchBtns(ticket"+ticket.ticketID+')');
-                clone.getElementsByClassName("yes")[0].setAttribute("onclick", "cancelTickets("+ticket.ticketID+')');
-                clone.getElementsByClassName("no")[0].setAttribute("onclick", "hideYesNo(ticket"+ticket.ticketID+')');
+                ticketElement.getElementsByClassName("event")[0].innerHTML = eventInfo.name;
+                ticketElement.getElementsByClassName("amount")[0].innerHTML = "Amount Bought: "+ticket.amount;
+                ticketElement.getElementsByClassName("date")[0].innerHTML = "Date of Event: "+eventInfo.date;
+                ticketElement.getElementsByClassName("time")[0].innerHTML = "Time of Event: "+eventInfo.time;
+                ticketElement.getElementsByClassName("ticketID")[0].innerHTML = "Ticket I.D. #"+ticket.ticketID;
+                ticketElement.getElementsByClassName("cancelBtn")[0].setAttribute("onclick", "switchBtns(ticket"+ticket.ticketID+')');
+                ticketElement.getElementsByClassName("yes")[0].setAttribute("onclick", "cancelTickets("+ticket.ticketID+')');
+                ticketElement.getElementsByClassName("no")[0].setAttribute("onclick", "hideYesNo(ticket"+ticket.ticketID+')');
 
-                document.getElementById("ticketList").appendChild(clone);
+                document.getElementById("ticketList").appendChild(ticketElement);
             }
 
         }

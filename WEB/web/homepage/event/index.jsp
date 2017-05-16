@@ -67,11 +67,11 @@
         <button id="buyTicketsbtn" onclick="showTicketInfo()" class="btn btnBright">Buy Tickets</button>
         <div  class="ticketInfoBox" id="ticketInfo" style="display: none">
             <div style="display: inline-flex">
-                <p style="padding-right: 300px">How Many Tickets?</p>
+                <p style="padding-right: 280px">How Many Tickets?</p>
                 <p>Credit Card</p>
             </div>
             <div id="" style="display: inline-flex">
-                <select onchange="priceCalculator()" id="maxTickets" class="form-control ticketField"  placeholder="" required>
+                <select onchange="priceCalculator()"  id="maxTickets" class="form-control ticketField"  placeholder="" required>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
