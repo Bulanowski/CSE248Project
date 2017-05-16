@@ -5,7 +5,7 @@
 var token = getCookie("token");
 console.log("Sent: " + token);
 var client = new XMLHttpRequest();
-if (document.body != null) {
+if (document.body !== null) {
     document.body.style.display = "none";
 }
 client.onload = handler;
@@ -26,10 +26,10 @@ function getCookie(cname) {
     var ca = decodedCookie.split(';');
     for(var i = 0; i < ca.length; i++) {
         var c = ca[i];
-        while (c.charAt(0) == ' ') {
+        while (c.charAt(0) === ' ') {
             c = c.substring(1);
         }
-        if (c.indexOf(name) == 0) {
+        if (c.indexOf(name) === 0) {
             return c.substring(name.length, c.length);
         }
     }
@@ -48,16 +48,20 @@ function signOut() {
 }
 
 function handler() {
-    if (this.status == 200 && this.responseText != null) {
+    if (this.status === 200) {
         var response = this.responseText;
         // console.log(response);
-        if(response == "Token Not Found" || response == "Username Not Found") {
+        if(response === "Token Not Found" || response === "Username Not Found") {
             window.location.href = "login/";
         } else {
-            if (document.documentURI == "http://localhost:8080/WEB_war_exploded/" || document.documentURI == "http://localhost:8080/WEB_war_exploded/index.jsp") {
-                var inComingJson = JSON.parse(response);
-                console.log("Going to " + inComingJson.homepage);
-                window.location.href = inComingJson.homepage;
+            if (document.documentURI === "http://localhost:8080/WEB_war_exploded/" || document.documentURI === "http://localhost:8080/WEB_war_exploded/index.jsp") {
+                if (response === "Customer") {
+                    window.location.href = "homepage/";
+                } else if (response === "Establishment") {
+                    window.location.href = "homepage-establishment/";
+                } else {
+                    window.location.href = "login/";
+                }
             } else {
                 document.body.style.display="";
             }
