@@ -33,7 +33,7 @@
             <li class="active"><a disabled="true">Home</a></li>
             <li><a href="homepage-establishment/eventEditor/">Create Event</a></li>
             <li><a href="#">View Planned Events</a></li>
-            <li><a href="#">Manage Employees</a></li>
+            <li><a href="homepage-establishment/employees/">Manage Employees</a></li>
             <li><a href="#">Finances</a></li>
             <li><a href="homepage-establishment/settings/">Account Settings</a></li>
             <li><a href="" onclick="signOut()">Sign Out</a></li>
@@ -47,7 +47,7 @@
     <div class="col-sm-8">
         <h1 class="noUpcomingEvents" style="display: none">No Upcoming Events</h1>
         <h1 class="upcomingEvents" style="">Upcoming Events</h1>
-        <ol id="eventList" style="padding: 0%;">
+        <ul id="eventList" style="padding: 0%;">
             <li id="event1" class="listItems">
                 <div  class="info" style="margin-left: 50px">
                     <h2 class="event">Event Name</h2>
@@ -65,7 +65,7 @@
             </li>
             <li>
             </li>
-        </ol>
+        </ul>
     </div>
 </div>
 <div class="row">
