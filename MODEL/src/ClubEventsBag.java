@@ -65,7 +65,23 @@ public class ClubEventsBag {
             json.add("price",(r.nextFloat()*50));
             json.add("maxTickets",r.nextInt(50)+10);
             ClubEvent event = new ClubEvent(establishmentName, json.build());
-            event.addTag(((i % 3) == 0 ? TagType.Rock : ((i % 3) == 1 ? TagType.Pop : TagType.Jazz)));
+            switch (r.nextInt(5)) {
+                case 0:
+                    event.addTag(TagType.Hip_Hop);
+                    break;
+                case 1:
+                    event.addTag(TagType.Rock_N_Roll);
+                    break;
+                case 2:
+                    event.addTag(TagType.Jazz);
+                    break;
+                case 3:
+                    event.addTag(TagType.Dance);
+                    break;
+                case 4:
+                    event.addTag(TagType.Metal);
+                    break;
+            }
             addEvent(event);
             if (accountsBag.usernameInUse(establishmentName) && accountsBag.getUser(establishmentName).getProfile() instanceof Establishment) {
                 Establishment establishment = (Establishment) accountsBag.getUser(establishmentName).getProfile();

@@ -1,8 +1,5 @@
 import javax.ejb.EJB;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
+import javax.json.*;
 import javax.naming.directory.InvalidAttributeIdentifierException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -132,6 +129,43 @@ public class AccountAccessManager {
     }
 
     @POST
+    @Path("/preferences/get")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getPreferences(String token) {
+        if (tokenManager.authenticateToken(token)) {
+            Account account = accountsBag.getUser(tokenManager.getUsername(token));
+            if (account.getProfile() instanceof Customer) {
+                Customer customer = (Customer) account.getProfile();
+                Object[] preferences = customer.toJson().getJsonArray("preferences").toArray();
+
+            }
+        }
+        return "Invalid Token";
+    }
+
+    @POST
+    @Path("/preferences/set")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String setPreferences(String jsonString) {
+        JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
+        String username = tokenManager.getUsername(jsonObject.getString("token"));
+        if (username == null) {
+            return "Invalid Token";
+        }
+        Account account = accountsBag.getUser(username);
+        if (account.getProfile() instanceof Customer) {
+            Customer customer = (Customer) account.getProfile();
+            for (JsonString preferenceString : jsonObject.getJsonArray("preferences").getValuesAs(JsonString.class)) {
+                customer.addPreference(TagType.valueOf(preferenceString.getString()));
+            }
+            return "Preferences changed successfully";
+        }
+        return "Failed to change preferences";
+    }
+
+    @POST
     @Path("/establishment/search")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
@@ -195,6 +229,33 @@ public class AccountAccessManager {
         } else {
             return "Establishment " + establishmentName + " not found";
         }
+    }
+
+    @POST
+    @Path("/establishment/get/editable")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getEstablishmentByToken(String token) {
+        String username = tokenManager.getUsername(token);
+        if (username == null) {
+            return "Invalid token";
+        }
+        Account account = accountsBag.getUser(username);
+        if (account.getProfile() instanceof Establishment) {
+            Establishment establishment = (Establishment) account.getProfile();
+            JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
+            jsonObjectBuilder.add("establishment", establishment.toJson());
+            JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+            for (Integer eventID : establishment.getEvents()) {
+                ClubEvent clubEvent = clubEventsBag.getEvent(eventID);
+                if (clubEvent != null) {
+                    jsonArrayBuilder.add(clubEvent.toJson());
+                }
+            }
+            jsonObjectBuilder.add("events", jsonArrayBuilder.build());
+            return jsonObjectBuilder.build().toString();
+        }
+        return "An error occurred";
     }
 
     @POST

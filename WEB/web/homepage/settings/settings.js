@@ -26,6 +26,9 @@ function handleGetSettingsResponse() {
             document.getElementById("phone").value = inComingJson.phone;
             document.getElementById("address").value = inComingJson.address;
             document.getElementById("zip").value = inComingJson.zip;
+            for (var i = 0; i < inComingJson.preferences.length; i++) {
+                document.getElementById(inComingJson.preferences[i]).setAttribute("checked", "true");
+            }
         }
     } else {
         console.log("An error occurred");
@@ -86,6 +89,36 @@ function handleSetSettingsResponse() {
     if (this.status == 200 && this.responseText != null) {
         var response = this.responseText;
         if (response == "Settings changed successfully") {
+
+        } else {
+
+        }
+    } else {
+        console.log("An error occurred");
+    }
+}
+
+function sendChangePreferencesRequest() {
+    var json = {};
+    json.token = getCookie("token");
+    json.preferences = [];
+    var prefCount = 0;
+    for (var i = 0; i < document.getElementsByName("music-type").length; i++) {
+        var element = document.getElementsByName("music-type")[i];
+        json.preferences[prefCount++] = element.value;
+    }
+    var client = new XMLHttpRequest();
+    client.onload = handleChangePreferencesResponse;
+    client.open("POST", "/WEB_war_exploded/app/account/preferences/set", true);
+    client.setRequestHeader("Content-type", "text/plain");
+    client.send(JSON.stringify(json));
+}
+
+function handleChangePreferencesResponse() {
+    if (this.status == 200 && this.responseText != null) {
+        var response = this.responseText;
+        console.log(response);
+        if (response == "Preferences changed successfully") {
 
         } else {
 
