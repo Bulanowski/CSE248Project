@@ -1,9 +1,12 @@
 import javax.ejb.EJB;
 import javax.json.*;
 import javax.naming.directory.InvalidAttributeIdentifierException;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.io.*;
+import java.io.StringReader;
 import java.util.ArrayList;
 
 /**

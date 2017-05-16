@@ -2,7 +2,8 @@ import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
 
 /**
  * Created by Alex on 5/10/2017.
