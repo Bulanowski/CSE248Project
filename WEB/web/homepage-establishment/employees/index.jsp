@@ -20,7 +20,7 @@
     <link href="homepage-establishment/employees/employees.css" rel="stylesheet">
 
     <script src="main.js"></script>
-    <script src=""></script>
+    <script src="homepage-establishment/employees/employees.js"></script>
 
     <title>Employee Management</title>
 </head>
@@ -43,7 +43,7 @@
 </nav>
 
 <table style="width:100%">
-    <h1>Employee History</h1>
+    <h1>Employee Records</h1>
     <tr>
         <th>First Name</th>
         <th>Last Name</th>
@@ -78,6 +78,6 @@
         <td>Terminated</td>
     </tr>
 </table>
-
+<script>getEstablishmentFromServer()</script>
 </body>
 </html>

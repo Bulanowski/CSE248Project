@@ -1,5 +1,6 @@
 table, th, td{
-    color: white;
-    border: 6px solid rgba(15, 15, 15, 1);
+    color: black;
+    background-color: white;
+    border: 4px solid rgba(15, 15, 15, 1);
     border-collapse: collapse;
 }
