@@ -1,4 +1,3 @@
-import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
@@ -9,8 +8,6 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.json.*;
 import javax.naming.directory.InvalidAttributeIdentifierException;
-import java.io.StringReader;
-import java.util.LinkedList;
 
 /**
  * Created by Alex on 5/3/2017.
@@ -20,16 +17,15 @@ import java.util.LinkedList;
 public class AccountsBag {
 
     @EJB
-    DataStorageHandler dataStorageHandler = new DataStorageHandler();
+    private DataStorageHandler dataStorageHandler = new DataStorageHandler();
 
     private final ObservableMap<String, Account> accounts = FXCollections.observableHashMap();  // username, account
 
     @PostConstruct
     public void init() {
         System.out.println("Loading accounts from accounts.dat");
-        String s = dataStorageHandler.readFromFile("accounts");
-        if (s != null) {
-            JsonObject jsonObject = Json.createReader(new StringReader(s)).readObject();
+        JsonObject jsonObject = dataStorageHandler.readFromFile("accounts");
+        if (jsonObject != null) {
             Transaction.setTransactionIDCounter(jsonObject.getInt("transactionIDCounter"));
             JsonArray jsonArray = jsonObject.getJsonArray("accounts");
             for (JsonObject accountJson : jsonArray.getValuesAs(JsonObject.class)) {
@@ -59,20 +55,12 @@ public class AccountsBag {
                 System.out.println("Failed to create default account bar");
             }
         }
-//        dataStorageHandler.connectAccountsListener(accounts);
     }
 
     @PreDestroy
     public void destroy() {
         System.out.println("Saving accounts to accounts.dat");
-        JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
-        jsonObjectBuilder.add("transactionIDCounter", Transaction.getTransactionIDCounter());
-        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-        for (Account a : accounts.values()) {
-            jsonArrayBuilder.add(a.toJson());
-        }
-        jsonObjectBuilder.add("accounts", jsonArrayBuilder.build());
-        dataStorageHandler.saveToFile("accounts", jsonObjectBuilder.build());
+        dataStorageHandler.saveToFile("accounts", toJson());
     }
 
     public void addAccount(Account a) {
@@ -81,20 +69,36 @@ public class AccountsBag {
         }
     }
 
-    public void addListener(InvalidationListener listener) {
-        accounts.addListener(listener);
-    }
-
     public boolean usernameInUse(String username) {
         return accounts.containsKey(username);
     }
 
     public boolean verifyLogin(String username, String password) {
-        return (usernameInUse(username) ? accounts.get(username).verifyPassword(password) : false);
+        return usernameInUse(username) && accounts.get(username).verifyPassword(password);
     }
 
     public Account getUser(String username) {
         return accounts.get(username);
+    }
+
+    public Establishment searchEstablishmentsByName(String name) {
+        for (Account a : accounts.values()) {
+            if (a.getProfile() instanceof Establishment && a.getProfile().getName().equals(name)) {
+                return (Establishment) a.getProfile();
+            }
+        }
+        return null;
+    }
+
+    public JsonObject toJson() {
+        JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
+        jsonObjectBuilder.add("transactionIDCounter", Transaction.getTransactionIDCounter());
+        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+        for (Account a : accounts.values()) {
+            jsonArrayBuilder.add(a.toJson());
+        }
+        jsonObjectBuilder.add("accounts", jsonArrayBuilder.build());
+        return jsonObjectBuilder.build();
     }
 
 }

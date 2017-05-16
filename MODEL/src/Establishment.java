@@ -10,23 +10,35 @@ public class Establishment extends Profile {
     private String imageSrc;
     private String timeOpen;
     private String timeClose;
-    private Set<Integer> events;
+    private Set<Integer> events = new HashSet<>();
+    private String[] hours = new String[7];
     // TODO private Set<Item> availableItems new Set<>();
 
     public Establishment() {
         imageSrc = "";
         timeOpen = "";
         timeClose = "";
-        events = new HashSet<>();
     }
 
     public Establishment(JsonObject jsonObject) {
         super(jsonObject);
-        imageSrc = jsonObject.getString("imageSrc");
-        timeOpen = jsonObject.getString("timeOpen");
-        timeClose = jsonObject.getString("timeClose");
-        for (JsonString tagJson : jsonObject.getJsonArray("events").getValuesAs(JsonString.class)) {
-            events.add(Integer.parseInt(tagJson.getString()));
+        imageSrc = jsonObject.getString("imageSrc", "");
+        timeOpen = jsonObject.getString("timeOpen", "");
+        timeClose = jsonObject.getString("timeClose", "");
+        if (jsonObject.containsKey("events") && !jsonObject.isNull("events")) {
+            for (JsonNumber jsonNumber : jsonObject.getJsonArray("events").getValuesAs(JsonNumber.class)) {
+                events.add(jsonNumber.intValueExact());
+            }
+        } else {
+            System.err.println("Events not found in account " + jsonObject.getString("username"));
+        }
+        if (jsonObject.containsKey("hours") && !jsonObject.isNull("hours")) {
+            int i = 0;
+            for (JsonString jsonString : jsonObject.getJsonArray("hours").getValuesAs(JsonString.class)) {
+                hours[i++] = jsonString.getString();
+            }
+        } else {
+            System.err.println("Hours not found in account " + jsonObject.getString("username"));
         }
     }
 
@@ -67,20 +79,7 @@ public class Establishment extends Profile {
     }
 
     public JsonObject toJson() {
-        JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
-        jsonObjectBuilder.add("name", getName());
-        jsonObjectBuilder.add("address", getAddress());
-        jsonObjectBuilder.add("phone", getPhone());
-        jsonObjectBuilder.add("zip", getZip());
-        if (getTransactions().size() > 0) {
-            JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-            for (Transaction t : getTransactions()) {
-                jsonArrayBuilder.add(t.toJson());
-            }
-            jsonObjectBuilder.add("transactions", jsonArrayBuilder.build());
-        } else {
-            jsonObjectBuilder.add("transactions", Json.createArrayBuilder().build());
-        }
+        JsonObjectBuilder jsonObjectBuilder = startBuildingJson();
         jsonObjectBuilder.add("imageSrc", getImageSrc());
         jsonObjectBuilder.add("timeOpen", getTimeOpen());
         jsonObjectBuilder.add("timeClose", getTimeClose());
@@ -92,6 +91,15 @@ public class Establishment extends Profile {
             jsonObjectBuilder.add("event", jsonArrayBuilder.build());
         } else {
             jsonObjectBuilder.add("events", Json.createArrayBuilder().build());
+        }
+        if (hours != null) {
+            JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+            for (String s : hours) {
+                jsonArrayBuilder.add(s);
+            }
+            jsonObjectBuilder.add("hours", jsonArrayBuilder.build());
+        } else {
+            jsonObjectBuilder.add("hours", Json.createArrayBuilder().build());
         }
         return jsonObjectBuilder.build();
     }
