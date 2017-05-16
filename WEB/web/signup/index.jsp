@@ -50,7 +50,6 @@
                     </label>
                     <br><br>
                     <button type="button" class="btn btnDark" onclick="sendRegisterRequest()">Submit</button>
-                    <a href="homepage-establishment/index.jsp" class="btn btnDark">Establishment home</a>
                 </div>
             </form>
         </div>

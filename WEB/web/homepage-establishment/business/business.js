@@ -24,10 +24,10 @@ function changeDescription() {
 function handleChangeDescResponse() {
     if (this.status == 200 && this.responseText != null) {
         var response = this.responseText;
-        if (response == "Password changed successfully") {
+        if (response == "Description changed successfully") {
 
         } else {
-            // TODO tell the user password change failed and what went wrong
+            console.log("Desc changed failed")
         }
         // for some reason this alert appears before above fields are cleared
         alert(response);
