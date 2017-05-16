@@ -27,10 +27,18 @@ public class Account {
         String accountType = jsonObject.getString("accountType");
         switch (accountType) {
             case "Customer":
-                profile = new Customer(jsonObject.getJsonObject("profile"));
+                if (jsonObject.containsKey("profile") && !jsonObject.isNull("profile")) {
+                    profile = new Customer(jsonObject.getJsonObject("profile"));
+                } else {
+                    profile = new Customer();
+                }
                 break;
             case "Establishment":
-                profile = new Establishment(jsonObject.getJsonObject("profile"));
+                if (jsonObject.containsKey("profile") && !jsonObject.isNull("profile")) {
+                    profile = new Establishment(jsonObject.getJsonObject("profile"));
+                } else {
+                    profile = new Establishment();
+                }
                 break;
             default:
                 throw new InvalidAttributeIdentifierException();
