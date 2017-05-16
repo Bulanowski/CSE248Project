@@ -24,11 +24,30 @@ ul {
     width: 100%;
 }
 
-.searchEventImg {
+.img {
     width: 200px;
-    /*height: 100px;*/
     border-radius: 30px;
 }
+
+.hover {
+    color: white;
+}
+
+.hover:focus {
+    color: white;
+}
+
+.hover:hover {
+    color: white;
+}
+
+.img2 {
+    width: 200px;
+    border-radius: 30px;
+    margin-bottom: 20px;
+}
+
+.events {  }
 
 .searchTitle {
     padding-top: 5px;
@@ -36,12 +55,19 @@ ul {
     font-size: 20px;
 }
 
-.otherTitle {
+.otherTitle, .title {
     padding-left: 5%;
 }
 .dateTime {
     display: flex;
     padding-left: 5%;
+}
+
+.description {
+    padding-top: 5px;
+    padding-left: 5%;
+    padding-bottom: 20%;
+    font-size: 15px;
 }
 
 .searchDescription {

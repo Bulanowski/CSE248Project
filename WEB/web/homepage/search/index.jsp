@@ -40,8 +40,13 @@
                 <li>
                     <div class="nav navbar-form">
                         <div class="form-group">
-                            <input id="searchField" placeholder="Search" class=" Testy form-control searchbar">
+                            <input id="searchField" placeholder="Search" class="hover Testy form-control searchbar">
                             <button onclick="search()" type="submit" class="Testy btn btnDark">Submit</button>
+                            <select  id="searchType" type="submit" class="Testy btn btnDark hover">
+                                <option value="p">Event</option>
+                                <option value="e">Establishment</option>
+                                <option value="r">Recommended</option>
+                            </select>
                         </div>
                     </div>
                 </li>
@@ -56,7 +61,7 @@
         <li id="event1"style="padding: 20px; display: none">
             <div onclick="" class="searchEventBorder">
                 <div class="first">
-                    <img class="searchEventImg" src="">
+                    <img class="searchEventImg img" src="">
                     <p class="searchTitle">Title Paragraph</p>
                 </div>
                 <div class="second">
@@ -70,6 +75,29 @@
                     <div class="dateTime">
                         <p class="date" style="margin-right:20%">Date</p>
                         <p class="time">Time</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+
+    </ul>
+</div>
+<div id="establishment-container" class="container">
+    <ul id="businessList">
+        <li id="business"style="padding: 20px; display: none">
+            <div onclick="" class="searchEventBorder">
+                <div class="first">
+                    <img class="img2" src="">
+                </div>
+                <div class="second">
+                    <div style="height: 15%">
+                        <div style="display: inline-flex; width: 800px">
+                            <h3 class="title">Title Paragraph</h3>
+                            <p class="events" style="margin-top: 12px; margin-left: 70%;">Available Events:</p>
+                        </div>
+                        <p class="description"></p>
+                    </div>
                     </div>
                 </div>
             </div>

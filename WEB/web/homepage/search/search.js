@@ -2,7 +2,61 @@
  * Created by phil on 5/10/17.
  */
 
-function getResponse() {
+
+function getBusinessResponse() {
+    console.log(2);
+    console.log(this.status);
+    console.log(this.responseText);
+    if (this.status === 200 && this.responseText !== null) {
+        var response = this.responseText;
+        if (response === "No results found") {
+            document.getElementById("noResults").style.display = "";
+            return;
+        }
+        document.getElementById("business").style.display = "";
+
+        var eventJson = JSON.parse(response);
+        var eventArray = eventJson.result;
+        var pages = eventJson.pages;
+        var pagebtn = document.getElementsByClassName("page");
+
+        for(var i = 0; i < pages.length; i++) {
+            var pageElement;
+            if(i === 0) {
+                pageElement = pagebtn;
+            } else {
+                pageElement = pagebtn.cloneNode(true);
+            }
+
+            pageElement.innerHTML = i+1;
+            pageElement.href = '#';
+            pageElement.setAttribute("onclick", "changePage("+(i+1)+"); return false;");
+            document.getElementsByClassName("page-container")[0].appendChild(pageElement);
+        }
+
+        var business = document.getElementById("business");
+
+        for(var i = 0; i < eventArray.length; i++) {
+
+            var element;
+
+            if(i == 0) {
+                element = business;
+            } else {
+                element = business.cloneNode(true);
+            }
+
+            element.getElementsByClassName("img2")[0].src = eventArray[i].imageSrc;
+            element.getElementsByClassName("title")[0].innerHTML = eventArray[i].name;
+            element.getElementsByClassName("description")[0].innerHTML = eventArray[i].description;
+            element.getElementsByClassName("events")[0].innerHTML = "Available Events: "+eventArray[i].events.length;
+
+        }
+    }
+}
+
+
+function getEventResponse() {
     if (this.status == 200 && this.responseText != null) {
         var response = this.responseText;
         if(response == "No results found") {
@@ -129,8 +183,9 @@ function changePage(pageNum) {
 function getSearch() {
     var uri = document.documentURI;
     var query = uri.substring(uri.indexOf("?q=")+3, uri.indexOf("&p="));
-    var pageNum = uri.substring(uri.indexOf("&p=")+3);
-    console.log("page num: '"+pageNum+ "'");
+    var pageNum = uri.substring(uri.indexOf("&p=")+3,uri.indexOf("&t="));
+    var type = uri.substring(uri.indexOf("&t=")+3);
+    console.log("Type: '"+type+ "'");
     if(query != null && document.getElementById("event1") != null) {
         query = query.replace(/(\%3F)/g, "?");
         query = query.replace(/(\%3D)/g, "=");
@@ -142,8 +197,18 @@ function getSearch() {
         var search = {};
         search.query = query;
         search.page = pageNum;
-        request.onload = getResponse;
-        request.open("POST", "/WEB_war_exploded/app/event/search", true);
+        if(type === 'p') {
+            request.onload = getEventResponse;
+            request.open("POST", "/WEB_war_exploded/app/event/search", true);
+        } else if(type === 'e') {
+            console.log(1);
+            request.onload = getBusinessResponse;
+            request.open("POST", "/WEB_war_exploded/app/account/establishment/search", true);
+        } else {
+            request.onload = getEventResponse;
+            search.token = getCookie("token");
+            request.open("POST", "/WEB_war_exploded/app/event/search/recommended", true);
+        }
         request.setRequestHeader("Content-type", "text/plain");
         request.send(JSON.stringify(search));
 
@@ -153,6 +218,7 @@ function getSearch() {
 
 
 function search() {
+
     var searchQuery = document.getElementById("searchField").value.replace(/\s+/g, "+");
     searchQuery = searchQuery.replace(/\?/g, "%3F");
     searchQuery = searchQuery.replace(/\=/g, "%3D");
@@ -161,13 +227,20 @@ function search() {
     setCookie("search", searchQuery, 1);
     var uri = document.documentURI;
     if (uri.includes("/search")) {
+        var type = document.getElementById("searchType").value;
         uri = uri.substring(0,uri.indexOf("?q="));
-        window.location.href = uri + "?q="+searchQuery+"&p=1";
+        if(type === "p") {
+            window.location.href = uri + "?q=" + searchQuery + "&p=1&t=p";
+        } else if(type === "r"){
+            window.location.href = uri + "?q=" + searchQuery + "&p=1&t=r";
+        } else {
+            window.location.href = uri + "?q=" + searchQuery + "&p=1&t=e";
+        }
     } else {
         uri = document.documentURI;
         uri = uri.substring(0,uri.indexOf("homepage/")+9);
         console.log(uri);
-        window.location.href = uri + "search/?q="+searchQuery+"&p=1";
+            window.location.href = uri + "search/?q=" + searchQuery + "&p=1&t=p";
     }
 
 }
