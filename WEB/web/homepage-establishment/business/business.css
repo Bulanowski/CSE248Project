@@ -1,0 +1,66 @@
+h2 {
+    width: 100%;
+    padding-bottom: 2%;
+    padding-left: 1%;
+}
+textarea{
+    color: white;
+    background-color: #0f0f0f;
+    margin-bottom: 10px;
+    resize: none;
+}
+
+ul {
+    color: white;
+    list-style-type: none;
+}
+
+.hours{
+    color: white;
+    background-color: #0f0f0f;
+    min-width: 13%;
+    border-radius: 4px;
+}
+
+.eventBox {
+    display: block;
+    background-color: #1f013a;
+    border-radius: 20px;
+    padding: 15px;
+    width: auto;
+    margin-top: 20px;
+}
+
+.eventDetails {
+    display: inline-flex;
+    width: 100%;
+}
+
+.noBusiness {
+    text-shadow: 4px 4px black;
+    margin-top: 50px;
+    margin-left: 40%;
+}
+
+.business {
+    width: 100%;
+    padding: 5%;
+    margin-left: 5%;
+    border-radius: 20px;
+    background-color: rgba(15, 15, 15, 0.31);
+}
+
+.descriptionItems {
+}
+
+.businessImg {
+    width: 700px;
+    border-radius: 10%;
+    margin-bottom: 5%;
+}
+
+.businessHours {
+    height: 10%;
+    width: 100%;
+    color: white;
+}
