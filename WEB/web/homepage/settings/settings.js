@@ -105,7 +105,9 @@ function sendChangePreferencesRequest() {
     var prefCount = 0;
     for (var i = 0; i < document.getElementsByName("music-type").length; i++) {
         var element = document.getElementsByName("music-type")[i];
-        json.preferences[prefCount++] = element.value;
+        if (element.checked) {
+            json.preferences[prefCount++] = element.value;
+        }
     }
     var client = new XMLHttpRequest();
     client.onload = handleChangePreferencesResponse;

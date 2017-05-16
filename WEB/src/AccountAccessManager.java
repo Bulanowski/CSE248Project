@@ -129,22 +129,6 @@ public class AccountAccessManager {
     }
 
     @POST
-    @Path("/preferences/get")
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getPreferences(String token) {
-        if (tokenManager.authenticateToken(token)) {
-            Account account = accountsBag.getUser(tokenManager.getUsername(token));
-            if (account.getProfile() instanceof Customer) {
-                Customer customer = (Customer) account.getProfile();
-                Object[] preferences = customer.toJson().getJsonArray("preferences").toArray();
-
-            }
-        }
-        return "Invalid Token";
-    }
-
-    @POST
     @Path("/preferences/set")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
