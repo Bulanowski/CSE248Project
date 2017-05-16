@@ -38,7 +38,7 @@ function getEventsFromServer() {
     var request = new XMLHttpRequest()
 
     request.onload = loadPlannedEvents;
-    request.open("POST", "/WEB_war_exploded/app/event/getTickets", true);
+    request.open("POST", "/WEB_war_exploded/app/account/establishment/get/editable", true);
     request.setRequestHeader("Content-type", "text/plain");
     request.send(token);
 }
