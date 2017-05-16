@@ -4,6 +4,25 @@ h2 {
     padding-left: 1%;
 }
 
+ul {
+    color: white;
+    list-style-type: none;
+}
+
+.eventBox {
+    display: block;
+    background-color: #1f013a;
+    border-radius: 20px;
+    padding: 15px;
+    width: auto;
+    margin-top: 20px;
+}
+
+.eventDetails {
+    display: inline-flex;
+    width: 100%;
+}
+
 .noBusiness {
     text-shadow: 4px 4px black;
     margin-top: 50px;

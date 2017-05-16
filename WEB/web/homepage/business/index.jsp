@@ -57,14 +57,22 @@
     <div class="business">
         <h2 id="businessName">Business Name</h2>
         <img class="businessImg" src="https://i.imgur.com/1wc10tt.jpg">
+        <div style="display: inline-flex">
+            <h3 id="location">Location:</h3>
+            <p style="margin-left: 10px; margin-top: 13px">123 Main Street, New York, New York, 10012</p>
+        </div>
+        <br>
+        <h3>Description:</h3>
         <div class="descriptionItems">
             <p id="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mauris est, volutpat vel nulla in, sodales consectetur velit. Donec suscipit nisi enim, ut mattis mauris maximus eget. Pellentesque condimentum nulla sit amet nisl feugiat rutrum. Nunc ante enim, pulvinar at metus eu, mattis lacinia justo. Nam sit amet purus orci. In bibendum ultrices eros a aliquam. Nulla ultricies lectus eu augue sed.</p>
         </div>
         <div>
+            <br>
             <h3>Business Hours:</h3>
+            <br>
             <TABLE id="businessHours" class="businessHours">
                 <tr>
-                    <th width="(100/7)%">Mon</th>
+                    <th>Mon</th>
                     <th width="(100/7)%">Tues</th>
                     <th width="(100/7)%">Wed</th>
                     <th width="(100/7)%">Thurs</th>
@@ -73,16 +81,27 @@
                     <th width="(100/7)%">Sat</th>
                 </tr>
                 <tr>
-                    <td id="mon" width="(100/7)%">1</td>
-                    <td id="tues" width="(100/7)%">2</td>
-                    <td id="wed" width="(100/7)%">3</td>
-                    <td id="thurs" width="(100/7)%">4</td>
-                    <td id="fri" width="(100/7)%">5</td>
-                    <td id="sat" width="(100/7)%">6</td>
-                    <td id="sun" width="(100/7)%">7</td>
+                    <td id="mon">1</td>
+                    <td id="tues" >2</td>
+                    <td id="wed" >3</td>
+                    <td id="thurs">4</td>
+                    <td id="fri" >5</td>
+                    <td id="sat" >6</td>
+                    <td id="sun" >7</td>
                 </tr>
             </TABLE>
         </div>
+        <br>
+        <h3>Upcoming Events:</h3>
+        <ul>
+            <li id="event" class="eventBox">
+                <div class="eventDetails">
+                    <p class="eventName" style="width: 80%"> Event Name:</p>
+                    <p class="date"> Date: 12/31/1999 </p>
+                </div>
+            </li>
+
+        </ul>
     </div>
 
 </div>

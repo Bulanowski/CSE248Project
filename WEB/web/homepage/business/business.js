@@ -6,13 +6,11 @@ function displayData() {
     console.log("Status: " + this.status);
     if (this.status == 200 && this.responseText != null) {
 
-        var event = JSON.parse(this.responseText);
+        var business = JSON.parse(this.responseText);
 
-        document.getElementById("businessName").innerHTML = event.establishment;
-        document.getElementById("description").innerHTML = event.description;
+        document.getElementById("businessName").innerHTML = business.name;
+        document.getElementById("description").innerHTML = business.description;
         document.getElementById("businessPage").style.display = "";
-
-        priceCalculator();
 
     }
     console.log("Response '"+this.responseText+"'");
@@ -22,13 +20,14 @@ function displayData() {
 
 function parseURI() {
     var uri = document.documentURI;
+    var business;
     if(uri.indexOf("?e=") != -1) {
-        eventID = uri.substring(uri.indexOf("?e=") + 3);
+        business = uri.substring(uri.indexOf("?e=") + 3);
     }
 
-    console.log('"'+eventID+'"');
+    console.log('"'+business+'"');
 
-    if(eventID != undefined && eventID != "") {
+    if(business != undefined && business != "") {
 
         document.getElementById("noEvent").style.display = "none";
 
@@ -40,7 +39,7 @@ function parseURI() {
         //IDK YETTT
         request.open("POST", "/WEB_war_exploded/app/", true);
         request.setRequestHeader("Content-type", "text/plain");
-        request.send(eventID);
+        request.send(business);
 
     }
 }

@@ -27,7 +27,7 @@ function populateTickets() {
 
                 } else {
 
-                    var ticketElement = ticket1.cloneNode(true);
+                    ticketElement = ticket1.cloneNode(true);
 
                 }
 
