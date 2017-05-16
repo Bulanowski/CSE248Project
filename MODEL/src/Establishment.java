@@ -16,6 +16,9 @@ public class Establishment extends Profile {
     public Establishment() {
         description = "";
         imageSrc = "";
+        for (int i = 0; i < hours.length; i++) {
+            hours[i] = "";
+        }
     }
 
     public Establishment(JsonObject jsonObject) {
@@ -30,9 +33,9 @@ public class Establishment extends Profile {
             System.err.println("Events not found in account " + jsonObject.getString("username"));
         }
         if (jsonObject.containsKey("hours") && !jsonObject.isNull("hours")) {
-            int i = 0;
-            for (JsonString jsonString : jsonObject.getJsonArray("hours").getValuesAs(JsonString.class)) {
-                hours[i++] = jsonString.getString();
+            List<JsonString> jsonStrings = jsonObject.getJsonArray("hours").getValuesAs(JsonString.class);
+            for (int i = 0; i < 7; i++) {
+                hours[i] = jsonStrings.get(i).getString();
             }
         } else {
             System.err.println("Hours not found in account " + jsonObject.getString("username"));
@@ -101,8 +104,12 @@ public class Establishment extends Profile {
         }
         if (hours != null) {
             JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-            for (String s : hours) {
-                jsonArrayBuilder.add(s);
+            for (int i = 0; i < 7; i++) {
+                if (hours[i] != null) {
+                    jsonArrayBuilder.add(hours[i]);
+                } else {
+                    jsonArrayBuilder.add("");
+                }
             }
             jsonObjectBuilder.add("hours", jsonArrayBuilder.build());
         } else {
