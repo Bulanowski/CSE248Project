@@ -3,11 +3,11 @@ import javafx.collections.ObservableMap;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.ejb.DependsOn;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.json.*;
-import java.io.StringReader;
 import java.util.*;
 
 /**
@@ -15,20 +15,23 @@ import java.util.*;
  */
 @Singleton
 @Startup
+@DependsOn("AccountsBag")
 public class ClubEventsBag {
 
     @EJB
-    DataStorageHandler dataStorageHandler = new DataStorageHandler();
+    private DataStorageHandler dataStorageHandler = new DataStorageHandler();
+
+    @EJB
+    private AccountsBag accountsBag = new AccountsBag();
 
     private final ObservableMap<Integer, ClubEvent> clubEvents = FXCollections.observableHashMap(); // eventID, event
 
     @PostConstruct
     public void init() {
         System.out.println("Loading events from events.dat");
-        String s = dataStorageHandler.readFromFile("events");
-        if (s != null) {
+        JsonObject jsonObject = dataStorageHandler.readFromFile("events");
+        if (jsonObject != null) {
             try {
-                JsonObject jsonObject = Json.createReader(new StringReader(s)).readObject();
                 ClubEvent.setEventIDCounter(jsonObject.getInt("eventIDCounter"));
                 Ticket.setTicketIDCounter(jsonObject.getInt("ticketIDCounter"));
                 JsonArray jsonArray = jsonObject.getJsonArray("events");
@@ -44,7 +47,6 @@ public class ClubEventsBag {
         } else {
             loadDefaultEvents();
         }
-//        dataStorageHandler.connectClubEventsListener(clubEvents);
     }
 
     private void loadDefaultEvents() {
@@ -53,6 +55,7 @@ public class ClubEventsBag {
         Ticket.setTicketIDCounter(1000000);
         for (int i=0;i<35;i++) {
             Random r = new Random();
+            String establishmentName = "bar";
             JsonObjectBuilder json = Json.createObjectBuilder();
             json.add("name","Event Name "+i);
             json.add("description",i+" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac tellus tortor. Aliquam sit amet posuere libero, at semper magna. In nullam.");
@@ -61,15 +64,36 @@ public class ClubEventsBag {
             json.add("time","12:30 p.m");
             json.add("price",(r.nextFloat()*50));
             json.add("maxTickets",r.nextInt(50)+10);
-            ClubEvent event = new ClubEvent("bar", json.build());
+            ClubEvent event = new ClubEvent(establishmentName, json.build());
             event.addTag(((i % 3) == 0 ? TagType.Rock : ((i % 3) == 1 ? TagType.Pop : TagType.Jazz)));
             addEvent(event);
+            if (accountsBag.usernameInUse(establishmentName) && accountsBag.getUser(establishmentName).getProfile() instanceof Establishment) {
+                Establishment establishment = (Establishment) accountsBag.getUser(establishmentName).getProfile();
+                establishment.addEvent(event.getEventID());
+            }
         }
     }
 
     @PreDestroy
     public void destroy() {
         System.out.println("Saving events to events.dat");
+        dataStorageHandler.saveToFile("events", toJson());
+    }
+
+    public void addEvent(ClubEvent clubEvent) {
+        clubEvents.put(clubEvent.getEventID(), clubEvent);
+    }
+
+    public ClubEvent getEvent(Integer eventID) {
+        return clubEvents.get(eventID);
+    }
+
+    public Collection<ClubEvent> getAllEvents() {
+        return clubEvents.values();
+    }
+
+    public JsonObject toJson() {
+
         JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
         jsonObjectBuilder.add("eventIDCounter", ClubEvent.getEventIDCounter());
         jsonObjectBuilder.add("ticketIDCounter", Ticket.getTicketIDCounter());
@@ -78,19 +102,7 @@ public class ClubEventsBag {
             jsonArrayBuilder.add(clubEvent.toJson());
         }
         jsonObjectBuilder.add("events", jsonArrayBuilder.build());
-        dataStorageHandler.saveToFile("events", jsonObjectBuilder.build());
-    }
-
-    public void addEvent(ClubEvent e) {
-        clubEvents.put(e.getEventID(), e);
-    }
-
-    public ClubEvent getEvent(Integer id) {
-        return clubEvents.get(id);
-    }
-
-    public Collection<ClubEvent> getAllEvents() {
-        return clubEvents.values();
+        return jsonObjectBuilder.build();
     }
 
 //    public ArrayList<ClubEvent> search(String query) {
