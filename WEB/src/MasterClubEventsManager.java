@@ -243,7 +243,7 @@ public class MasterClubEventsManager {
     }
 
     @POST
-    @Path("/ticket/get")
+    @Path("/ticket/get/all")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String getTickets(String token) {
