@@ -29,23 +29,17 @@ public class Establishment extends Profile {
             for (JsonNumber jsonNumber : jsonObject.getJsonArray("events").getValuesAs(JsonNumber.class)) {
                 events.add(jsonNumber.intValueExact());
             }
-        } else {
-            System.err.println("Events not found in account " + jsonObject.getString("username"));
         }
         if (jsonObject.containsKey("hours") && !jsonObject.isNull("hours")) {
             List<JsonString> jsonStrings = jsonObject.getJsonArray("hours").getValuesAs(JsonString.class);
             for (int i = 0; i < 7; i++) {
                 hours[i] = jsonStrings.get(i).getString();
             }
-        } else {
-            System.err.println("Hours not found in account " + jsonObject.getString("username"));
         }
         if (jsonObject.containsKey("employees") && !jsonObject.isNull("employees")) {
             for (JsonObject employeeJson : jsonObject.getJsonArray("employees").getValuesAs(JsonObject.class)) {
                 employees.add(new Employee(employeeJson));
             }
-        } else {
-            System.err.println("Employees not found in account " + jsonObject.getString("username"));
         }
     }
 
@@ -98,7 +92,7 @@ public class Establishment extends Profile {
             for (Integer i : getEvents()) {
                 jsonArrayBuilder.add(i);
             }
-            jsonObjectBuilder.add("event", jsonArrayBuilder.build());
+            jsonObjectBuilder.add("events", jsonArrayBuilder.build());
         } else {
             jsonObjectBuilder.add("events", Json.createArrayBuilder().build());
         }
