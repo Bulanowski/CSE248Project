@@ -65,7 +65,7 @@
                 <p>Name</p>
                 <input type="text" id="name" name="name" class="form-control" placeholder="Name">
                 <p>Gender</p>
-                <input type="range" id="gender" name="range">
+                <input type="color" id="gender" name="gender">
                 <p>Birth Date</p>
                 <input type="date" id="birthday" name ="birthday" class="form-control">
                 <p>Phone Number</p>
