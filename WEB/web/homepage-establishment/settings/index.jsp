@@ -18,14 +18,12 @@
 
     <link href="w3.css" rel="stylesheet">
     <link href="theme.css" rel="stylesheet">
-    <%--<link href="homepage/homepage.css?v=0.0.7" rel="stylesheet">--%>
 
     <script src="main.js"></script>
     <script src="homepage-establishment/settings/settings.js"></script>
     <title>Settings</title>
 </head>
 <body>
-<%--<div class="container">--%>
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -42,10 +40,9 @@
             </ul>
         </div>
     </nav>
-<%--</div>--%>
 <div class="container">
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <form action="" method="post" class="form-signin">
                 <h2>Change Password</h2>
                 <input type="password" id="old-password" class="form-control" placeholder="Old Password" name="password">
@@ -54,7 +51,7 @@
                 <button type="button" class="btn btnDark" onclick="sendChangePasswordRequest()">Change Password</button>
             </form>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <form action="" method="post" class="form-signin">
                 <h2>Business Info</h2>
                 <p>Business Name</p>
@@ -66,16 +63,6 @@
                 <input type="number" id="zip" name="zip" class="form-control" placeholder="Zip Code">
                 <input type="text" id="imageSrc" name="imageSrc" class="form-control" placeholder="Image">
                 <button type="button" class="btn btnDark" onclick="">Update Info</button>
-            </form>
-        </div>
-        <div class="col-sm-4">
-            <form action="" method="post" class="form-signin">
-                <h2>Hours</h2>
-                <p>Open</p>
-                <input type="time" id="time-open" name="time-close" class="form-control">
-                <p>Close</p>
-                <input type="time" id="time-close" name="time-close"class="form-control">
-                <button type="button" class="btn btnDark" onclick="">Change Hours</button>
             </form>
         </div>
     </div>

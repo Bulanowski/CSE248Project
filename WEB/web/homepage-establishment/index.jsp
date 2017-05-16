@@ -16,7 +16,9 @@
     <link href="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet">
 
     <link href="theme.css" rel="stylesheet">
+    <link href="homepage-establishment/homepage-establishment.css" rel="stylesheet">
     <script src="main.js"></script>
+    <script src="homepage-establishment/homepage-establishment.js"></script>
 
     <title>Establishment Home</title>
 </head>
@@ -25,28 +27,51 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Buissness Name</a>
+            <a class="navbar-brand" href="homepage-establishment/">Buissness Name</a>
         </div>
-        <ul class="nav navbar-nav">
+        <ol class="nav navbar-nav">
             <li class="active"><a disabled="true">Home</a></li>
             <li><a href="homepage-establishment/eventEditor/">Create Event</a></li>
             <li><a href="#">View Planned Events</a></li>
-            <li><a href="#">Manage Employees</a></li>
+            <li><a href="homepage-establishment/employees/">Manage Employees</a></li>
             <li><a href="#">Finances</a></li>
             <li><a href="homepage-establishment/settings/">Account Settings</a></li>
             <li><a href="" onclick="signOut()">Sign Out</a></li>
-        </ul>
+        </ol>
     </div>
 </nav>
 <div class="row">
     <div class="col-sm-4">
-        <h2 class="header">Financial Overview</h2>
+        <h2 class="">Financial Overview</h2>
     </div>
-    <div class="col-sm-8"><img src="images/FinancialChart.jpeg" alt="NO IMUG" style="width:700px;height:350px;"></div>
+    <div class="col-sm-8">
+        <h1 class="noUpcomingEvents" style="display: none">No Upcoming Events</h1>
+        <h1 class="upcomingEvents" style="">Upcoming Events</h1>
+        <ul id="eventList" style="padding: 0%;">
+            <li id="event1" class="listItems">
+                <div  class="info" style="margin-left: 50px">
+                    <h2 class="event">Event Name</h2>
+                    <div style="display: inline-flex">
+                        <p class="ticketsSold" style="margin-right: 80px">Tickets Sold</p>
+                        <p class="ticketsLeft">Tickets Left</p>
+                    </div>
+                    <br>
+                    <div style="display: inline-flex;">
+                        <p class="date" style="margin-right: 126px"> Date</p>
+                        <p class="time">Time</p>
+                    </div>
+                </div>
+
+            </li>
+            <li>
+            </li>
+        </ul>
+    </div>
 </div>
 <div class="row">
     <div class="col-sm-4">Stuff</div>
     <div class="col-sm-8">Things</div>
 </div>
+<script>getEventsFromServer()</script>
 </body>
 </html>
