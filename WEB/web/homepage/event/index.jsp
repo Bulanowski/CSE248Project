@@ -57,7 +57,7 @@
     <div class="event">
         <h1 id="eventName">Event Name</h1>
         <h2 id="businessName">Business Name</h2>
-        <img class="eventImg" src="https://i.imgur.com/1wc10tt.jpg">
+        <img id="eventImg" class="eventImg" src="">
             <div class="descriptionItems">
                 <p id="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mauris est, volutpat vel nulla in, sodales consectetur velit. Donec suscipit nisi enim, ut mattis mauris maximus eget. Pellentesque condimentum nulla sit amet nisl feugiat rutrum. Nunc ante enim, pulvinar at metus eu, mattis lacinia justo. Nam sit amet purus orci. In bibendum ultrices eros a aliquam. Nulla ultricies lectus eu augue sed.</p>
                 <div  class="dateTime" style="display: flex;">

@@ -5,12 +5,11 @@ ol {
 }
 
 .listItems {
-    border-bottom-style: solid;
-    border-bottom-color: black;
-    border-top-style: solid;
-    border-top-color: black;
-    border-radius: 20px;
-    background-color: rgba(15, 15, 15, 0.4);
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.8);
+    border-radius: 15px;
+    margin-bottom: 40px;
+    background-color: rgba(70, 48, 90, 0.53);
     list-style-type: none;
     width: 100%;
     display: inline-flex;

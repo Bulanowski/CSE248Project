@@ -112,7 +112,7 @@
             <input type="time" class="hours" style="display: inline-flex">
             <input type="time" class="hours" style="display: inline-flex">
             <br>
-            <button type="button" class="btn btnDark" style="margin-top: 20px" onclick="">Submit Changes</button>
+            <button type="button" class="btn btnDark" style="margin-top: 20px" onclick="changeHours()">Submit Changes</button>
         </div>
         <button type="button" class="btn btnDark" id="showChangeHoursButton" style="margin-top: 20px" onclick="showChangeHours()">Change Hours</button>
         <br>

@@ -35,7 +35,7 @@ function handleLoginResponse() {
     console.log("Status: " + this.status);
     if (this.status == 200 && this.responseText != null) {
         var response = this.responseText;
-        console.log(response);
+        // console.log(response);
         if (response == "Login Failed") {
             document.getElementById("signInFailed").style.display = "";
         } else {

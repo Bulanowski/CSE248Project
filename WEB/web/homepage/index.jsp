@@ -54,18 +54,18 @@
 </div>
 <div class="slideshow-container" onmouseenter="onImg()" onmouseleave="offImg()">
     <div class=" mySlides w3-animate-opacity">
-        <img class="img-rounded"  src="images/img1.jpg" style="width:100%">
-        <div class="text imgOverlayColor" style="display: none" >Caption Text</div>
+        <img id="img1" class="img-rounded"  src="images/img1.jpg" style="width:100%">
+        <a id="txt1" class="text imgOverlayColor" style="display: none" >Caption Text</a>
     </div>
 
     <div class=" mySlides w3-animate-opacity">
-        <img class="img-rounded"  src="images/img2.jpg" style="width:100%">
-        <div class="text imgOverlayColor" style="display: none" >Caption Two</div>
+        <img id="img2" class="img-rounded"  src="images/img2.jpg" style="width:100%">
+        <a id="txt2" class="text imgOverlayColor" style="display: none" >Caption Two</a>
     </div>
 
     <div class=" mySlides w3-animate-opacity">
-        <img  class="img-rounded" src="images/img3.jpg" style="width:100%">
-        <div class="text imgOverlayColor" style="display: none" >Caption Three</div>
+        <img  id="img3" class="img-rounded" src="images/img3.jpg" style="width:100%">
+        <a id="txt3" class="text imgOverlayColor" style="display: none" >Caption Three</a>
     </div>
     <div class="w3-center w3-display-bottommiddle" style="width:50%">
         <span class="dot imgOverlayBorderColor" style="display: none" onclick="currentSlide(1)"></span>
@@ -79,5 +79,6 @@
 </body>
     <script>
         showSlides(slideIndex);
+        homepageSearch();
     </script>
 </html>

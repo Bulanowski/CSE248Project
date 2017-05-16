@@ -38,6 +38,7 @@ function displayData() {
 
         var event = JSON.parse(this.responseText);
 
+        document.getElementById("eventImg").src = event.imageSrc;
         document.getElementById("eventName").innerHTML = event.name;
         document.getElementById("businessName").innerHTML = event.establishment;
         document.getElementById("description").innerHTML = event.description;

@@ -21,7 +21,6 @@ public class AccountsBag {
 
     @EJB
     private DataStorageHandler dataStorageHandler = new DataStorageHandler();
-
     private final ObservableMap<String, Account> accounts = FXCollections.observableHashMap();  // username, account
 
     @PostConstruct

@@ -78,13 +78,28 @@
             </form>
         </div>
         <div class="col-sm-4">
-            <form action="" method="post" class="form-signin">
+            <form  style="display: grid" action="" method="post" class="checkboxes form-signin">
                 <h2>Preferences</h2>
-                <input type="checkbox" name="music-type" id="Hip_Hop" value="Hip_Hop"> Hip Hop
-                <input type="checkbox" name="music-type" id="Rock_N_Roll" value="Rock_N_Roll"> Rock 'N Roll
-                <input type="checkbox" name="music-type" id="Jazz" value="Jazz"> Jazz
-                <input type="checkbox" name="music-type" id="Dance" value="Dance"> Dance
-                <input type="checkbox" name="music-type" id="Metal" value="Metal"> Metal
+                <div style="display: inline-flex;">
+                <input type="checkbox" name="music-type" id="Hip_Hop" value="Hip_Hop">
+                <p style="margin-left: 10px">Hip Hop</p>
+                </div>
+                <div style="display: inline-flex;">
+                <input type="checkbox" name="music-type" id="Rock_N_Roll" value="Rock_N_Roll">
+                    <p style="margin-left: 10px">Rock N Roll</p>
+                </div>
+                <div style="display: inline-flex;">
+                <input type="checkbox" name="music-type" id="Jazz" value="Jazz">
+                    <p style="margin-left: 10px">Jazz</p>
+                </div>
+                <div style="display: inline-flex;">
+                <input type="checkbox" name="music-type" id="Dance" value="Dance">
+                    <p style="margin-left: 10px">Dance</p>
+                </div>
+                <div style="display: inline-flex;">
+                <input type="checkbox" name="music-type" id="Metal" value="Metal">
+                    <p style="margin-left: 10px">Metal</p>
+                </div>
             </form>
         </div>
     </div>

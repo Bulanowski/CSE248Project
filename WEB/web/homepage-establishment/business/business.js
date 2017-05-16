@@ -11,6 +11,7 @@ function showChangeDescription() {
 function changeDescription() {
     var json = {};
     json.description = document.getElementById("changeDesc").value;
+    json.token = getCookie("token");
     console.log(json.description);
     var client = new XMLHttpRequest();
     client.onload = handleChangeDescResponse;
@@ -45,12 +46,32 @@ function showChangeHours() {
 
 function changeHours() {
     var json = {};
-    // json.description = document.getElementById("changeDesc").value;
-    // console.log(json.description);
-    // var client = new XMLHttpRequest()
-    // client.open("POST", "/WEB_war_exploded/app/account/settings/get", true);
-    // client.setRequestHeader("Content-type", "text/plain");
-    // client.send(JSON.stringify(json));
+    json.hours = {};
+    json.token = getCookie("token");
+    for(var i = 0; i < 6; i++){
+        json.hours[i] = document.getElementsByClassName("hours")[i].value + "-" + document.getElementsByClassName("hours")[i + 7].value;
+        console.log(json.hours[i]);
+    }
+    var client = new XMLHttpRequest();
+    client.onload = handleChangehoursResponse;
+    client.open("POST", "/WEB_war_exploded/app/account/settings/set", true);
+    client.setRequestHeader("Content-type", "text/plain");
+    client.send(JSON.stringify(json));
+}
+
+function handleChangehoursResponse() {
+    if (this.status == 200 && this.responseText != null) {
+        var response = this.responseText;
+        if (response == "Hours changed successfully") {
+
+        } else {
+            console.log("Hours changed failed")
+        }
+        // for some reason this alert appears before above fields are cleared
+        alert(response);
+    } else {
+        console.log("An error occurred");
+    }
 }
 
 

@@ -18,7 +18,7 @@ body {
 }
 
 .imgOverlayBorderColor {
-    border: 2px solid rgba(131, 126, 255, 0.8);
+    border: 2px solid rgba(0, 0, 0, 0.8);
 }
 
 .imgOverlayColor {
@@ -41,11 +41,11 @@ body {
 
 
 .myArrows {
-    background-color: rgba(255, 255, 255, 0);
+    background-color: rgb(0, 0, 0);
     text-align: center;
     height: 60px;
     width: 60px;
-    line-height: 55px;
+    line-height: 40px;
     border-radius: 100%;
     font-size: 200%;
     cursor: pointer;
@@ -53,7 +53,11 @@ body {
 }
 
 .myArrows:hover {
-    background-color: rgba(175, 175, 175, 0.51);
+    background-color: rgba(138, 43, 226, 0.51);
+}
+
+.checkboxes {
+    color: white;
 }
 
 
@@ -67,11 +71,14 @@ body {
 
 /* Caption text */
 .text {
+    background-color: black;
     font-size: 15px;
-    padding: 8px 12px;
+    padding: 6px 10px;
     position: absolute;
     bottom: 8px;
-    width: 100%;
+    border-radius: 30px;
+    margin-left: 350px;
+    width: 20%;
     text-align: center;
 }
 
@@ -82,7 +89,7 @@ body {
     height: 13px;
     width: 13px;
     margin: 0 2px;
-    background-color: rgba(89, 89, 89, 0);
+    background-color: rgba(0, 0, 0, 0);
     border-radius: 50%;
     display: inline-block;
     transition: background-color 0.6s ease;

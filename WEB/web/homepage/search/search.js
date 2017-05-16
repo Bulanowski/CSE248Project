@@ -175,9 +175,10 @@ function populateTest() {
 
 function changePage(pageNum) {
     var uri = document.documentURI;
+    var type = uri.substring(uri.indexOf("&t=")+3);
     var query = uri.substring(uri.indexOf("?q=")+3, uri.indexOf("&p="));
     uri = uri.substring(0,uri.indexOf("?q="));
-    window.location.href = uri + "?q="+query+"&p="+pageNum;
+    window.location.href = uri + "?q="+query+"&p="+pageNum+"&t="+type;
 }
 
 function getSearch() {
@@ -211,6 +212,47 @@ function getSearch() {
         }
         request.setRequestHeader("Content-type", "text/plain");
         request.send(JSON.stringify(search));
+
+    }
+
+}
+
+function homepageSearch() {
+    var request = new XMLHttpRequest();
+    var search = {};
+    search.query = "";
+    search.page = "1";
+    search.token = getCookie("token");
+    request.onload = showOnHomepage;
+    request.open("POST", "/WEB_war_exploded/app/event/search/recommended", true);
+    request.setRequestHeader("Content-type", "text/plain");
+    request.send(JSON.stringify(search));
+}
+
+function  showOnHomepage() {
+    var uri = document.documentURI;
+    console.log(this.status);
+    console.log(this.responseText);
+    if (this.status === 200 && this.responseText !== null) {
+        var response = this.responseText;
+        if (response === "No results found") {
+            return;
+        }
+
+        var eventJson = JSON.parse(response);
+        var eventArray = eventJson.result;
+
+        document.getElementById("img1").src = eventArray[0].imageSrc;
+        document.getElementById("img2").src = eventArray[1].imageSrc;
+        document.getElementById("img3").src = eventArray[2].imageSrc;
+
+        document.getElementById("txt1").innerHTML = eventArray[0].name;
+        document.getElementById("txt2").innerHTML = eventArray[1].name;
+        document.getElementById("txt3").innerHTML = eventArray[2].name;
+
+        document.getElementById("txt1").href = uri+"event/?e="+eventArray[0].eventID;
+        document.getElementById("txt2").href = uri+"event/?e="+eventArray[1].eventID;
+        document.getElementById("txt3").href = uri+"event/?e="+eventArray[2].eventID;
 
     }
 
