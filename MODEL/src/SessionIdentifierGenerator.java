@@ -1,5 +1,5 @@
-import java.security.SecureRandom;
 import java.math.BigInteger;
+import java.security.SecureRandom;
 
 /**
  * Created by Alex on 5/3/2017.

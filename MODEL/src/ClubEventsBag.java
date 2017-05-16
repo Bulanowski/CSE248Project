@@ -8,7 +8,8 @@ import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.json.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.Random;
 
 /**
  * Created by Alex on 5/10/2017.
@@ -53,19 +54,35 @@ public class ClubEventsBag {
         System.out.println("Unable to load events from events.dat, loading default events.");
         ClubEvent.setEventIDCounter(1000000);
         Ticket.setTicketIDCounter(1000000);
-        for (int i=0;i<35;i++) {
+        for (int i = 0; i < 35; i++) {
             Random r = new Random();
             String establishmentName = "bar";
             JsonObjectBuilder json = Json.createObjectBuilder();
-            json.add("name","Event Name "+i);
-            json.add("description",i+" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac tellus tortor. Aliquam sit amet posuere libero, at semper magna. In nullam.");
-            json.add("imageSrc","https://i.imgur.com/1wc10tt.jpg");
-            json.add("date","22/9/1963");
-            json.add("time","12:30 p.m");
-            json.add("price",(r.nextFloat()*50));
-            json.add("maxTickets",r.nextInt(50)+10);
+            json.add("name", "Event Name " + i);
+            json.add("description", i + " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac tellus tortor. Aliquam sit amet posuere libero, at semper magna. In nullam.");
+            json.add("imageSrc", "https://i.imgur.com/1wc10tt.jpg");
+            json.add("date", "22/9/1963");
+            json.add("time", "12:30 p.m");
+            json.add("price", (r.nextFloat() * 50));
+            json.add("maxTickets", r.nextInt(50) + 10);
             ClubEvent event = new ClubEvent(establishmentName, json.build());
-            event.addTag(((i % 3) == 0 ? TagType.Rock : ((i % 3) == 1 ? TagType.Pop : TagType.Jazz)));
+            switch (r.nextInt(5)) {
+                case 0:
+                    event.addTag(TagType.Hip_Hop);
+                    break;
+                case 1:
+                    event.addTag(TagType.Rock_N_Roll);
+                    break;
+                case 2:
+                    event.addTag(TagType.Jazz);
+                    break;
+                case 3:
+                    event.addTag(TagType.Dance);
+                    break;
+                case 4:
+                    event.addTag(TagType.Metal);
+                    break;
+            }
             addEvent(event);
             if (accountsBag.usernameInUse(establishmentName) && accountsBag.getUser(establishmentName).getProfile() instanceof Establishment) {
                 Establishment establishment = (Establishment) accountsBag.getUser(establishmentName).getProfile();

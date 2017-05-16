@@ -80,26 +80,13 @@
         <div class="col-sm-4">
             <form action="" method="post" class="form-signin">
                 <h2>Preferences</h2>
-                <p>Favorite Music Genre</p>
-                <select class="selection" id="music-type" name="music-type">
-                    <option value="hip-hop">Hip Hop</option>
-                    <option value="rock">Rock 'N Roll</option>
-                    <option value="jazz">Jazz</option>
-                    <option value="dance">Dance</option>
-                    <option value="metal">Metal</option>
-                </select>
-
-                <p>Favorite Foods</p>
-                <select class="selection" id="food-type" name="food-type">
-                    <option value="spanish">Spanish Food</option>
-                    <option value="italian">Italian Food</option>
-                    <option value="greek">Greek Food</option>
-                    <option value="pizza">Pizza</option>
-                    <option value="fast-food">Fast Food</option>
-                    <option value="persian-food">Persian Food</option>
-                </select>
+                <input type="checkbox" name="music-type" id="Hip_Hop" value="Hip_Hop"> Hip Hop
+                <input type="checkbox" name="music-type" id="Rock_N_Roll" value="Rock_N_Roll"> Rock 'N Roll
+                <input type="checkbox" name="music-type" id="Jazz" value="Jazz"> Jazz
+                <input type="checkbox" name="music-type" id="Dance" value="Dance"> Dance
+                <input type="checkbox" name="music-type" id="Metal" value="Metal"> Metal
                 <br>
-                <button type="button" class="btn btnDark" onclick="">Submit Preferences</button>
+                <button type="button" class="btn btnDark" onclick="sendChangePreferencesRequest()">Submit Preferences</button>
             </form>
         </div>
     </div>

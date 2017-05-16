@@ -2,7 +2,8 @@ import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
 
 /**
  * Created by Alex on 5/10/2017.
@@ -32,8 +33,6 @@ public abstract class Profile {
                 Transaction t = new Transaction(transactionJson);
                 transactions.put(t.getTransactionID(), t);
             }
-        } else {
-            System.err.println("Transactions not found in account " + jsonObject.getString("username"));
         }
     }
 
