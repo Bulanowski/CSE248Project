@@ -23,7 +23,7 @@
 
     <script src="main.js"></script>
     <script src="homepage/search/search.js"></script>
-
+    <script src="homepage/transactions/transactions.js"></script>
     <title>Transactions</title>
 </head>
 <body>
@@ -32,9 +32,10 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="homepage/"><span class=""></span> Home</a></li>
-                <li class="nav-item"><a disabled="true" class="nav-link active"><span class="glyphicon-envelope"></span>
+                <li class="nav-item"><a href="homepage/tickets" class="nav-link active"><span class="glyphicon-envelope"></span>
                     Tickets</a>
                 </li>
+                <li><a href="homepage/transactions" disabled="true"><span class=""></span>Transactions</a></li>
                 <li><a href="homepage/settings"><span class="glyphicon glyphicon-user"></span> Account Settings</a></li>
                 <li>
                     <div class="nav navbar-form">
@@ -49,24 +50,26 @@
         </div>
     </nav>
 </div>
-
+<h1 class="noTransaction">No Transactions Made.</h1>
 <div>
     <ol  id="transactionList" style="padding: 0%">
-        <li id="transaction" class="listItems">
+        <li id="transaction" class="listItems" style="display: none">
             <div  class="info" style="margin-left: 50px">
                 <h2 class="event">Event Name</h2>
                 <p class="amount">$ Amount</p>
                 <div style="display: inline-flex;">
                     <p class="date" style="margin-right: 80px"> Date</p>
-                    <p class="time">Time</p>
                 </div>
             </div>
             <div class="">
                 <p class="transactionID" style="margin-top: 10px">ID# 12345678</p>
-            </div>
+                    <p class="sender">Sender: Business</p>
+                    <p class="recipient">Recipient: Account Name</p>
+                </div>
         </li>
     </ol>
 </div>
 
 </body>
+    <script>getTransactions()</script>
 </html>

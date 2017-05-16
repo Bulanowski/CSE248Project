@@ -90,7 +90,7 @@ function purchaseTicket() {
 
     var request = new XMLHttpRequest();
     request.onload = purchaseSuccessful;
-    request.open("POST", "/WEB_war_exploded/app/event/buyTicket", true);
+    request.open("POST", "/WEB_war_exploded/app/event/ticket/buy", true);
     request.setRequestHeader("Content-type", "text/plain");
     request.send(JSON.stringify(json));
 }

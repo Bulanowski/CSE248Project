@@ -36,6 +36,7 @@
                 <li class="nav-item"><a href="homepage/tickets" class="nav-link active"><span class="glyphicon-envelope"></span>
                     Tickets</a>
                 </li>
+                <li><a href="homepage/transactions"><span class=""></span>Transactions</a></li>
                 <li><a href="homepage/settings"><span class="glyphicon glyphicon-user"></span> Account Settings</a></li>
                 <li>
                     <div class="nav navbar-form">
@@ -93,10 +94,11 @@
         </div>
         <br>
         <h3>Upcoming Events:</h3>
-        <ul>
+        <ul id="eventList">
             <li id="event" class="eventBox">
                 <div class="eventDetails">
-                    <p class="eventName" style="width: 80%"> Event Name:</p>
+                    <p class="" style=" margin-right: 10px"> Event Name:</p>
+                    <a class="eventName" style="width: 70%"> Test</a>
                     <p class="date"> Date: 12/31/1999 </p>
                 </div>
             </li>

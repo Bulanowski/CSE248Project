@@ -1,10 +1,13 @@
+import javax.ejb.EJB;
+import javax.json.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Set;
-import javax.ejb.EJB;
-import javax.json.*;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 
 /**
  * Created by Alex on 5/6/2017.
@@ -121,22 +124,22 @@ public class MasterClubEventsManager {
             Customer customer = (Customer) account.getProfile();
             Set<TagType> preferences = customer.getPreferences();
             Integer size = preferences.size();
-            ArrayList<ArrayList<ClubEvent>> recommendedResult = new ArrayList<>();
+            ArrayList<ArrayList<ClubEvent>> recommendedFromPreferences = new ArrayList<>();
             for (int i = 0; i < size + 1; i++) {
-                recommendedResult.add(new ArrayList<ClubEvent>());
+                recommendedFromPreferences.add(new ArrayList<ClubEvent>());
             }
-            if (recommendedResult.size() == 0) {
-                return "Preferences not set";
-            }
-            for (ClubEvent e : clubEventsBag.getAllEvents()) {
-//                if (accountsBag.getUser(e.getEstablishment()).getProfile().getZip().toLowerCase().contains(query) || e.getName().toLowerCase().contains(query) || e.getDescription().toLowerCase().contains(query)) {
-                if (e.getName().toLowerCase().contains(query) || e.getDescription().toLowerCase().contains(query)) {
-                    recommendedResult.get(customer.getMatchingPreferences(e)).add(e);
+            if (recommendedFromPreferences.size() > 0) {
+                for (ClubEvent e : clubEventsBag.getAllEvents()) {
+                    if (accountsBag.getUser(e.getEstablishment()).getProfile().getZip().toLowerCase().contains(query) || e.getName().toLowerCase().contains(query) || e.getDescription().toLowerCase().contains(query)) {
+                        recommendedFromPreferences.get(customer.getMatchingPreferences(e)).add(e);
+                    }
                 }
+            } else {
+                // Preferences not set
             }
             ArrayList<ClubEvent> searchResult = new ArrayList<>();
             for (int i = size; i >= 0; i--) {
-                searchResult.addAll(recommendedResult.get(i));
+                searchResult.addAll(recommendedFromPreferences.get(i));
             }
             if (searchResult.size() == 0) {
                 return "No results found";
@@ -231,7 +234,7 @@ public class MasterClubEventsManager {
                 Establishment establishment = (Establishment) accountsBag.getUser(clubEventsBag.getEvent(t.getEventID()).getEstablishment()).getProfile();
                 customer.removeTicket(t.getTicketID());
                 Double price = clubEventsBag.getEvent(t.getEventID()).getPrice();
-                Transaction transaction = new Transaction(establishment.getName(), customer.getName(), (double) t.getAmount() * price, t.getEventID(), clubEventsBag.getEvent(t.getEventID()).getName());
+                Transaction transaction = new Transaction(establishment.getName(), customer.getName(), (double) t.getAmount() * price * (-1.0), t.getEventID(), clubEventsBag.getEvent(t.getEventID()).getName());
                 customer.addTransaction(transaction);
                 establishment.addTransaction(transaction);
                 return "Ticket canceled successfully";

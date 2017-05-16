@@ -49,7 +49,19 @@ public class AccountsBag {
                         .add("password", "bar")
                         .add("email", "foo@bar.com")
                         .add("accountType", "Customer")
-                        .add("profile", Json.createObjectBuilder().build())
+                        .add("profile", Json.createObjectBuilder()
+                                .add("name", "foo")
+                                .add("address", "1 Foo Lane")
+                                .add("zip", "11111")
+                                .add("phone", "(123)-456-7890")
+                                .add("birthday", "June 15")
+                                .add("gender", "Male")
+                                .add("preferences", Json.createArrayBuilder()
+                                        .add("Hip_Hop")
+                                        .add("Rock_N_Roll")
+                                        .add("Metal")
+                                        .build())
+                                .build())
                         .build();
                 Account accountFoo = new Account(accountFooJson);
                 addAccount(accountFoo);
@@ -62,7 +74,14 @@ public class AccountsBag {
                         .add("password", "foo")
                         .add("email", "bar@foo.com")
                         .add("accountType", "Establishment")
-                        .add("profile", Json.createObjectBuilder().build())
+                        .add("profile", Json.createObjectBuilder()
+                                .add("name", "bar")
+                                .add("address", "1 Bar Dr")
+                                .add("zip", "22222")
+                                .add("phone", "(098)-765-4321")
+                                .add("description", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+                                .add("imageSrc", "https://i.imgur.com/1wc10tt.jpg")
+                                .build())
                         .build();
                 Account accountBar = new Account(accountBarJson);
                 addAccount(accountBar);

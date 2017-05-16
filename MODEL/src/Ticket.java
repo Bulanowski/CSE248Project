@@ -61,7 +61,7 @@ public class Ticket {
     }
 
     public boolean equals(Object o) {
-        if (o instanceof  Ticket) {
+        if (o instanceof Ticket) {
             Ticket ticket = (Ticket) o;
             return ticket.getTicketID() == this.getTicketID();
         }

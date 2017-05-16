@@ -36,6 +36,19 @@ public class Customer extends Profile {
         }
     }
 
+    public void update(JsonObject jsonObject) {
+        super.update(jsonObject);
+        birthday = jsonObject.getString("birthday", birthday);
+        gender = jsonObject.getString("gender", gender);
+        JsonObject preferences = jsonObject.getJsonObject("preferences");
+        for (JsonString addPreference : preferences.getJsonArray("checked").getValuesAs(JsonString.class)) {
+            addPreference(TagType.valueOf(addPreference.getString()));
+        }
+        for (JsonString removePreference : preferences.getJsonArray("unchecked").getValuesAs(JsonString.class)) {
+            removePreference(TagType.valueOf(removePreference.getString()));
+        }
+    }
+
     public String getBirthday() {
         return birthday;
     }

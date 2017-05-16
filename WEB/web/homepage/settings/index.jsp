@@ -34,6 +34,7 @@
                 <li class="nav-item"><a href="homepage/tickets" class="nav-link active"><span class="glyphicon-envelope"></span>
                     Tickets</a>
                 </li>
+                <li><a href="homepage/transactions"><span class=""></span>Transactions</a></li>
                 <li><a disabled="true"><span class=" active glyphicon glyphicon-user"></span> Account Settings</a></li>
                 <li>
                     <div class="nav navbar-form">
@@ -84,8 +85,6 @@
                 <input type="checkbox" name="music-type" id="Jazz" value="Jazz"> Jazz
                 <input type="checkbox" name="music-type" id="Dance" value="Dance"> Dance
                 <input type="checkbox" name="music-type" id="Metal" value="Metal"> Metal
-                <br>
-                <button type="button" class="btn btnDark" onclick="sendChangePreferencesRequest()">Submit Preferences</button>
             </form>
         </div>
     </div>

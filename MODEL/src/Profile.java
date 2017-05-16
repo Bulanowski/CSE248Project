@@ -2,7 +2,8 @@ import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
 
 /**
  * Created by Alex on 5/10/2017.
@@ -33,6 +34,13 @@ public abstract class Profile {
                 transactions.put(t.getTransactionID(), t);
             }
         }
+    }
+
+    public void update(JsonObject jsonObject) {
+        name = jsonObject.getString("name", name);
+        address = jsonObject.getString("address", address);
+        zip = jsonObject.getString("zip", zip);
+        phone = jsonObject.getString("phone", phone);
     }
 
     public String getName() {

@@ -43,6 +43,12 @@ public class Establishment extends Profile {
         }
     }
 
+    public void update(JsonObject jsonObject) {
+        super.update(jsonObject);
+        description = jsonObject.getString("description", description);
+        imageSrc = jsonObject.getString("imageSrc", imageSrc);
+    }
+
     public String getDescription() {
         return description;
     }

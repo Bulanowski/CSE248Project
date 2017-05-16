@@ -60,7 +60,7 @@ function getTickets() {
     var token = getCookie("token");
     var request = new XMLHttpRequest();
     request.onload = populateTickets;
-    request.open("POST", "/WEB_war_exploded/app/event/getTickets", true);
+    request.open("POST", "/WEB_war_exploded/app/event/ticket/get/all", true);
     request.setRequestHeader("Content-type", "text/plain");
     request.send(token);
 }
@@ -102,7 +102,7 @@ function cancelTickets(ticketID) {
     ticketIDToRemove = ticketID;
     var request = new XMLHttpRequest();
     request.onload = removeTicket;
-    request.open("POST", "/WEB_war_exploded/app/event/cancelTicket", true);
+    request.open("POST", "/WEB_war_exploded/app/event/ticket/cancel", true);
     request.setRequestHeader("Content-type", "text/plain");
     request.send(JSON.stringify(json));
 }
