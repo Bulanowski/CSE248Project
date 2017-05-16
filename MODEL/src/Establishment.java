@@ -8,7 +8,7 @@ public class Establishment extends Profile {
 
     private String description;
     private String imageSrc;
-    private Set<Integer> events = new HashSet<>();
+    private SortedSet<Integer> events = new TreeSet<>();
     private String[] hours = new String[7];
     private ArrayList<Employee> employees = new ArrayList<>();
     // TODO private Set<Item> availableItems new Set<>();
