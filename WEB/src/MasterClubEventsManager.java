@@ -1,7 +1,5 @@
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Set;
 import javax.ejb.EJB;
 import javax.json.*;
@@ -15,13 +13,13 @@ import javax.ws.rs.core.MediaType;
 public class MasterClubEventsManager {
 
     @EJB
-    AccountsBag accountsBag = new AccountsBag();
+    private AccountsBag accountsBag = new AccountsBag();
 
     @EJB
-    TokenManager tokenManager = new TokenManager();
+    private TokenManager tokenManager = new TokenManager();
 
     @EJB
-    ClubEventsBag clubEventsBag = new ClubEventsBag();
+    private ClubEventsBag clubEventsBag = new ClubEventsBag();
 
     @POST
     @Path("/register")
