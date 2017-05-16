@@ -98,7 +98,7 @@ public class Establishment extends Profile {
             for (Integer i : getEvents()) {
                 jsonArrayBuilder.add(i);
             }
-            jsonObjectBuilder.add("event", jsonArrayBuilder.build());
+            jsonObjectBuilder.add("events", jsonArrayBuilder.build());
         } else {
             jsonObjectBuilder.add("events", Json.createArrayBuilder().build());
         }
