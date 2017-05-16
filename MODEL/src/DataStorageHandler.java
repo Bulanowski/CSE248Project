@@ -1,5 +1,6 @@
 import javax.ejb.Singleton;
 import javax.json.*;
+import javax.json.stream.JsonParsingException;
 import java.io.*;
 
 /**
@@ -16,6 +17,8 @@ public class DataStorageHandler {
             jsonObject = jsonReader.readObject();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (JsonParsingException e) {
+            System.err.println("JsonParsingException when loading from file " + fileName + ".dat");
         } finally {
             if (jsonReader != null) {
                 jsonReader.close();

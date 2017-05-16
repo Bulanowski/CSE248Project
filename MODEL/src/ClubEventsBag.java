@@ -78,6 +78,7 @@ public class ClubEventsBag {
     public void destroy() {
         System.out.println("Saving events to events.dat");
         dataStorageHandler.saveToFile("events", toJson());
+        System.out.println("Saved events to events.dat");
     }
 
     public void addEvent(ClubEvent clubEvent) {

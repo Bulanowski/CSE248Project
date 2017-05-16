@@ -7,6 +7,7 @@ import javax.naming.directory.InvalidAttributeIdentifierException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  * Created by Alex on 5/3/2017.
@@ -124,12 +125,53 @@ public class AccountAccessManager {
             } else if (profile instanceof Establishment) {
                 Establishment establishment = (Establishment) profile;
                 establishment.setImageSrc(jsonObject.getString("imageSrc"));
-                establishment.setTimeOpen(jsonObject.getString("timeOpen"));
-                establishment.setTimeClose(jsonObject.getString("timeClose"));
             }
             return "Settings changed successfully";
         }
         return "Settings change failed";
+    }
+
+    @POST
+    @Path("/establishment/search")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String searchEstablishments(String jsonString) {
+        JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
+        String query = jsonObject.getString("query").toLowerCase();
+        Integer page = Integer.parseInt(jsonObject.getString("page"));
+        ArrayList<Establishment> searchResult = new ArrayList<>();
+        ArrayList<Establishment> zipResult = new ArrayList<>();
+        ArrayList<Establishment> nameResult = new ArrayList<>();
+        ArrayList<Establishment> descriptionResult = new ArrayList<>();
+        for (Establishment e : accountsBag.getEstablishments()) {
+            if (e.getZip().toLowerCase().contains(query)) {
+                zipResult.add(e);
+            } else if (e.getName().toLowerCase().contains(query)) {
+                nameResult.add(e);
+            } else if (e.getDescription().toLowerCase().contains(query)) {
+                descriptionResult.add(e);
+            }
+        }
+        searchResult.addAll(zipResult);
+        searchResult.addAll(nameResult);
+        searchResult.addAll(descriptionResult);
+        if (searchResult.size() == 0) {
+            return "No results found";
+        }
+        if (searchResult.size() < 10 * (page - 1)) {
+            page = 1;
+        }
+        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+        for (int i = 10 * (page - 1); i < page * 10; i++) {
+            if (i >= searchResult.size()) {
+                break;
+            }
+            jsonArrayBuilder.add(searchResult.get(i).toJson());
+        }
+        JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
+        jsonObjectBuilder.add("pages", Math.ceil((double) searchResult.size() / 10));
+        jsonObjectBuilder.add("result", jsonArrayBuilder.build());
+        return jsonObjectBuilder.build().toString();
     }
 
     @POST

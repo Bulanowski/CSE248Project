@@ -8,6 +8,10 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.json.*;
 import javax.naming.directory.InvalidAttributeIdentifierException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Alex on 5/3/2017.
@@ -61,6 +65,7 @@ public class AccountsBag {
     public void destroy() {
         System.out.println("Saving accounts to accounts.dat");
         dataStorageHandler.saveToFile("accounts", toJson());
+        System.out.println("Saved accounts to accounts.dat");
     }
 
     public void addAccount(Account a) {
@@ -81,6 +86,16 @@ public class AccountsBag {
         return accounts.get(username);
     }
 
+    public List<Establishment> getEstablishments() {
+        List<Establishment> establishments = new ArrayList<>();
+        for (Account a : accounts.values()) {
+            if (a.getProfile() instanceof Establishment) {
+                establishments.add((Establishment) a.getProfile());
+            }
+        }
+        return Collections.unmodifiableList(establishments);
+    }
+
     public Establishment searchEstablishmentsByName(String name) {
         for (Account a : accounts.values()) {
             if (a.getProfile() instanceof Establishment && a.getProfile().getName().equals(name)) {
@@ -95,6 +110,7 @@ public class AccountsBag {
         jsonObjectBuilder.add("transactionIDCounter", Transaction.getTransactionIDCounter());
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
         for (Account a : accounts.values()) {
+            System.out.println("Adding account: " + a.toJson().toString());
             jsonArrayBuilder.add(a.toJson());
         }
         jsonObjectBuilder.add("accounts", jsonArrayBuilder.build());

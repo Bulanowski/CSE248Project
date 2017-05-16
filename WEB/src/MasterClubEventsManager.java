@@ -66,7 +66,7 @@ public class MasterClubEventsManager {
     @Produces(MediaType.TEXT_PLAIN)
     public String searchEvents(String jsonString) {
         JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
-        String query = jsonObject.getString("query");
+        String query = jsonObject.getString("query").toLowerCase();
         Integer page = Integer.parseInt(jsonObject.getString("page"));
         ArrayList<ClubEvent> searchResult = new ArrayList<>();
         ArrayList<ClubEvent> zipResult = new ArrayList<>();
@@ -202,7 +202,7 @@ public class MasterClubEventsManager {
                 Ticket ticket = new Ticket(eventID, username, amount);
                 customer.addTicket(ticket);
                 Double price = clubEventsBag.getEvent(eventID).getPrice();
-                Transaction transaction = new Transaction(customer.getName(), establishment.getName(), amount.doubleValue() * price, eventID);
+                Transaction transaction = new Transaction(customer.getName(), establishment.getName(), amount.doubleValue() * price, eventID, clubEventsBag.getEvent(eventID).getName());
                 customer.addTransaction(transaction);
                 establishment.addTransaction(transaction);
                 return "Tickets purchased successfully";
@@ -231,7 +231,7 @@ public class MasterClubEventsManager {
                 Establishment establishment = (Establishment) accountsBag.getUser(clubEventsBag.getEvent(t.getEventID()).getEstablishment()).getProfile();
                 customer.removeTicket(t.getTicketID());
                 Double price = clubEventsBag.getEvent(t.getEventID()).getPrice();
-                Transaction transaction = new Transaction(establishment.getName(), customer.getName(), (double) t.getAmount() * price, t.getEventID());
+                Transaction transaction = new Transaction(establishment.getName(), customer.getName(), (double) t.getAmount() * price, t.getEventID(), clubEventsBag.getEvent(t.getEventID()).getName());
                 customer.addTransaction(transaction);
                 establishment.addTransaction(transaction);
                 return "Ticket canceled successfully";
@@ -243,7 +243,7 @@ public class MasterClubEventsManager {
     }
 
     @POST
-    @Path("/ticket/get")
+    @Path("/ticket/get/all")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String getTickets(String token) {
