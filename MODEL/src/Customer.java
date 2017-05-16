@@ -27,16 +27,12 @@ public class Customer extends Profile {
             for (JsonString tagJson : jsonObject.getJsonArray("preferences").getValuesAs(JsonString.class)) {
                 preferences.add(TagType.valueOf(tagJson.getString()));
             }
-        } else {
-            System.err.println("Preferences not found in account " + jsonObject.getString("username"));
         }
         if (jsonObject.containsKey("tickets") && !jsonObject.isNull("tickets")) {
             for (JsonObject ticketJson : jsonObject.getJsonArray("tickets").getValuesAs(JsonObject.class)) {
                 Ticket t = new Ticket(ticketJson);
                 tickets.put(t.getTicketID(), t);
             }
-        } else {
-            System.err.println("Tickets not found in account " + jsonObject.getString("username"));
         }
     }
 

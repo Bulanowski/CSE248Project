@@ -32,8 +32,6 @@ public abstract class Profile {
                 Transaction t = new Transaction(transactionJson);
                 transactions.put(t.getTransactionID(), t);
             }
-        } else {
-            System.err.println("Transactions not found in account " + jsonObject.getString("username"));
         }
     }
 

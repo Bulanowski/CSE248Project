@@ -9,7 +9,6 @@ import javax.ejb.Startup;
 import javax.json.*;
 import javax.naming.directory.InvalidAttributeIdentifierException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -45,14 +44,26 @@ public class AccountsBag {
             System.out.println("Unable to load accounts from accounts.dat, loading default accounts.");
             Transaction.setTransactionIDCounter(1000000);
             try {
-                JsonObject accountFooJson = Json.createObjectBuilder().add("username", "foo").add("password", "bar").add("email", "foo@bar.com").add("accountType", "Customer").build();
+                JsonObject accountFooJson = Json.createObjectBuilder()
+                        .add("username", "foo")
+                        .add("password", "bar")
+                        .add("email", "foo@bar.com")
+                        .add("accountType", "Customer")
+                        .add("profile", Json.createObjectBuilder().build())
+                        .build();
                 Account accountFoo = new Account(accountFooJson);
                 addAccount(accountFoo);
             } catch (InvalidAttributeIdentifierException e) {
                 System.out.println("Failed to create default account foo");
             }
             try {
-                JsonObject accountBarJson = Json.createObjectBuilder().add("username", "bar").add("password", "foo").add("email", "bar@foo.com").add("accountType", "Establishment").build();
+                JsonObject accountBarJson = Json.createObjectBuilder()
+                        .add("username", "bar")
+                        .add("password", "foo")
+                        .add("email", "bar@foo.com")
+                        .add("accountType", "Establishment")
+                        .add("profile", Json.createObjectBuilder().build())
+                        .build();
                 Account accountBar = new Account(accountBarJson);
                 addAccount(accountBar);
             } catch (InvalidAttributeIdentifierException e) {
@@ -110,7 +121,6 @@ public class AccountsBag {
         jsonObjectBuilder.add("transactionIDCounter", Transaction.getTransactionIDCounter());
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
         for (Account a : accounts.values()) {
-            System.out.println("Adding account: " + a.toJson().toString());
             jsonArrayBuilder.add(a.toJson());
         }
         jsonObjectBuilder.add("accounts", jsonArrayBuilder.build());
