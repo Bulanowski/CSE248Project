@@ -63,7 +63,7 @@
         <div class="changeDescription" style="display: none">
             <form>
                 <textarea rows="5" cols="100" id="changeDesc">This is a test of the emergency broadcast system</textarea>
-                <button type="button" class="btn btnDark" onclick="">Submit Changes</button>
+                <button type="button" class="btn btnDark" onclick="changeDescription()">Submit Changes</button>
             </form>
         </div>
         <div>
@@ -117,9 +117,9 @@
         <button type="button" class="btn btnDark" id="showChangeHoursButton" style="margin-top: 20px" onclick="showChangeHours()">Change Hours</button>
         <br>
         <h3>Upcoming Events:</h3>
-        <ul>
+        <ul id="eventList">
             <li id="event" class="eventBox">
-                <div class="eventDetails">
+                <div id="thing" class="eventDetails">
                     <p class="eventName" style="width: 80%"> Event Name:</p>
                     <p class="date"> Date: 12/31/1999 </p>
                 </div>
@@ -130,5 +130,5 @@
 
 </div>
 </body>
-<script>getEstablishmenFromServer()</script>
+<script>getEstablishmentFromServer()</script>
 </html>

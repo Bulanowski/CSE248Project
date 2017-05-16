@@ -25,8 +25,9 @@ function loadPlannedEvents() {
 
                 eventElement.getElementsByClassName("date")[0].innerHTML = "Date: " + event.date;
 
-
-                document.getElementById("eventList").appendChild(eventElement);
+                if(i != 0){
+                    document.getElementById("eventList").appendChild(eventElement);
+                }
             }
         }
     }
