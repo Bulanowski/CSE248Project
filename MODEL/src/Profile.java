@@ -36,6 +36,13 @@ public abstract class Profile {
         }
     }
 
+    public void update(JsonObject jsonObject) {
+        name = jsonObject.getString("name", name);
+        address = jsonObject.getString("address", address);
+        zip = jsonObject.getString("zip", zip);
+        phone = jsonObject.getString("phone", phone);
+    }
+
     public String getName() {
         return name;
     }

@@ -1,5 +1,8 @@
 import javax.ejb.EJB;
-import javax.json.*;
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.naming.directory.InvalidAttributeIdentifierException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -115,41 +118,10 @@ public class AccountAccessManager {
         JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
         if (tokenManager.authenticateToken(jsonObject.getString("token"))) {
             Profile profile = accountsBag.getUser(tokenManager.getUsername(jsonObject.getString("token"))).getProfile();
-            profile.setName(jsonObject.getString("name"));
-            profile.setAddress(jsonObject.getString("address"));
-            profile.setPhone(jsonObject.getString("phone"));
-            profile.setZip(jsonObject.getString("zip"));
-            if (profile instanceof Customer) {
-                Customer customer = (Customer) profile;
-                customer.setBirthday(jsonObject.getString("birthday"));
-            } else if (profile instanceof Establishment) {
-                Establishment establishment = (Establishment) profile;
-                establishment.setImageSrc(jsonObject.getString("imageSrc"));
-            }
+            profile.update(jsonObject);
             return "Settings changed successfully";
         }
         return "Settings change failed";
-    }
-
-    @POST
-    @Path("/preferences/set")
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String setPreferences(String jsonString) {
-        JsonObject jsonObject = Json.createReader(new StringReader(jsonString)).readObject();
-        String username = tokenManager.getUsername(jsonObject.getString("token"));
-        if (username == null) {
-            return "Invalid Token";
-        }
-        Account account = accountsBag.getUser(username);
-        if (account.getProfile() instanceof Customer) {
-            Customer customer = (Customer) account.getProfile();
-            for (JsonString preferenceString : jsonObject.getJsonArray("preferences").getValuesAs(JsonString.class)) {
-                customer.addPreference(TagType.valueOf(preferenceString.getString()));
-            }
-            return "Preferences changed successfully";
-        }
-        return "Failed to change preferences";
     }
 
     @POST

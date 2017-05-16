@@ -77,6 +77,19 @@ function sendSetSettingsRequest() {
     json.phone = document.getElementById("phone").value;
     json.address = document.getElementById("address").value;
     json.zip = document.getElementById("zip").value;
+    json.preferences = {};
+    json.preferences.checked = [];
+    json.preferences.unchecked = [];
+    var prefCount = 0;
+    var unPrefCount = 0;
+    for (var i = 0; i < document.getElementsByName("music-type").length; i++) {
+        var element = document.getElementsByName("music-type")[i];
+        if (element.checked) {
+            json.preferences.checked[prefCount++] = element.value;
+        } else {
+            json.preferences.unchecked[unPrefCount++] = element.value;
+        }
+    }
     var client = new XMLHttpRequest();
     client.onload = handleSetSettingsResponse;
     client.open("POST", "/WEB_war_exploded/app/account/settings/set", true);
@@ -89,38 +102,6 @@ function handleSetSettingsResponse() {
     if (this.status == 200 && this.responseText != null) {
         var response = this.responseText;
         if (response == "Settings changed successfully") {
-
-        } else {
-
-        }
-    } else {
-        console.log("An error occurred");
-    }
-}
-
-function sendChangePreferencesRequest() {
-    var json = {};
-    json.token = getCookie("token");
-    json.preferences = [];
-    var prefCount = 0;
-    for (var i = 0; i < document.getElementsByName("music-type").length; i++) {
-        var element = document.getElementsByName("music-type")[i];
-        if (element.checked) {
-            json.preferences[prefCount++] = element.value;
-        }
-    }
-    var client = new XMLHttpRequest();
-    client.onload = handleChangePreferencesResponse;
-    client.open("POST", "/WEB_war_exploded/app/account/preferences/set", true);
-    client.setRequestHeader("Content-type", "text/plain");
-    client.send(JSON.stringify(json));
-}
-
-function handleChangePreferencesResponse() {
-    if (this.status == 200 && this.responseText != null) {
-        var response = this.responseText;
-        console.log(response);
-        if (response == "Preferences changed successfully") {
 
         } else {
 

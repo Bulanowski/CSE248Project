@@ -85,8 +85,6 @@
                 <input type="checkbox" name="music-type" id="Jazz" value="Jazz"> Jazz
                 <input type="checkbox" name="music-type" id="Dance" value="Dance"> Dance
                 <input type="checkbox" name="music-type" id="Metal" value="Metal"> Metal
-                <br>
-                <button type="button" class="btn btnDark" onclick="sendChangePreferencesRequest()">Submit Preferences</button>
             </form>
         </div>
     </div>
