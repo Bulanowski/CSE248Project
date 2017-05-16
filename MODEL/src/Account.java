@@ -2,7 +2,6 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.naming.directory.InvalidAttributeIdentifierException;
-import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -17,31 +16,24 @@ public class Account {
     private Profile profile;
 
     public Account(JsonObject jsonObject) throws InvalidAttributeIdentifierException {
-        username = jsonObject.getString("username");
-        password = hashPassword(jsonObject.getString("password"));
-        email = jsonObject.getString("email");
-        String accountType = jsonObject.getString("accountType");
-        if (accountType.equals("Customer")) {
-            profile = new Customer();
-        } else if (accountType.equals("Establishment")) {
-            profile = new Establishment();
-        } else {
-            throw new InvalidAttributeIdentifierException();
-        }
+        this(jsonObject, true);
     }
 
     // hash should be false when reading from file
-    protected Account(JsonObject jsonObject, boolean hash) throws InvalidAttributeIdentifierException {
+    Account(JsonObject jsonObject, boolean hash) throws InvalidAttributeIdentifierException {
         username = jsonObject.getString("username");
         password = (hash ? hashPassword(jsonObject.getString("password")) : jsonObject.getString("password"));
         email = jsonObject.getString("email");
         String accountType = jsonObject.getString("accountType");
-        if (accountType.equals("Customer")) {
-            profile = new Customer(jsonObject.getJsonObject("profile"));
-        } else if (accountType.equals("Establishment")) {
-            profile = new Establishment(jsonObject.getJsonObject("profile"));
-        } else {
-            throw new InvalidAttributeIdentifierException();
+        switch (accountType) {
+            case "Customer":
+                profile = new Customer(jsonObject);
+                break;
+            case "Establishment":
+                profile = new Establishment(jsonObject);
+                break;
+            default:
+                throw new InvalidAttributeIdentifierException();
         }
     }
 
@@ -90,11 +82,6 @@ public class Account {
         jsonObjectBuilder.add("email", email);
         jsonObjectBuilder.add("accountType", profile.getClass().getName());
         jsonObjectBuilder.add("profile", profile.toJson());
-        if (profile instanceof Customer) {
-            jsonObjectBuilder.add("homepage", "homepage/");
-        } else {
-            jsonObjectBuilder.add("homepage", "homepage-establishment/");
-        }
         return jsonObjectBuilder.build();
     }
 }

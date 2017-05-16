@@ -1,13 +1,6 @@
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.collections.ObservableMap;
-
 import javax.ejb.Singleton;
 import javax.json.*;
 import java.io.*;
-import java.nio.CharBuffer;
-import java.util.LinkedList;
-import java.util.Scanner;
 
 /**
  * Created by Alex on 5/10/2017.
@@ -15,61 +8,20 @@ import java.util.Scanner;
 @Singleton
 public class DataStorageHandler {
 
-    public void connectAccountsListener(ObservableMap<String, Account> observableMap) {
-//        observableMap.addListener(new InvalidationListener() {
-//            @Override
-//            public void invalidated(Observable observable) {
-//                LinkedList<Account> accounts = new LinkedList<>();
-//                accounts.addAll(((ObservableMap<String, Account>) observable).values());
-//                saveToFile("accounts", accounts);
-//            }
-//        });
-    }
-
-    public void connectClubEventsListener(ObservableMap<Integer, ClubEvent> observableMap) {
-//        observableMap.addListener(new InvalidationListener() {
-//            @Override
-//            public void invalidated(Observable observable) {
-//                JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-//                for (ClubEvent clubEvent : ((ObservableMap<String, ClubEvent>) observable).values()) {
-//                    jsonArrayBuilder.add(clubEvent.toJson());
-//                }
-//                saveToFile("events", jsonArrayBuilder.build().toString());
-//            }
-//        });
-    }
-
-    public String readFromFile(String fileName) {
-        Scanner in = null;
-        String s = null;
+    public JsonObject readFromFile(String fileName) {
+        JsonReader jsonReader = null;
+        JsonObject jsonObject = null;
         try {
-            in = new Scanner(getFile(fileName));
-            in.useDelimiter("\\A");
-            if (in.hasNext()) {
-                s = in.next();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            if (in != null) {
-                in.close();
-            }
-        }
-        return s;
-    }
-
-    public void saveToFile(String fileName, JsonArray jsonArray) {
-        JsonWriter jsonWriter = null;
-        try {
-            jsonWriter = Json.createWriter(new FileWriter(getFile(fileName)));
-            jsonWriter.writeArray(jsonArray);
+            jsonReader = Json.createReader(new FileReader(getFile(fileName)));
+            jsonObject = jsonReader.readObject();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (jsonWriter != null) {
-                jsonWriter.close();
+            if (jsonReader != null) {
+                jsonReader.close();
             }
         }
+        return jsonObject;
     }
 
     public void saveToFile(String fileName, JsonObject jsonObject) {

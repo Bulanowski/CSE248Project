@@ -1,5 +1,6 @@
 import javax.ejb.EJB;
 import javax.json.Json;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.naming.directory.InvalidAttributeIdentifierException;
@@ -14,10 +15,13 @@ import java.io.*;
 public class AccountAccessManager {
 
     @EJB
-    AccountsBag accountsBag = new AccountsBag();
+    private AccountsBag accountsBag = new AccountsBag();
 
     @EJB
-    TokenManager tokenManager = new TokenManager();
+    private ClubEventsBag clubEventsBag = new ClubEventsBag();
+
+    @EJB
+    private TokenManager tokenManager = new TokenManager();
 
     @POST
     @Path("/register")
@@ -129,6 +133,29 @@ public class AccountAccessManager {
     }
 
     @POST
+    @Path("/establishment/get")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getEstablishment(String establishmentName) {
+        Establishment establishment = accountsBag.searchEstablishmentsByName(establishmentName);
+        if (establishment != null) {
+            JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
+            jsonObjectBuilder.add("establishment", establishment.toJson());
+            JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+            for (Integer eventID : establishment.getEvents()) {
+                ClubEvent clubEvent = clubEventsBag.getEvent(eventID);
+                if (clubEvent != null) {
+                    jsonArrayBuilder.add(clubEvent.toJson());
+                }
+            }
+            jsonObjectBuilder.add("events", jsonArrayBuilder.build());
+            return jsonObjectBuilder.build().toString();
+        } else {
+            return "Establishment " + establishmentName + " not found";
+        }
+    }
+
+    @POST
     @Path("/token")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
@@ -141,6 +168,6 @@ public class AccountAccessManager {
         if (account == null) {
             return "Username Not Found";
         }
-        return account.toJson().toString();
+        return account.toJson().getString("accountType");
     }
 }

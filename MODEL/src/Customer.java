@@ -21,14 +21,22 @@ public class Customer extends Profile {
 
     public Customer(JsonObject jsonObject) {
         super(jsonObject);
-        birthday = jsonObject.getString("birthday");
-        gender = jsonObject.getString("gender");
-        for (JsonString tagJson : jsonObject.getJsonArray("preferences").getValuesAs(JsonString.class)) {
-            preferences.add(TagType.valueOf(tagJson.getString()));
+        birthday = jsonObject.getString("birthday", "");
+        gender = jsonObject.getString("gender", "");
+        if (jsonObject.containsKey("preferences") && !jsonObject.isNull("preferences")) {
+            for (JsonString tagJson : jsonObject.getJsonArray("preferences").getValuesAs(JsonString.class)) {
+                preferences.add(TagType.valueOf(tagJson.getString()));
+            }
+        } else {
+            System.err.println("Preferences not found in account " + jsonObject.getString("username"));
         }
-        for (JsonObject ticketJson : jsonObject.getJsonArray("tickets").getValuesAs(JsonObject.class)) {
-            Ticket t = new Ticket(ticketJson);
-            tickets.put(t.getTicketID(), t);
+        if (jsonObject.containsKey("tickets") && !jsonObject.isNull("tickets")) {
+            for (JsonObject ticketJson : jsonObject.getJsonArray("tickets").getValuesAs(JsonObject.class)) {
+                Ticket t = new Ticket(ticketJson);
+                tickets.put(t.getTicketID(), t);
+            }
+        } else {
+            System.err.println("Tickets not found in account " + jsonObject.getString("username"));
         }
     }
 
@@ -87,20 +95,7 @@ public class Customer extends Profile {
     }
 
     public JsonObject toJson() {
-        JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
-        jsonObjectBuilder.add("name", getName());
-        jsonObjectBuilder.add("address", getAddress());
-        jsonObjectBuilder.add("phone", getPhone());
-        jsonObjectBuilder.add("zip", getZip());
-        if (getTransactions().size() > 0) {
-            JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-            for (Transaction t : getTransactions()) {
-                jsonArrayBuilder.add(t.toJson());
-            }
-            jsonObjectBuilder.add("transactions", jsonArrayBuilder.build());
-        } else {
-            jsonObjectBuilder.add("transactions", Json.createArrayBuilder().build());
-        }
+        JsonObjectBuilder jsonObjectBuilder = startBuildingJson();
         jsonObjectBuilder.add("birthday", getBirthday());
         jsonObjectBuilder.add("gender", getGender());
         if (getPreferences().size() > 0) {
