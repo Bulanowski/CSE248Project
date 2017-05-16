@@ -35,6 +35,7 @@
                 <li class="nav-item"><a disabled="true" class="nav-link active"><span class="glyphicon-envelope"></span>
                     Tickets</a>
                 </li>
+                <li><a href="homepage/transactions"><span class=""></span>Transactions</a></li>
                 <li><a href="homepage/settings"><span class="glyphicon glyphicon-user"></span> Account Settings</a></li>
                 <li>
                     <div class="nav navbar-form">
