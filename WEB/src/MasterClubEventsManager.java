@@ -104,7 +104,7 @@ public class MasterClubEventsManager {
     }
 
     @POST
-    @Path("/recommendedSearch")
+    @Path("/search/recommended")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String searchRecommendedEvents(String jsonString) {
@@ -182,7 +182,7 @@ public class MasterClubEventsManager {
     }
 
     @POST
-    @Path("/buyTicket")
+    @Path("/ticket/buy")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String purchaseTicket(String jsonString) {
@@ -212,7 +212,7 @@ public class MasterClubEventsManager {
     }
 
     @POST
-    @Path("/cancelTicket")
+    @Path("/ticket/cancel")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String cancelTicket(String jsonString) {
@@ -243,7 +243,7 @@ public class MasterClubEventsManager {
     }
 
     @POST
-    @Path("/getTickets")
+    @Path("/ticket/get")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String getTickets(String token) {
@@ -275,7 +275,7 @@ public class MasterClubEventsManager {
     }
 
     @POST
-    @Path("/getTransactions")
+    @Path("/transaction/get")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String getTransactions(String jsonString) {
@@ -295,7 +295,7 @@ public class MasterClubEventsManager {
     }
 
     @POST
-    @Path("/searchTransactions")
+    @Path("/transaction/search")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String searchTransactions(String jsonString) {
