@@ -27,7 +27,7 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="homepage-establishment/">Buissness Name</a>
+            <a class="navbar-brand" href="homepage-establishment/business">Buissness Name</a>
         </div>
         <ol class="nav navbar-nav">
             <li class="active"><a disabled="true">Home</a></li>

@@ -25,6 +25,23 @@
     <title>Employee Management</title>
 </head>
 <body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="homepage-establishment/business">Buissness Name</a>
+        </div>
+        <ol class="nav navbar-nav">
+            <li><a href="homepage-establishment/">Home</a></li>
+            <li><a href="homepage-establishment/eventEditor/">Create Event</a></li>
+            <li><a href="#">View Planned Events</a></li>
+            <li class="active"><a disabled="true">Manage Employees</a></li>
+            <li><a href="#">Finances</a></li>
+            <li><a href="homepage-establishment/settings/">Account Settings</a></li>
+            <li><a href="" onclick="signOut()">Sign Out</a></li>
+        </ol>
+    </div>
+</nav>
+
 <table style="width:100%">
     <h1>Employee History</h1>
     <tr>

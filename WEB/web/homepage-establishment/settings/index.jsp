@@ -24,22 +24,22 @@
     <title>Settings</title>
 </head>
 <body>
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Buissness Name</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a disabled="true">Home</a></li>
-                <li><a href="homepage-establishment/eventEditor/">Create Event</a></li>
-                <li><a href="#">View Planned Events</a></li>
-                <li><a href="#">Manage Employees</a></li>
-                <li><a href="#">Finances</a></li>
-                <li class="active"><a disabled="true">Account Settings</a></li>
-                <li><a href="" onclick="signOut()">Sign Out</a></li>
-            </ul>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="homepage-establishment/business">Buissness Name</a>
         </div>
-    </nav>
+        <ol class="nav navbar-nav">
+            <li><a href="homepage-establishment/">Home</a></li>
+            <li><a href="homepage-establishment/eventEditor/">Create Event</a></li>
+            <li><a href="#">View Planned Events</a></li>
+            <li><a href="homepage-establishment/employees/">Manage Employees</a></li>
+            <li><a href="#">Finances</a></li>
+            <li class="active"><a disabled="true">Account Settings</a></li>
+            <li><a href="" onclick="signOut()">Sign Out</a></li>
+        </ol>
+    </div>
+</nav>
 <div class="container">
     <div class="row">
         <div class="col-sm-6">

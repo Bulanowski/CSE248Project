@@ -25,17 +25,17 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Business Name</a>
+            <a class="navbar-brand" href="homepage-establishment/business">Buissness Name</a>
         </div>
-        <ul class="nav navbar-nav">
+        <ol class="nav navbar-nav">
             <li><a href="homepage-establishment/">Home</a></li>
             <li class="active"><a disabled="true">Create Event</a></li>
             <li><a href="#">View Planned Events</a></li>
-            <li><a href="#">Manage Employees</a></li>
+            <li><a href="homepage-establishment/employees/">Manage Employees</a></li>
             <li><a href="#">Finances</a></li>
             <li><a href="homepage-establishment/settings/">Account Settings</a></li>
             <li><a href="" onclick="signOut()">Sign Out</a></li>
-        </ul>
+        </ol>
     </div>
 </nav>
     <div class="container">

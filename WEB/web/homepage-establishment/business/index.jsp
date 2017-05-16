@@ -91,7 +91,7 @@
                 </tr>
             </TABLE>
         </div>
-        <div class="changeOpenHours">
+        <div class="changeHours" style="display: none">
             <p>Open</p>
             <input type="time" class="hours" style="display: inline-flex">
             <input type="time" class="hours" style="display: inline-flex">
@@ -102,7 +102,7 @@
             <input type="time" class="hours" style="display: inline-flex">
         </div>
         <br>
-        <div class="changeCloseHours">
+        <div class="changeHours" style="display: none">
             <p>Close</p>
             <input type="time" class="hours" style="display: inline-flex">
             <input type="time" class="hours" style="display: inline-flex">
@@ -114,7 +114,7 @@
             <br>
             <button type="button" class="btn btnDark" style="margin-top: 20px" onclick="">Submit Changes</button>
         </div>
-
+        <button type="button" class="btn btnDark" id="showChangeHoursButton" style="margin-top: 20px" onclick="showChangeHours()">Change Hours</button>
         <br>
         <h3>Upcoming Events:</h3>
         <ul>
@@ -130,5 +130,5 @@
 
 </div>
 </body>
-<script>parseURI()</script>
+<script>getEstablishmenFromServer()</script>
 </html>
